@@ -18,16 +18,15 @@ public class Pile {
     private String description;
 
     @DatabaseField
-    private int nbJouees;
+    private int nbJouees = 0;
 
     public Pile() {
         // ORMLite needs a no-arg constructor
     }
 
-    public Pile(String nom, String description, int nbJouees) {
+    public Pile(String nom, String description) {
         this.nom = nom;
         this.description = description;
-        this.nbJouees = nbJouees;
     }
 
     public int getId() {

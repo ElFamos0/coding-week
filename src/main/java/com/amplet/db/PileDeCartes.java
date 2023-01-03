@@ -17,20 +17,18 @@ public class PileDeCartes {
     private Pile pile;
 
     @DatabaseField
-    private int nbJouees;
+    private int nbJouees = 0;
 
     @DatabaseField
-    private int nbJustes;
+    private int nbJustes = 0;
 
     public PileDeCartes() {
         // ORMLite needs a no-arg constructor
     }
 
-    public PileDeCartes(Carte carte, Pile pile, int nbJouees, int nbJustes) {
+    public PileDeCartes(Carte carte, Pile pile) {
         this.carte = carte;
         this.pile = pile;
-        this.nbJouees = nbJouees;
-        this.nbJustes = nbJustes;
     }
 
     public Carte getCarte() {
