@@ -7,7 +7,9 @@ module com.amplet {
 
     opens com.amplet.app to javafx.fxml;
     opens com.amplet.views to javafx.fxml;
+    opens com.amplet.db to ormlite.jdbc;
 
+    exports com.amplet.db;
     exports com.amplet.views;
     exports com.amplet.app;
 }
