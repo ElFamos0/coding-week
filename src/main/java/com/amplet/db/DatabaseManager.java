@@ -30,6 +30,18 @@ public class DatabaseManager {
         this.pileDeCartesDao = DaoManager.createDao(this.connectionSource, PileDeCartes.class);
     }
 
+    public DatabaseManager(String dbName) throws SQLException {
+        this.connectionSource =
+                new JdbcPooledConnectionSource("jdbc:sqlite:" + dbName);
+        TableUtils.createTableIfNotExists(this.connectionSource, Carte.class);
+        TableUtils.createTableIfNotExists(this.connectionSource, Pile.class);
+        TableUtils.createTableIfNotExists(this.connectionSource, PileDeCartes.class);
+
+        this.carteDao = DaoManager.createDao(this.connectionSource, Carte.class);
+        this.pileDao = DaoManager.createDao(this.connectionSource, Pile.class);
+        this.pileDeCartesDao = DaoManager.createDao(this.connectionSource, PileDeCartes.class);
+    }
+
     public void closeConnection() {
         this.connectionSource.closeQuietly();
     }
