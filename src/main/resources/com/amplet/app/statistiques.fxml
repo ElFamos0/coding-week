@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.EditionCarte">
+<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.Statistiques">
   <top>
     <fx:include fx:id="menu" source="menu.fxml" />
   </top>
@@ -51,7 +51,7 @@
                   <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
             </BorderPane>
-            <VBox fx:id="carte" onMouseClicked="#flipCard" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="340.0" prefWidth="460.0" style="-fx-background-color: #efefef; -fx-background-radius: 10; -fx-border-width: 2; -fx-border-radius: 10; -fx-border-color: #a3a3a3;">
+            <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="340.0" prefWidth="460.0" style="-fx-background-color: #efefef; -fx-background-radius: 10; -fx-border-width: 2; -fx-border-radius: 10; -fx-border-color: #a3a3a3;">
                <VBox.margin>
                   <Insets bottom="15.0" top="15.0" />
                </VBox.margin>
@@ -61,7 +61,7 @@
                <children>
                   <Label fx:id="labelTitre" alignment="CENTER" contentDisplay="CENTER" text="Titre">
                      <VBox.margin>
-                        <Insets bottom="40.0" top="30.0" />
+                        <Insets bottom="60.0" top="30.0" />
                      </VBox.margin>
                      <font>
                         <Font name="System Bold" size="18.0" />
@@ -69,7 +69,7 @@
                   </Label>
                   <Label fx:id="labelQuestion" alignment="CENTER" contentDisplay="CENTER" text="Question">
                      <VBox.margin>
-                        <Insets bottom="30.0" top="10.0" />
+                        <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                      <font>
                         <Font size="18.0" />
@@ -80,7 +80,7 @@
                         <Font size="18.0" />
                      </font>
                      <VBox.margin>
-                        <Insets bottom="50.0" top="20.0" />
+                        <Insets bottom="30.0" top="90.0" />
                      </VBox.margin>
                   </Label>
                </children>
