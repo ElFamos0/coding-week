@@ -102,4 +102,25 @@ public class DatabaseManager {
         return this.pileDao.query(preparedPileQb);
     }
 
+    // DELETE
+
+    public void deleteCarte(Carte carte) throws SQLException {
+        this.carteDao.delete(carte);
+    }
+
+    public void deletePile(Pile pile) throws SQLException {
+        this.pileDao.delete(pile);
+    }
+
+    public void removeCarteFromPile(Carte carte, Pile pile) throws SQLException {
+        QueryBuilder<PileDeCartes, Integer> pileDeCartesQb = this.pileDeCartesDao.queryBuilder();
+        pileDeCartesQb.where().eq(PileDeCartes.CARTE_ID_FIELD_NAME, carte.getId())
+                .and().eq(PileDeCartes.PILE_ID_FIELD_NAME, pile.getId());
+        PreparedQuery<PileDeCartes> preparedPileDeCartesQb = pileDeCartesQb.prepare();
+        List<PileDeCartes> pileDeCartes = this.pileDeCartesDao.query(preparedPileDeCartesQb);
+        for (PileDeCartes pileDeCarte : pileDeCartes) {
+            this.pileDeCartesDao.delete(pileDeCarte);
+        }
+    }
+
 }
