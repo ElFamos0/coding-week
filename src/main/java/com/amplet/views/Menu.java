@@ -1,6 +1,8 @@
 package com.amplet.views;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import com.amplet.app.App;
 import com.amplet.app.Observer;
 import javafx.fxml.FXML;
@@ -23,5 +25,14 @@ public class Menu implements Observer, Initializable {
         System.out.println("Menu updated");
     }
 
-    public void initialize(java.net.URL location, java.util.ResourceBundle resources) {}
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
+
+    @FXML
+    private void vaEditionPile() throws IOException {
+        System.out.println("Edition de pile");
+        App.setRoot("editionPile");
+    }
 }
