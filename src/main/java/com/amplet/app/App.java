@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import com.amplet.db.DatabaseManager;
 
 /**
  * JavaFX App
@@ -14,9 +16,11 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    private DatabaseManager dbManager;
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, SQLException {
+        this.dbManager = new DatabaseManager();
         scene = new Scene(loadFXML("primary"), 800, 600);
         stage.setScene(scene);
         stage.show();
