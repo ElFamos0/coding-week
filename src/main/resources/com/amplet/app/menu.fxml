@@ -23,5 +23,10 @@
         <MenuItem mnemonicParsing="false" onAction="#test" text="Exporter" />
       </items>
     </Menu>
+    <Menu mnemonicParsing="false" text="Debug">
+      <items>
+        <MenuItem mnemonicParsing="false" onAction="#vaEditionPile" text="EditionPile" />
+      </items>
+    </Menu>
   </menus>
 </MenuBar>
