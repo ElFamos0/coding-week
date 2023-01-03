@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.Index">
+  <top>
+    <fx:include fx:id="menu" source="menu.fxml" />
+  </top>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <top>
+            <BorderPane prefHeight="13.0" prefWidth="640.0" BorderPane.alignment="CENTER">
+               <left>
+                  <Label text="Titre :" BorderPane.alignment="TOP_LEFT">
+                     <BorderPane.margin>
+                        <Insets left="20.0" top="20.0" />
+                     </BorderPane.margin>
+                  </Label>
+               </left>
+               <right>
+                  <Label text="Nb de carte " BorderPane.alignment="TOP_RIGHT">
+                     <BorderPane.margin>
+                        <Insets right="20.0" top="20.0" />
+                     </BorderPane.margin>
+                  </Label>
+               </right>
+            </BorderPane>
+         </top>
+         <center>
+            <ProgressBar prefHeight="20.0" prefWidth="340.0" progress="0.0" BorderPane.alignment="TOP_CENTER" />
+         </center>
+      </BorderPane>
+   </center>
+</BorderPane>
