@@ -43,24 +43,48 @@ public class Carte {
         return this.id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getTitre() {
         return this.titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
     }
 
     public String getQuestion() {
         return this.question;
     }
 
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
     public String getReponse() {
         return this.reponse;
+    }
+
+    public void setReponse(String reponse) {
+        this.reponse = reponse;
     }
 
     public String getInfo() {
         return this.info;
     }
 
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
     public String getMetadata() {
         return metadata;
+    }
+
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
     }
 
 }

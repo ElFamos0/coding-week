@@ -33,16 +33,32 @@ public class Pile {
         return this.id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getNom() {
         return this.nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getDescription() {
         return this.description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public int getNbJouees() {
         return this.nbJouees;
+    }
+
+    public void setNbJouees(int nbJouees) {
+        this.nbJouees = nbJouees;
     }
 
 }

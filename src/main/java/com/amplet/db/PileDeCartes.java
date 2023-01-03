@@ -35,16 +35,32 @@ public class PileDeCartes {
         return this.carte;
     }
 
+    public void setCarte(Carte carte) {
+        this.carte = carte;
+    }
+
     public Pile getPile() {
         return this.pile;
+    }
+
+    public void setPile(Pile pile) {
+        this.pile = pile;
     }
 
     public int getNbJouees() {
         return this.nbJouees;
     }
 
+    public void setNbJouees(int nbJouees) {
+        this.nbJouees = nbJouees;
+    }
+
     public int getNbJustes() {
         return this.nbJustes;
+    }
+
+    public void setNbJustes(int nbJustes) {
+        this.nbJustes = nbJustes;
     }
 
 }
