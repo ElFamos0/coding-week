@@ -51,7 +51,7 @@
                   <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
             </BorderPane>
-            <VBox fx:id="carte" onAction="#flipCard" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="340.0" prefWidth="460.0" style="-fx-background-color: #efefef; -fx-background-radius: 10; -fx-border-width: 2; -fx-border-radius: 10; -fx-border-color: #a3a3a3;">
+            <VBox fx:id="carte" onMouseClicked="#flipCard" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="340.0" prefWidth="460.0" style="-fx-background-color: #efefef; -fx-background-radius: 10; -fx-border-width: 2; -fx-border-radius: 10; -fx-border-color: #a3a3a3;">
                <VBox.margin>
                   <Insets bottom="15.0" top="15.0" />
                </VBox.margin>
