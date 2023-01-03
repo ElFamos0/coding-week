@@ -6,7 +6,9 @@ import com.j256.ormlite.field.DatabaseField;
 @DatabaseTable(tableName = "pile")
 public class Pile {
 
-    @DatabaseField(generatedId = true)
+    public final static String ID_FIELD_NAME = "id";
+
+    @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
     private int id;
 
     @DatabaseField
