@@ -10,7 +10,7 @@ Le projet se lance avec la commande `./launch.sh`.
 
 Ce projet utilise Maven en tant que build system.
 
-### Base de donées
+### Base de données
 
 Les données de l'application sont stockées dans une base de donées SQLite nommée `amplet.db` enregistrée dans le dossier temporaire de la machine de l'utilisateur (`/tmp` sous Linux, `%TMP%` sous Windows).
 
