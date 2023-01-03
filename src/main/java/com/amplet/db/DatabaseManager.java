@@ -34,6 +34,26 @@ public class DatabaseManager {
         this.connectionSource.closeQuietly();
     }
 
+    // CREATE
+
+    public void createCarte(String titre, String question, String reponse, String info,
+            String metadata) throws SQLException {
+        Carte carte = new Carte(titre, question, reponse, info, metadata);
+        this.carteDao.create(carte);
+    }
+
+    public void createPile(String titre, String description) throws SQLException {
+        Pile pile = new Pile(titre, description);
+        this.pileDao.create(pile);
+    }
+
+    public void addCarteToPile(Carte carte, Pile pile) throws SQLException {
+        PileDeCartes pileDeCartes = new PileDeCartes(carte, pile);
+        this.pileDeCartesDao.create(pileDeCartes);
+    }
+
+    // READ
+
     public Dao<Carte, Integer> getCarteDao() {
         return this.carteDao;
     }
