@@ -30,23 +30,23 @@ public class Carte {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public String getTitre() {
-        return titre;
+        return this.titre;
     }
 
     public String getQuestion() {
-        return question;
+        return this.question;
     }
 
     public String getReponse() {
-        return reponse;
+        return this.reponse;
     }
 
     public String getInfo() {
-        return info;
+        return this.info;
     }
 
     public String getMetadata() {
