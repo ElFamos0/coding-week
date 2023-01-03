@@ -27,6 +27,7 @@
       <items>
         <MenuItem mnemonicParsing="false" onAction="#vaEditionPile" text="EditionPile" />
         <MenuItem mnemonicParsing="false" onAction="#vaEditionCarte" text="EditionCarte" />
+        <MenuItem mnemonicParsing="false" onAction="#vaApprIg" text="Apprentissage In Game" />
       </items>
     </Menu>
   </menus>

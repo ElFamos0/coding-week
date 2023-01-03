@@ -41,4 +41,10 @@ public class Menu implements Observer, Initializable {
         System.out.println("Edition de carte");
         App.setRoot("editionCarte");
     }
+
+    @FXML
+    private void vaApprIg() throws IOException {
+        System.out.println("Apprentissage in game");
+        App.setRoot("ApprIg");
+    }
 }

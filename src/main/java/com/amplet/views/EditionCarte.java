@@ -36,7 +36,7 @@ public class EditionCarte implements Observer {
         carteBack = new VBox();
         // Vertically center a label
         Label backLabel = new Label("Back");
-
+        backLabel.setTranslateY(-backLabel.getHeight() / 2);
         carteBack.getChildren().addAll(backLabel);
         if (isFront) {
             RotateTransition rotateTransition = new RotateTransition(Duration.seconds(0.5), carte);
