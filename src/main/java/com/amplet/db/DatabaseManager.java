@@ -13,6 +13,7 @@ public class DatabaseManager {
         this.connectionSource =
                 new JdbcPooledConnectionSource("jdbc:sqlite:" + tempDir + "/amplet.db");
         TableUtils.createTableIfNotExists(this.connectionSource, Carte.class);
+        TableUtils.createTableIfNotExists(this.connectionSource, Pile.class);
     }
 
     public void closeConnection() {
