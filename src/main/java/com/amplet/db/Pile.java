@@ -24,6 +24,12 @@ public class Pile {
         // ORMLite needs a no-arg constructor
     }
 
+    public Pile(String nom, String description, int nbJouees) {
+        this.nom = nom;
+        this.description = description;
+        this.nbJouees = nbJouees;
+    }
+
     public int getId() {
         return this.id;
     }

@@ -31,6 +31,14 @@ public class Carte {
         // ORMLite needs a no-arg constructor
     }
 
+    public Carte(String titre, String question, String reponse, String info, String metadata) {
+        this.titre = titre;
+        this.question = question;
+        this.reponse = reponse;
+        this.info = info;
+        this.metadata = metadata;
+    }
+
     public int getId() {
         return this.id;
     }

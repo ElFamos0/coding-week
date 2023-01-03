@@ -26,6 +26,13 @@ public class PileDeCartes {
         // ORMLite needs a no-arg constructor
     }
 
+    public PileDeCartes(Carte carte, Pile pile, int nbJouees, int nbJustes) {
+        this.carte = carte;
+        this.pile = pile;
+        this.nbJouees = nbJouees;
+        this.nbJustes = nbJustes;
+    }
+
     public Carte getCarte() {
         return this.carte;
     }
