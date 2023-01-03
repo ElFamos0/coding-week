@@ -26,6 +26,7 @@
     <Menu mnemonicParsing="false" text="Debug">
       <items>
         <MenuItem mnemonicParsing="false" onAction="#vaEditionPile" text="EditionPile" />
+        <MenuItem mnemonicParsing="false" onAction="#vaEditionCarte" text="EditionCarte" />
       </items>
     </Menu>
   </menus>

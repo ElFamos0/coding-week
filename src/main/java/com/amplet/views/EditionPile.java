@@ -45,9 +45,15 @@ public class EditionPile implements Observer, Initializable {
             boolean success = false;
             if (dragboard.hasString()) {
                 String id = dragboard.getString();
-                Button card = createCard(Integer.parseInt(id));
-                availableCards.getChildren().add(card);
-
+                for (Node node : availableCards.getChildren()) {
+                    if (node instanceof Button) {
+                        Button button = (Button) node;
+                        if (button.getId().equals(id)) {
+                            availableCards.getChildren().remove(button);
+                            break;
+                        }
+                    }
+                }
                 for (Node node : chosenCards.getChildren()) {
                     if (node instanceof Button) {
                         Button button = (Button) node;
@@ -57,6 +63,8 @@ public class EditionPile implements Observer, Initializable {
                         }
                     }
                 }
+                Button card = createCard(Integer.parseInt(id));
+                availableCards.getChildren().add(card);
                 success = true;
             }
             event.setDropCompleted(success);
@@ -70,15 +78,11 @@ public class EditionPile implements Observer, Initializable {
             event.consume();
         });
 
-
         chosenCards.setOnDragDropped(event -> {
             Dragboard dragboard = event.getDragboard();
             boolean success = false;
             if (dragboard.hasString()) {
                 String id = dragboard.getString();
-                Button card = createCard(Integer.parseInt(id));
-                chosenCards.getChildren().add(card);
-
                 for (Node node : availableCards.getChildren()) {
                     if (node instanceof Button) {
                         Button button = (Button) node;
@@ -88,6 +92,17 @@ public class EditionPile implements Observer, Initializable {
                         }
                     }
                 }
+                for (Node node : chosenCards.getChildren()) {
+                    if (node instanceof Button) {
+                        Button button = (Button) node;
+                        if (button.getId().equals(id)) {
+                            chosenCards.getChildren().remove(button);
+                            break;
+                        }
+                    }
+                }
+                Button card = createCard(Integer.parseInt(id));
+                chosenCards.getChildren().add(card);
                 success = true;
             }
             event.setDropCompleted(success);

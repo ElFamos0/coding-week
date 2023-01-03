@@ -35,4 +35,10 @@ public class Menu implements Observer, Initializable {
         System.out.println("Edition de pile");
         App.setRoot("editionPile");
     }
+
+    @FXML
+    private void vaEditionCarte() throws IOException {
+        System.out.println("Edition de carte");
+        App.setRoot("editionCarte");
+    }
 }
