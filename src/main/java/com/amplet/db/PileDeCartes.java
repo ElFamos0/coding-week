@@ -7,10 +7,13 @@ import com.j256.ormlite.field.DatabaseField;
 @DatabaseTable(tableName = "pile_de_carte")
 public class PileDeCartes {
 
-    @DatabaseField(foreign = true)
+    public final static String CARTE_ID_FIELD_NAME = "carte_id";
+    public final static String PILE_ID_FIELD_NAME = "pile_id";
+
+    @DatabaseField(foreign = true, columnName = CARTE_ID_FIELD_NAME)
     private Carte carte;
 
-    @DatabaseField(foreign = true)
+    @DatabaseField(foreign = true, columnName = PILE_ID_FIELD_NAME)
     private Pile pile;
 
     @DatabaseField
@@ -38,5 +41,5 @@ public class PileDeCartes {
     public int getNbJustes() {
         return this.nbJustes;
     }
-    
+
 }
