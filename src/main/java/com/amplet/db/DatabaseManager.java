@@ -31,8 +31,7 @@ public class DatabaseManager {
     }
 
     public DatabaseManager(String dbName) throws SQLException {
-        this.connectionSource =
-                new JdbcPooledConnectionSource("jdbc:sqlite:" + dbName);
+        this.connectionSource = new JdbcPooledConnectionSource("jdbc:sqlite:" + dbName);
         TableUtils.createTableIfNotExists(this.connectionSource, Carte.class);
         TableUtils.createTableIfNotExists(this.connectionSource, Pile.class);
         TableUtils.createTableIfNotExists(this.connectionSource, PileDeCartes.class);
@@ -114,6 +113,81 @@ public class DatabaseManager {
         return this.pileDao.query(preparedPileQb);
     }
 
+    // UPDATE
+
+    public void updateCarteTitre(int id, String titre) throws SQLException {
+        Carte carte = this.carteDao.queryForId(id);
+        carte.setTitre(titre);
+        this.carteDao.update(carte);
+    }
+
+    public void updateCarteQuestion(int id, String question) throws SQLException {
+        Carte carte = this.carteDao.queryForId(id);
+        carte.setQuestion(question);
+        this.carteDao.update(carte);
+    }
+
+    public void updateCarteReponse(int id, String reponse) throws SQLException {
+        Carte carte = this.carteDao.queryForId(id);
+        carte.setReponse(reponse);
+        this.carteDao.update(carte);
+    }
+
+    public void updateCarteInfo(int id, String info) throws SQLException {
+        Carte carte = this.carteDao.queryForId(id);
+        carte.setInfo(info);
+        this.carteDao.update(carte);
+    }
+
+    public void updateCarteMetadata(int id, String metadata) throws SQLException {
+        Carte carte = this.carteDao.queryForId(id);
+        carte.setMetadata(metadata);
+        this.carteDao.update(carte);
+    }
+
+    public void updatePileNom(int id, String nom) throws SQLException {
+        Pile pile = this.pileDao.queryForId(id);
+        pile.setNom(nom);
+        this.pileDao.update(pile);
+    }
+
+    public void updatePileDescription(int id, String description) throws SQLException {
+        Pile pile = this.pileDao.queryForId(id);
+        pile.setDescription(description);
+        this.pileDao.update(pile);
+    }
+
+    public void incrementNbJouees(int id) throws SQLException {
+        Pile pile = this.pileDao.queryForId(id);
+        pile.setNbJouees(pile.getNbJouees() + 1);
+        this.pileDao.update(pile);
+    }
+
+    public void addCarteSucces(int carteId, int pileId) throws SQLException {
+        QueryBuilder<PileDeCartes, Integer> pileDeCartesQb = this.pileDeCartesDao.queryBuilder();
+        pileDeCartesQb.where().eq(PileDeCartes.CARTE_ID_FIELD_NAME, carteId).and()
+                .eq(PileDeCartes.PILE_ID_FIELD_NAME, pileId);
+        PreparedQuery<PileDeCartes> preparedPileDeCartesQb = pileDeCartesQb.prepare();
+        List<PileDeCartes> pileDeCartes = this.pileDeCartesDao.query(preparedPileDeCartesQb);
+        for (PileDeCartes pileDeCarte : pileDeCartes) {
+            pileDeCarte.setNbJustes(pileDeCarte.getNbJustes() + 1);
+            pileDeCarte.setNbJouees(pileDeCarte.getNbJouees() + 1);
+            this.pileDeCartesDao.update(pileDeCarte);
+        }
+    }
+
+    public void addCarteEchec(int carteId, int pileId) throws SQLException {
+        QueryBuilder<PileDeCartes, Integer> pileDeCartesQb = this.pileDeCartesDao.queryBuilder();
+        pileDeCartesQb.where().eq(PileDeCartes.CARTE_ID_FIELD_NAME, carteId).and()
+                .eq(PileDeCartes.PILE_ID_FIELD_NAME, pileId);
+        PreparedQuery<PileDeCartes> preparedPileDeCartesQb = pileDeCartesQb.prepare();
+        List<PileDeCartes> pileDeCartes = this.pileDeCartesDao.query(preparedPileDeCartesQb);
+        for (PileDeCartes pileDeCarte : pileDeCartes) {
+            pileDeCarte.setNbJouees(pileDeCarte.getNbJouees() + 1);
+            this.pileDeCartesDao.update(pileDeCarte);
+        }
+    }
+
     // DELETE
 
     public void deleteCarte(Carte carte) throws SQLException {
@@ -126,8 +200,8 @@ public class DatabaseManager {
 
     public void removeCarteFromPile(Carte carte, Pile pile) throws SQLException {
         QueryBuilder<PileDeCartes, Integer> pileDeCartesQb = this.pileDeCartesDao.queryBuilder();
-        pileDeCartesQb.where().eq(PileDeCartes.CARTE_ID_FIELD_NAME, carte.getId())
-                .and().eq(PileDeCartes.PILE_ID_FIELD_NAME, pile.getId());
+        pileDeCartesQb.where().eq(PileDeCartes.CARTE_ID_FIELD_NAME, carte.getId()).and()
+                .eq(PileDeCartes.PILE_ID_FIELD_NAME, pile.getId());
         PreparedQuery<PileDeCartes> preparedPileDeCartesQb = pileDeCartesQb.prepare();
         List<PileDeCartes> pileDeCartes = this.pileDeCartesDao.query(preparedPileDeCartesQb);
         for (PileDeCartes pileDeCarte : pileDeCartes) {
