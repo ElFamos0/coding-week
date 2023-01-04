@@ -26,5 +26,4 @@ L'application interface avec cette base de données grâce à l'ORM (Object Rela
 
 Les tests peuvent être lancés avec la commande `./test.sh`.
 
-Ils sont implémentés grâce au framework [JUnit5](https://junit.org/junit5/) et lancés grâce au plugin [Maven Surefire](https://maven.apache.org/surefire/maven-surefire-plugin/)
-.
+Ils sont implémentés grâce au framework [JUnit5](https://junit.org/junit5/) et lancés grâce au plugin [Maven Surefire](https://maven.apache.org/surefire/maven-surefire-plugin/).
