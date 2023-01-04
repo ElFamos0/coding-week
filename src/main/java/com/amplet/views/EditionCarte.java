@@ -1,5 +1,6 @@
 package com.amplet.views;
 
+import com.amplet.app.App;
 import com.amplet.app.Carte;
 import com.amplet.app.Model;
 import com.amplet.app.Pile;
@@ -67,6 +68,7 @@ public class EditionCarte extends ViewController {
         carteFront.getChildren().addAll(carte.getChildren());
         carte.getChildren().clear();
         carte.getChildren().addAll(carteFront);
+        update();
     }
 
     @FXML
@@ -118,25 +120,25 @@ public class EditionCarte extends ViewController {
         isFront = !isFront;
     }
 
-
     @FXML
-    public void validerTitre() {
-
-    }
-
-    @FXML
-    public void validerQuestion() {
-
-    }
-
-    @FXML
-    public void validerReponse() {
-
+    public void valider() {
+        currentCarte.setTitre(prompttitre.getText());
+        currentCarte.setQuestion(promptquestion.getText());
+        currentCarte.setReponse(promptreponse.getText());
+        try {
+            model.update(currentCarte);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     public void retour() {
-
+        try {
+            App.setRoot("editionPile", currentPile);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
@@ -150,7 +152,12 @@ public class EditionCarte extends ViewController {
     }
 
     public void update() {
-
+        labelTitre.setText(currentCarte.getTitre());
+        labelQuestion.setText(currentCarte.getQuestion());
+        labelReponse.setText(currentCarte.getReponse());
+        promptquestion.setText(currentCarte.getQuestion());
+        promptreponse.setText(currentCarte.getReponse());
+        prompttitre.setText(currentCarte.getTitre());
     }
 
 
