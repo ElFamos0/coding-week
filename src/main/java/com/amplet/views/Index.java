@@ -2,21 +2,25 @@ package com.amplet.views;
 
 import java.io.IOException;
 import com.amplet.app.App;
-import com.amplet.app.Observer;
+import com.amplet.app.Model;
+import com.amplet.app.ViewController;
 import javafx.fxml.FXML;
 
-public class Index implements Observer {
+public class Index extends ViewController {
+    public Index(Model model) {
+        super(model);
+        model.addObserver(this);
+    }
 
-    @FXML
-    public void switchToCreatePile() throws IOException {
-        System.out.println("Création de pile");
-        App.setRoot("editionPile");
+    @Override
+    public String getName() {
+        return this.getClass().getName();
     }
 
     @FXML
-    public void switchToModifyPile() throws IOException {
-        System.out.println("Edition de pile");
-        App.setRoot("editionPile");
+    public void switchToListePile() throws IOException {
+        System.out.println("Liste de piles");
+        App.setRoot("listePile");
     }
 
     @FXML

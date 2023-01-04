@@ -1,11 +1,22 @@
 package com.amplet.views;
 
-import com.amplet.app.Observer;
+import com.amplet.app.Model;
+import com.amplet.app.ViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
-public class ApprParam implements Observer {
+public class ApprParam extends ViewController {
+
+    public ApprParam(Model model) {
+        super(model);
+        model.addObserver(this);
+    }
+
+    @Override
+    public String getName() {
+        return this.getClass().getName();
+    }
 
     @FXML
     public void initialize() {

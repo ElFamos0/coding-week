@@ -10,6 +10,7 @@ public class Model implements Observed {
     ArrayList<Carte> allCartes;
     ArrayList<Observer> observers;
     Context ctx;
+    private DatabaseManager dbManager;
 
     public Model() throws SQLException {
 
@@ -18,19 +19,20 @@ public class Model implements Observed {
         observers = new ArrayList<Observer>();
         ctx = new Context();
 
+        this.dbManager = new DatabaseManager();
+
         this.initModel();
     }
 
     void initModel() throws SQLException {
-        DatabaseManager dbManager = new DatabaseManager();
-        dbManager.getCartes()
+        this.dbManager.getCartes()
                 .forEach(dbCarte -> this.allCartes
                         .add(new Carte(dbCarte.getId(), dbCarte.getTitre(), dbCarte.getQuestion(),
                                 dbCarte.getReponse(), dbCarte.getMetadata(), dbCarte.getInfo())));
-        dbManager.getPiles().forEach(dbPile -> {
+        this.dbManager.getPiles().forEach(dbPile -> {
             Pile pile = new Pile(dbPile.getId(), dbPile.getNom(), dbPile.getDescription());
             try {
-                dbManager.getCartesFromPile(dbPile)
+                this.dbManager.getCartesFromPile(dbPile)
                         .forEach(dbCarte -> pile.addCarte(new Carte(dbCarte.getId(),
                                 dbCarte.getTitre(), dbCarte.getQuestion(), dbCarte.getReponse(),
                                 dbCarte.getMetadata(), dbCarte.getInfo())));
@@ -42,6 +44,15 @@ public class Model implements Observed {
     }
 
     public void addObserver(Observer o) {
+        // Check if the class is already in the list of observers
+        for (Observer observer : observers) {
+            if (observer.getName() == o.getName()) {
+                // Remove the old observer
+                observers.remove(observer);
+                break;
+            }
+        }
+
         observers.add(o);
     }
 
@@ -53,4 +64,41 @@ public class Model implements Observed {
         System.out.println("mangemoilepoiro");
     }
 
+    public void create(Pile pile) throws SQLException {
+        this.dbManager.createPile(pile.getNom(), pile.getDescription());
+        this.allPiles.add(pile);
+    }
+
+    public void create(Carte carte) throws SQLException {
+        this.dbManager.createCarte(carte.getTitre(), carte.getQuestion(), carte.getReponse(),
+                carte.getDescription(), carte.getMetadata());
+        this.allCartes.add(carte);
+    }
+
+    public void create(Pile pile, Carte carte) throws SQLException {
+        this.dbManager.addCarteToPile(carte.getId(), pile.getId());
+    }
+
+    public void delete(Pile pile) throws SQLException {
+        this.dbManager.deletePile(pile.getId());
+        this.allPiles.remove(pile);
+    }
+
+    public void delete(Carte carte) throws SQLException {
+        this.dbManager.deleteCarte(carte.getId());
+        this.allCartes.remove(carte);
+    }
+
+    public void delete(Pile pile, Carte carte) throws SQLException {
+        this.dbManager.removeCarteFromPile(carte.getId(), pile.getId());
+    }
+
+    public void update(Carte carte) throws SQLException {
+        this.dbManager.updateCarteAll(carte.getId(), carte.getTitre(), carte.getQuestion(),
+                carte.getReponse(), carte.getDescription(), carte.getMetadata());
+    }
+
+    public void update(Pile pile) throws SQLException {
+        this.dbManager.updatePileAll(pile.getId(), pile.getNom(), pile.getDescription());
+    }
 }

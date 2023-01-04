@@ -1,7 +1,8 @@
 package com.amplet.views;
 
 
-import com.amplet.app.Observer;
+import com.amplet.app.Model;
+import com.amplet.app.ViewController;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -9,9 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
-
-
-public class ApprIg implements Observer {
+public class ApprIg extends ViewController {
 
     @FXML
     private VBox carte;
@@ -30,6 +29,15 @@ public class ApprIg implements Observer {
     private boolean isFront = true;
     private boolean isFlipping = false;
 
+    public ApprIg(Model model) {
+        super(model);
+        model.addObserver(this);
+    }
+
+    @Override
+    public String getName() {
+        return this.getClass().getName();
+    }
 
 
     @FXML

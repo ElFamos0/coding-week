@@ -58,7 +58,9 @@ public class DatabaseManager {
         this.pileDao.create(pile);
     }
 
-    public void addCarteToPile(Carte carte, Pile pile) throws SQLException {
+    public void addCarteToPile(int carteId, int pileId) throws SQLException {
+        Carte carte = this.carteDao.queryForId(carteId);
+        Pile pile = this.pileDao.queryForId(pileId);
         PileDeCartes pileDeCartes = new PileDeCartes(carte, pile);
         this.pileDeCartesDao.create(pileDeCartes);
     }
@@ -145,6 +147,16 @@ public class DatabaseManager {
         this.carteDao.update(carte);
     }
 
+    public void updateCarteAll(int id, String titre, String question, String reponse, String info, String metadata) throws SQLException {
+        Carte carte = this.carteDao.queryForId(id);
+        carte.setTitre(titre);
+        carte.setQuestion(question);
+        carte.setReponse(reponse);
+        carte.setInfo(info);
+        carte.setMetadata(metadata);
+        this.carteDao.update(carte);
+    }
+
     public void updatePileNom(int id, String nom) throws SQLException {
         Pile pile = this.pileDao.queryForId(id);
         pile.setNom(nom);
@@ -153,6 +165,13 @@ public class DatabaseManager {
 
     public void updatePileDescription(int id, String description) throws SQLException {
         Pile pile = this.pileDao.queryForId(id);
+        pile.setDescription(description);
+        this.pileDao.update(pile);
+    }
+
+    public void updatePileAll(int id, String nom, String description) throws SQLException {
+        Pile pile = this.pileDao.queryForId(id);
+        pile.setNom(nom);
         pile.setDescription(description);
         this.pileDao.update(pile);
     }
@@ -190,15 +209,19 @@ public class DatabaseManager {
 
     // DELETE
 
-    public void deleteCarte(Carte carte) throws SQLException {
+    public void deleteCarte(int id) throws SQLException {
+        Carte carte = this.carteDao.queryForId(id);
         this.carteDao.delete(carte);
     }
 
-    public void deletePile(Pile pile) throws SQLException {
+    public void deletePile(int id) throws SQLException {
+        Pile pile = this.pileDao.queryForId(id);
         this.pileDao.delete(pile);
     }
 
-    public void removeCarteFromPile(Carte carte, Pile pile) throws SQLException {
+    public void removeCarteFromPile(int carteId, int pileId) throws SQLException {
+        Carte carte = this.carteDao.queryForId(carteId);
+        Pile pile = this.pileDao.queryForId(pileId);
         QueryBuilder<PileDeCartes, Integer> pileDeCartesQb = this.pileDeCartesDao.queryBuilder();
         pileDeCartesQb.where().eq(PileDeCartes.CARTE_ID_FIELD_NAME, carte.getId()).and()
                 .eq(PileDeCartes.PILE_ID_FIELD_NAME, pile.getId());

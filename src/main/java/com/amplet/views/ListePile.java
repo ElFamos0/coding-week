@@ -3,8 +3,8 @@ package com.amplet.views;
 import com.amplet.app.Model;
 import com.amplet.app.ViewController;
 
-public class ApprResultat extends ViewController {
-    public ApprResultat(Model model) {
+public class ListePile extends ViewController {
+    public ListePile(Model model) {
         super(model);
         model.addObserver(this);
     }
@@ -19,4 +19,5 @@ public class ApprResultat extends ViewController {
         // TODO Auto-generated method stub
 
     }
+
 }
