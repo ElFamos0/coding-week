@@ -15,11 +15,21 @@ public class ApprIg implements Observer {
 
     @FXML
     private VBox carte;
+    @FXML
+    private Label titre;
+    @FXML
+    private Label nbdecarte;
+    @FXML
+    private Label titrecarte;
+    @FXML
+    private Label question;
+
 
     private VBox carteFront;
     private VBox carteBack;
     private boolean isFront = true;
     private boolean isFlipping = false;
+
 
 
     @FXML
@@ -30,6 +40,7 @@ public class ApprIg implements Observer {
         carte.getChildren().addAll(carteFront);
     }
 
+    // fonction d'animation de résolution de la carte.
     @FXML
     private void flipCard() {
         if (isFlipping) {

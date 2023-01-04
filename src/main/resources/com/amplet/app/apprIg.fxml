@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane  prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.ApprIg">
+<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.ApprIg">
   <top>
     <fx:include fx:id="menu" source="menu.fxml" />
   </top>
@@ -16,14 +16,14 @@
          <top>
             <BorderPane prefHeight="13.0" prefWidth="640.0" BorderPane.alignment="CENTER">
                <left>
-                  <Label text="Titre :" BorderPane.alignment="TOP_LEFT">
+                  <Label fx:id="titre" text="Titre :" BorderPane.alignment="TOP_LEFT">
                      <BorderPane.margin>
                         <Insets left="20.0" top="20.0" />
                      </BorderPane.margin>
                   </Label>
                </left>
                <right>
-                  <Label text="Nb de carte " BorderPane.alignment="TOP_RIGHT">
+                  <Label fx:id="nbdecarte" text="Nb de carte " BorderPane.alignment="TOP_RIGHT">
                      <BorderPane.margin>
                         <Insets right="20.0" top="20.0" />
                      </BorderPane.margin>
@@ -37,7 +37,7 @@
                   <ProgressBar prefHeight="20.0" prefWidth="340.0" progress="0.0" BorderPane.alignment="CENTER" />
                </top>
                <center>
-                  <VBox onMouseClicked="#flipCard" fx:id="carte" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="255.0" prefWidth="512.0" style="-fx-background-color: #efefef; -fx-background-radius: 10; -fx-border-width: 2; -fx-border-radius: 10; -fx-border-color: #a3a3a3;">
+                  <VBox fx:id="carte" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#flipCard" prefHeight="255.0" prefWidth="512.0" style="-fx-background-color: #efefef; -fx-background-radius: 10; -fx-border-width: 2; -fx-border-radius: 10; -fx-border-color: #a3a3a3;">
                      <VBox.margin>
                         <Insets bottom="15.0" top="15.0" />
                      </VBox.margin>
@@ -45,12 +45,12 @@
                         <Insets left="10.0" right="10.0" />
                      </opaqueInsets>
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="Titre">
+                        <Label fx:id="titrecarte" alignment="CENTER" contentDisplay="CENTER" text="Titre">
                            <VBox.margin>
                               <Insets bottom="40.0" top="30.0" />
                            </VBox.margin>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="Question">
+                        <Label fx:id="question" alignment="CENTER" contentDisplay="CENTER" text="Question">
                            <VBox.margin>
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
@@ -64,14 +64,14 @@
                   </VBox>
                </center>
                <left>
-                  <Button mnemonicParsing="false" text="✘" BorderPane.alignment="CENTER">
+                  <Button fx:id="refuser" mnemonicParsing="false" text="✘" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets left="10.0" />
                      </BorderPane.margin>
                   </Button>
                </left>
                <right>
-                  <Button mnemonicParsing="false" text="✔" BorderPane.alignment="CENTER">
+                  <Button fx:id="valider" mnemonicParsing="false" text="✔" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets right="10.0" />
                      </BorderPane.margin>
