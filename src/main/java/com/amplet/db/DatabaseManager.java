@@ -147,6 +147,16 @@ public class DatabaseManager {
         this.carteDao.update(carte);
     }
 
+    public void updateCarteAll(int id, String titre, String question, String reponse, String info, String metadata) throws SQLException {
+        Carte carte = this.carteDao.queryForId(id);
+        carte.setTitre(titre);
+        carte.setQuestion(question);
+        carte.setReponse(reponse);
+        carte.setInfo(info);
+        carte.setMetadata(metadata);
+        this.carteDao.update(carte);
+    }
+
     public void updatePileNom(int id, String nom) throws SQLException {
         Pile pile = this.pileDao.queryForId(id);
         pile.setNom(nom);
@@ -155,6 +165,13 @@ public class DatabaseManager {
 
     public void updatePileDescription(int id, String description) throws SQLException {
         Pile pile = this.pileDao.queryForId(id);
+        pile.setDescription(description);
+        this.pileDao.update(pile);
+    }
+
+    public void updatePileAll(int id, String nom, String description) throws SQLException {
+        Pile pile = this.pileDao.queryForId(id);
+        pile.setNom(nom);
         pile.setDescription(description);
         this.pileDao.update(pile);
     }
