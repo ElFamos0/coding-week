@@ -6,12 +6,14 @@ public class Model implements Observed {
     ArrayList<Pile> allpiles;
     ArrayList<Carte> allcartes;
     ArrayList<Observer> observers;
+    Context ctx;
 
     public Model() {
 
         allpiles = new ArrayList<Pile>();
         allcartes = new ArrayList<Carte>();
         observers = new ArrayList<Observer>();
+        ctx = new Context();
 
     }
 
