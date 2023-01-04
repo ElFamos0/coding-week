@@ -3,14 +3,15 @@ package com.amplet.app;
 public class Carte {
     int id;
     String titre;
-    String solution;
+    String question;
+    String reponse;
     String metadata;
     String description;
 
-    public Carte(int id, String titre, String solution, String metadata, String description) {
+    public Carte(int id, String titre, String question, String reponse, String metadata, String description) {
         this.id = id; // c'est pour tristan il en a besoin pour drag and drop.
         this.titre = titre;
-        this.solution = solution;
+        this.reponse = reponse;
         this.metadata = metadata;
         this.description = description;
     }
@@ -21,8 +22,8 @@ public class Carte {
         return titre;
     }
 
-    public String getSolution() {
-        return solution;
+    public String getReponse() {
+        return reponse;
     }
 
     public String getMetadata() {
@@ -37,8 +38,8 @@ public class Carte {
         this.titre = titre;
     }
 
-    public void setSolution(String solution) {
-        this.solution = solution;
+    public void setReponse(String reponse) {
+        this.reponse = reponse;
     }
 
     public void setMetadata(String metadata) {
