@@ -84,4 +84,12 @@ public class Model implements Observed {
         this.dbManager.deleteCarte(carte.getId());
         this.allCartes.remove(carte);
     }
+
+    public void create(Pile pile, Carte carte) throws SQLException {
+        this.dbManager.addCarteToPile(carte.getId(), pile.getId());
+    }
+
+    public void delete(Pile pile, Carte carte) throws SQLException {
+        this.dbManager.removeCarteFromPile(carte.getId(), pile.getId());
+    }
 }
