@@ -9,11 +9,16 @@ import com.amplet.app.Model;
 import com.amplet.app.Pile;
 import com.amplet.app.ViewController;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 
 public class ApprParam extends ViewController {
 
@@ -30,9 +35,24 @@ public class ApprParam extends ViewController {
     int valSliderRepetition;
     Context ctx;
     ArrayList<Pile> listeSelectedPiles = new ArrayList<Pile>();
-    ArrayList<Carte> listeSelectedCartes = new ArrayList<Carte>();
     ArrayList<String> listePileNames = new ArrayList<String>();
     ArrayList<Integer> listePileIds = new ArrayList<Integer>();
+    ArrayList<HBox> listeHBox = new ArrayList<HBox>();
+    ArrayList<String> listeSelectedPileNames = new ArrayList<String>();
+
+    public class EcouteurPileRemove implements EventHandler {
+
+        int pileId;
+
+        public EcouteurPileRemove(int pileId) {
+            this.pileId = pileId;
+        }
+
+        @Override
+        public void handle(Event event) {
+            removePile(pileId);
+        }
+    }
 
     public void setValSliderRepetition(int valSliderRepetition) {
         this.valSliderRepetition = valSliderRepetition;
@@ -51,10 +71,11 @@ public class ApprParam extends ViewController {
         random = false;
         repetition = false;
         valSliderRepetition = 0;
-
-        loadPileNames();
-        choicePile.setItems(FXCollections.observableArrayList(listePileNames));
-
+        listeSelectedPiles = new ArrayList<Pile>();
+        listeSelectedPileNames = new ArrayList<String>();
+        listePileNames = new ArrayList<String>();
+        listePileIds = new ArrayList<Integer>();
+        listeHBox = new ArrayList<HBox>();
 
 
         sliderRepetition.valueProperty().addListener(new ChangeListener<Number>() {
@@ -68,6 +89,27 @@ public class ApprParam extends ViewController {
                 }
             }
         });
+
+        choicePile.getSelectionModel().selectedIndexProperty()
+                .addListener(new ChangeListener<Number>() {
+
+                    public void changed(ObservableValue<? extends Number> observable,
+                            Number oldValue, Number newValue) {
+                        if (newValue.intValue() >= 0) {
+                            String selectedPileName = listePileNames.get(newValue.intValue());
+                            int selectedCartesPileId = listePileIds.get(newValue.intValue());
+                            Pile selectedPile = model.getPileById(selectedCartesPileId);
+                            if (!(isElementInArrayList(listeSelectedPiles, selectedPile))) {
+                                listeSelectedPiles.add(selectedPile);
+                                listeSelectedPileNames.add(selectedPileName);
+                                selectNewPile(selectedPileName);
+                            }
+                        }
+
+                    }
+                });
+
+        update();
     }
 
     @FXML
@@ -105,13 +147,19 @@ public class ApprParam extends ViewController {
     }
 
     @FXML
-    public void selectNewPile() {
+    public void selectNewPile(String pileName) {
+        HBox hbox = new HBox();
+        Label label = new Label(pileName + "   ");
+        label.setAlignment(Pos.CENTER);
+        Button bout = new Button("X");
+        bout.setOnAction(new EcouteurPileRemove(listeSelectedPiles.size() - 1));
+        hbox.setAlignment(Pos.CENTER);
+        this.listeHBox.add(hbox);
+        bout.setFont(new Font(12));
+        hbox.getChildren().add(label);
+        hbox.getChildren().add(bout);
 
-    }
-
-    @FXML
-    public void removePile() {
-
+        vboxPile.getChildren().add(hbox);
     }
 
     @FXML
@@ -122,6 +170,14 @@ public class ApprParam extends ViewController {
         ctx.setRepetitionProbability(valSliderRepetition);
         ctx.setRandomSelected(random);
         ctx.setFavorisedFailedSelected(repetition);
+        ctx.resetSelectedCartes();
+        for (Pile p : listeSelectedPiles) {
+            for (Carte c : p.getCartes()) {
+                if (!(isElementInArrayList(ctx.getSelectedCartes(), c))) {
+                    ctx.getSelectedCartes().add(c);
+                }
+            }
+        }
 
         System.out.println("Apprentissage in game");
         App.setRoot("apprIg");
@@ -130,16 +186,69 @@ public class ApprParam extends ViewController {
 
     public void update() {
 
+        loadPileNames();
+        choicePile.setItems(FXCollections.observableArrayList(listePileNames));
+
+        ArrayList<HBox> listeHBox = new ArrayList<HBox>();
+        vboxPile.getChildren().clear();
+        int i = 0;
+        for (Pile p : listeSelectedPiles) {
+            HBox hbox = new HBox();
+            Label label = new Label(listeSelectedPileNames.get(i) + "   ");
+            label.setAlignment(Pos.CENTER);
+            Button bout = new Button("X");
+            bout.setOnAction(new EcouteurPileRemove(i));
+            hbox.setAlignment(Pos.CENTER);
+            this.listeHBox.add(hbox);
+            bout.setFont(new Font(12));
+            hbox.getChildren().add(label);
+            hbox.getChildren().add(bout);
+            i++;
+            vboxPile.getChildren().add(hbox);
+        }
 
     }
 
     public void loadPileNames() {
 
         ArrayList<Pile> piles = model.getAllPiles();
+        listePileIds = new ArrayList<Integer>();
+        listePileNames = new ArrayList<String>();
         for (Pile p : piles) {
             listePileNames.add(p.getNom());
             listePileIds.add(p.getId());
         }
+    }
 
+    public <T> boolean isElementInArrayList(ArrayList<T> array, T element) {
+
+        for (T array_element : array) {
+            if (element.equals(array_element)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @FXML
+    public void addPile() {
+        int value = choicePile.getSelectionModel().selectedIndexProperty().intValue();
+        String selectedPileName = listePileNames.get(value);
+        int selectedCartesPileId = listePileIds.get(value);
+        Pile selectedPile = model.getPileById(selectedCartesPileId);
+        System.out.println(listeSelectedPiles.size());
+        if (!(isElementInArrayList(listeSelectedPiles, selectedPile))) {
+            listeSelectedPiles.add(selectedPile);
+            listeSelectedPileNames.add(selectedPileName);
+            selectNewPile(selectedPileName);
+            System.out.println("yo");
+
+        }
+    }
+
+    public void removePile(int id) {
+        listeSelectedPiles.remove(id);
+        listeSelectedPileNames.remove(id);
+        update();
     }
 }

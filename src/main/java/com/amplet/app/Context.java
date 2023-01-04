@@ -105,8 +105,8 @@ public class Context {
         return selectedCartes;
     }
 
-    public void setSelectedCartes(ArrayList<Carte> selectedCartes) {
-        this.selectedCartes = selectedCartes;
+    public void resetSelectedCartes() {
+        this.selectedCartes = new ArrayList<Carte>();
     }
 
 
