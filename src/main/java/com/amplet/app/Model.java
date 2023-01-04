@@ -101,4 +101,11 @@ public class Model implements Observed {
     public void update(Pile pile) throws SQLException {
         this.dbManager.updatePileAll(pile.getId(), pile.getNom(), pile.getDescription());
     }
+
+    public Context getContext() {
+        return this.ctx;
+    }
+
+
 }
+
