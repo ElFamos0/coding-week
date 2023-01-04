@@ -34,9 +34,6 @@
       </items>
     </Menu>
       <Menu mnemonicParsing="false">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-        </items>
          <graphic>
             <Label />
          </graphic>
