@@ -12,14 +12,14 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-radius: 20;" text="Créer une pile ">
+            <Button mnemonicParsing="false" onAction="#switchToCreatePile" prefHeight="35.0" prefWidth="200.0" style="-fx-background-radius: 20;" text="Créer une pile ">
                <effect>
                   <ColorAdjust />
                </effect>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-radius: 20;" text="Modifier une pile" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-radius: 20;" text="Apprendre" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-radius: 20;" text="Statistiques" />
+            <Button mnemonicParsing="false" onAction="#switchToModifyPile" prefHeight="35.0" prefWidth="200.0" style="-fx-background-radius: 20;" text="Modifier une pile" />
+            <Button mnemonicParsing="false" onAction="#switchToApprParam" prefHeight="35.0" prefWidth="200.0" style="-fx-background-radius: 20;" text="Apprendre" />
+            <Button mnemonicParsing="false" onAction="#switchToStatistiques" prefHeight="35.0" prefWidth="200.0" style="-fx-background-radius: 20;" text="Statistiques" />
          </children>
       </VBox>
    </center>
