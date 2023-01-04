@@ -9,13 +9,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
+import javafx.application.Platform;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ApprIg extends ViewController {
 
     @FXML
     private VBox carte;
     @FXML
-    private Label titre;
+    private Label timertext;
     @FXML
     private Label nbdecarte;
     @FXML
@@ -23,6 +26,7 @@ public class ApprIg extends ViewController {
     @FXML
     private Label question;
 
+    int interval = 10;
 
     private VBox carteFront;
     private VBox carteBack;
@@ -46,6 +50,21 @@ public class ApprIg extends ViewController {
         carteFront.getChildren().addAll(carte.getChildren());
         carte.getChildren().clear();
         carte.getChildren().addAll(carteFront);
+        setTimer();
+    }
+
+
+    public void setTimer() {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                if (interval > 0) {
+                    Platform.runLater(() -> timertext.setText("Temps : " + interval));
+                    interval--;
+                } else
+                    timer.cancel();
+            }
+        }, 1000, 1000);
     }
 
     // fonction d'animation de résolution de la carte.
