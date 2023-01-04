@@ -37,7 +37,7 @@ public class ListePile extends ViewController {
             this.modifier.setOnAction(evt -> {
                 // On switch vers la vue d'édition de pile
                 try {
-                    App.setRoot("editionPile");
+                    App.setRoot("editionPile", pile);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -58,7 +58,7 @@ public class ListePile extends ViewController {
     }
 
     @FXML
-    private TableView tablePile;
+    private TableView<Row> tablePile;
 
     public ListePile(Model model) {
         super(model);
@@ -87,15 +87,18 @@ public class ListePile extends ViewController {
     @FXML
     public void initialize() {
         // On charge les colonnes
-        TableColumn nomCol = new TableColumn<>("Nom");
-        TableColumn modifierCol = new TableColumn<>("Modifier");
-        TableColumn supprimerCol = new TableColumn<>("Supprimer");
+        TableColumn<Row, Label> nomCol = new TableColumn<>("Nom");
+        TableColumn<Row, Button> modifierCol = new TableColumn<>("Modifier");
+        TableColumn<Row, Button> supprimerCol = new TableColumn<>("Supprimer");
 
         nomCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
         modifierCol.setCellValueFactory(new PropertyValueFactory<>("modifier"));
         supprimerCol.setCellValueFactory(new PropertyValueFactory<>("supprimer"));
 
-        tablePile.getColumns().addAll(nomCol, modifierCol, supprimerCol);
+        // On ajoute les colonnes
+        tablePile.getColumns().add(nomCol);
+        tablePile.getColumns().add(modifierCol);
+        tablePile.getColumns().add(supprimerCol);
 
         // On met les colonnes pour prendre tout l'espace
         nomCol.prefWidthProperty().bind(tablePile.widthProperty().multiply(0.5));

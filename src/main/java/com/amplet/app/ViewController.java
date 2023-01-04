@@ -7,5 +7,9 @@ public abstract class ViewController implements Observer {
         this.model = model;
     }
 
+    public ViewController(Model model, Object... args) {
+        this.model = model;
+    }
+
     public abstract void update();
 }

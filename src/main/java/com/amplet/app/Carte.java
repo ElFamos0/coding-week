@@ -26,10 +26,7 @@ public class Carte {
         this.description = description;
     }
 
-    public Carte() {
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

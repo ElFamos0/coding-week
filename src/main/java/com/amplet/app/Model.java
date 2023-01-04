@@ -72,8 +72,8 @@ public class Model implements Observed {
     }
 
     public void create(Carte carte) throws SQLException {
-        DbCarte dbCarte = this.dbManager.createCarte(carte.getTitre(), carte.getQuestion(), carte.getReponse(),
-                carte.getDescription(), carte.getMetadata());
+        DbCarte dbCarte = this.dbManager.createCarte(carte.getTitre(), carte.getQuestion(),
+                carte.getReponse(), carte.getDescription(), carte.getMetadata());
         carte.setId(dbCarte.getId());
         this.allCartes.add(carte);
         notifyAllObservers();
@@ -81,6 +81,7 @@ public class Model implements Observed {
 
     public void create(Pile pile, Carte carte) throws SQLException {
         this.dbManager.addCarteToPile(carte.getId(), pile.getId());
+        pile.addCarte(carte);
         notifyAllObservers();
     }
 

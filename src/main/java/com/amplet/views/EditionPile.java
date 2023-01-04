@@ -1,6 +1,10 @@
 package com.amplet.views;
 
+import java.util.HashMap;
+import java.util.Map;
+import com.amplet.app.Carte;
 import com.amplet.app.Model;
+import com.amplet.app.Pile;
 import com.amplet.app.ViewController;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -11,9 +15,17 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.TilePane;
 
 public class EditionPile extends ViewController {
+    private Pile pile;
+    private Map<String, Carte> cartes;
+
     public EditionPile(Model model) {
         super(model);
         model.addObserver(this);
+    }
+
+    public EditionPile(Model model, Object... args) {
+        super(model, args);
+        pile = (Pile) args[0];
     }
 
     @Override
@@ -27,18 +39,35 @@ public class EditionPile extends ViewController {
     private TilePane chosenCards;
 
     @Override
-    public void update() {}
+    public void update() {
+        // Clear the list
+        availableCards.getChildren().clear();
+
+        // Add the plus button
+        Button button = createAddCard();
+        availableCards.getChildren().add(button);
+
+        // Add the cards that are not in chosenCards
+        for (Carte carte : pile.getCartes()) {
+            Boolean found = false;
+            for (Node node : chosenCards.getChildren()) {
+                if (node instanceof Button) {
+                    Button b = (Button) node;
+                    if (b.getId().equals(carte.getId().toString())) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            if (!found) {
+                Button card = createCard(carte);
+                availableCards.getChildren().add(card);
+            }
+        }
+    }
 
     @FXML
     public void initialize() {
-        // Add two cards to the available cards list
-        availableCards.getChildren().add(createCard(0));
-        availableCards.getChildren().add(createCard(1));
-
-        // Add two cards to the chosen cards list
-        chosenCards.getChildren().add(createCard(2));
-        chosenCards.getChildren().add(createCard(3));
-
         availableCards.setOnDragOver(event -> {
             if (event.getGestureSource() != availableCards && event.getDragboard().hasString()) {
                 event.acceptTransferModes(TransferMode.MOVE);
@@ -69,7 +98,8 @@ public class EditionPile extends ViewController {
                         }
                     }
                 }
-                Button card = createCard(Integer.parseInt(id));
+                Carte c = cartes.get(id);
+                Button card = createCard(c);
                 availableCards.getChildren().add(card);
                 success = true;
             }
@@ -107,13 +137,18 @@ public class EditionPile extends ViewController {
                         }
                     }
                 }
-                Button card = createCard(Integer.parseInt(id));
+                Carte c = cartes.get(id);
+                Button card = createCard(c);
                 chosenCards.getChildren().add(card);
                 success = true;
             }
             event.setDropCompleted(success);
             event.consume();
         });
+
+        cartes = new HashMap<>();
+
+        update();
     }
 
     public void emptyLists() {
@@ -121,11 +156,14 @@ public class EditionPile extends ViewController {
         chosenCards.getChildren().clear();
     }
 
-    public Button createCard(Integer id) {
+    public Button createCard(Carte c) {
         Button card = new Button();
         card.setPrefSize(100, 100);
-        card.setId(id.toString());
-        card.setText("Card " + id.toString());
+        card.setId(c.getId().toString());
+        card.setText(c.getId().toString() + " " + c.getTitre());
+
+        // add text wrapping
+        card.setWrapText(true);
 
         card.setOnDragDetected(event -> {
             Dragboard dragboard = card.startDragAndDrop(TransferMode.MOVE);
@@ -133,6 +171,31 @@ public class EditionPile extends ViewController {
             content.putString(card.getId());
             dragboard.setContent(content);
             event.consume();
+        });
+
+        cartes.put(card.getId(), c);
+        return card;
+    }
+
+    public Button createAddCard() {
+        Button card = new Button();
+        card.setPrefSize(100, 100);
+        card.setId("add");
+        card.setText("+");
+        // bold and bigger font
+        card.setStyle("-fx-font-weight: bold; -fx-font-size: 20px;");
+
+        // add a new card to the pile when clicked
+        card.setOnAction(event -> {
+            Carte c = new Carte("Nouvelle carte", "Question", "Réponse", "", "Description");
+            try {
+                model.create(c);
+                model.create(pile, c);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Button newCard = createCard(c);
+            availableCards.getChildren().add(newCard);
         });
 
         return card;

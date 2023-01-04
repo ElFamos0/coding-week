@@ -33,12 +33,32 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
+    public static void setRoot(String fxml, Object... args) throws IOException {
+        scene.setRoot(loadFXML(fxml, args));
+    }
+
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         fxmlLoader.setControllerFactory(c -> {
             try {
                 ViewController controller = (ViewController) c
                         .getDeclaredConstructor(model.getClass()).newInstance(model);
+                return controller;
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException
+                    | NoSuchMethodException e) {
+                throw new RuntimeException(e.getCause());
+            }
+        });
+        return fxmlLoader.load();
+    }
+
+    private static Parent loadFXML(String fxml, Object... args) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        fxmlLoader.setControllerFactory(c -> {
+            try {
+                ViewController controller =
+                        (ViewController) c.getDeclaredConstructor(model.getClass(), args.getClass())
+                                .newInstance(model, args);
                 return controller;
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException
                     | NoSuchMethodException e) {

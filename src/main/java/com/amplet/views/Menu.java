@@ -12,6 +12,10 @@ public class Menu extends ViewController {
         model.addObserver(this);
     }
 
+    public Menu(Model model, Object... args) {
+        super(model, args);
+    }
+
     @Override
     public String getName() {
         return this.getClass().getName();
