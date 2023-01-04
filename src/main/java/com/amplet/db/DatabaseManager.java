@@ -190,11 +190,13 @@ public class DatabaseManager {
 
     // DELETE
 
-    public void deleteCarte(Carte carte) throws SQLException {
+    public void deleteCarte(int id) throws SQLException {
+        Carte carte = this.carteDao.queryForId(id);
         this.carteDao.delete(carte);
     }
 
-    public void deletePile(Pile pile) throws SQLException {
+    public void deletePile(int id) throws SQLException {
+        Pile pile = this.pileDao.queryForId(id);
         this.pileDao.delete(pile);
     }
 
