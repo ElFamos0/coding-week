@@ -103,11 +103,13 @@ public class EditionPile extends ViewController {
             boolean success = false;
             if (dragboard.hasString()) {
                 String id = dragboard.getString();
+                Boolean found = false;
                 for (Node node : availableCards.getChildren()) {
                     if (node instanceof Button) {
                         Button button = (Button) node;
                         if (button.getId().equals(id)) {
                             availableCards.getChildren().remove(button);
+                            found = true;
                             break;
                         }
                     }
@@ -125,10 +127,12 @@ public class EditionPile extends ViewController {
                 Button card = createCard(c);
                 availableCards.getChildren().add(card);
                 success = true;
-                try {
-                    model.delete(pile, c);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                if (!found) {
+                    try {
+                        model.create(pile, c);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
             event.setDropCompleted(success);
@@ -157,11 +161,13 @@ public class EditionPile extends ViewController {
                         }
                     }
                 }
+                Boolean found = false;
                 for (Node node : chosenCards.getChildren()) {
                     if (node instanceof Button) {
                         Button button = (Button) node;
                         if (button.getId().equals(id)) {
                             chosenCards.getChildren().remove(button);
+                            found = true;
                             break;
                         }
                     }
@@ -170,10 +176,12 @@ public class EditionPile extends ViewController {
                 Button card = createCard(c);
                 chosenCards.getChildren().add(card);
                 success = true;
-                try {
-                    model.create(pile, c);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                if (!found) {
+                    try {
+                        model.create(pile, c);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
             event.setDropCompleted(success);
