@@ -112,6 +112,14 @@ public class Model implements Observed {
         this.dbManager.updatePileAll(pile.getId(), pile.getNom(), pile.getDescription());
     }
 
+    public void update(Carte carte, Pile pile, boolean reussite) throws SQLException {
+        if (reussite) {
+            this.dbManager.addCarteSucces(carte.getId(), pile.getId());
+        } else {
+            this.dbManager.addCarteEchec(carte.getId(), pile.getId());
+        }
+    }
+
     public ArrayList<Pile> getAllPiles() {
         return allPiles;
     }
