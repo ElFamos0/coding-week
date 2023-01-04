@@ -3,11 +3,13 @@ package com.amplet.app;
 import java.util.ArrayList;
 
 public class Pile {
+    Integer id;
     String nom;
     String description;
     ArrayList<Carte> cartes;
 
-    public Pile(String nom, String description) {
+    public Pile(Integer id, String nom, String description) {
+        this.id = id;
         this.nom = nom;
         this.description = description;
         this.cartes = new ArrayList<Carte>();
@@ -43,6 +45,14 @@ public class Pile {
 
     public void setCartes(ArrayList<Carte> cartes) {
         this.cartes = cartes;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
 }

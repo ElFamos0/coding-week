@@ -108,6 +108,19 @@ public class Context {
         this.selectedPiles = selectedPiles;
     }
 
+    public void addSelectedPile(Pile pile) {
+        this.selectedPiles.add(pile);
+    }
+
+    public void removeSelectedPile(Integer id) {
+        for (Pile pile : selectedPiles) {
+            if (pile.getId() == id) {
+                selectedPiles.remove(pile);
+                break;
+            }
+        }
+    }
+
 
     public Context() {
 

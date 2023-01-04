@@ -28,7 +28,7 @@ public class Model implements Observed {
                         .add(new Carte(dbCarte.getId(), dbCarte.getTitre(), dbCarte.getQuestion(),
                                 dbCarte.getReponse(), dbCarte.getMetadata(), dbCarte.getInfo())));
         dbManager.getPiles().forEach(dbPile -> {
-            Pile pile = new Pile(dbPile.getNom(), dbPile.getDescription());
+            Pile pile = new Pile(dbPile.getId(), dbPile.getNom(), dbPile.getDescription());
             try {
                 dbManager.getCartesFromPile(dbPile)
                         .forEach(dbCarte -> pile.addCarte(new Carte(dbCarte.getId(),
