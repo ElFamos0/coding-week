@@ -27,3 +27,13 @@ L'application interface avec cette base de données grâce à l'ORM (Object Rela
 Les tests peuvent être lancés avec la commande `./test.sh`.
 
 Ils sont implémentés grâce au framework [JUnit5](https://junit.org/junit5/) et lancés grâce au plugin [Maven Surefire](https://maven.apache.org/surefire/maven-surefire-plugin/).
+
+## Releases 
+
+### Jour 1
+
+Nous n'avons pas pensé à faire un jar à la fin du premier jour.
+
+### Jour 2
+
+Le fichier `.jar` de la release du jour 2 est disponible [ici](https://cdn.discordapp.com/attachments/1060246427755888742/1060246467853439108/flashcards-DAY2-jar-with-dependencies.jar) (le fichier est trop volumineux pour passer sur GitLab).
