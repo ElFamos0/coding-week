@@ -12,6 +12,7 @@ public class Carte {
             String description) {
         this.id = id; // c'est pour tristan il en a besoin pour drag and drop.
         this.titre = titre;
+        this.question = question;
         this.reponse = reponse;
         this.metadata = metadata;
         this.description = description;
