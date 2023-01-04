@@ -13,20 +13,20 @@ import com.j256.ormlite.table.TableUtils;
 public class DatabaseManager {
 
     private JdbcPooledConnectionSource connectionSource;
-    private Dao<Carte, Integer> carteDao;
-    private Dao<Pile, Integer> pileDao;
+    private Dao<DbCarte, Integer> carteDao;
+    private Dao<DbPile, Integer> pileDao;
     private Dao<PileDeCartes, Integer> pileDeCartesDao;
 
     public DatabaseManager() throws SQLException {
         String tempDir = System.getProperty("java.io.tmpdir");
         this.connectionSource =
                 new JdbcPooledConnectionSource("jdbc:sqlite:" + tempDir + "/amplet.db");
-        TableUtils.createTableIfNotExists(this.connectionSource, Carte.class);
-        TableUtils.createTableIfNotExists(this.connectionSource, Pile.class);
+        TableUtils.createTableIfNotExists(this.connectionSource, DbCarte.class);
+        TableUtils.createTableIfNotExists(this.connectionSource, DbPile.class);
         TableUtils.createTableIfNotExists(this.connectionSource, PileDeCartes.class);
 
-        this.carteDao = DaoManager.createDao(this.connectionSource, Carte.class);
-        this.pileDao = DaoManager.createDao(this.connectionSource, Pile.class);
+        this.carteDao = DaoManager.createDao(this.connectionSource, DbCarte.class);
+        this.pileDao = DaoManager.createDao(this.connectionSource, DbPile.class);
         this.pileDeCartesDao = DaoManager.createDao(this.connectionSource, PileDeCartes.class);
     }
 
@@ -34,16 +34,16 @@ public class DatabaseManager {
         // This class is used for tests, it will reset the database
         this.connectionSource = new JdbcPooledConnectionSource("jdbc:sqlite:" + dbName);
         // Drop the tables to reset the database
-        TableUtils.dropTable(connectionSource, Carte.class, true);
-        TableUtils.dropTable(connectionSource, Pile.class, true);
+        TableUtils.dropTable(connectionSource, DbCarte.class, true);
+        TableUtils.dropTable(connectionSource, DbPile.class, true);
         TableUtils.dropTable(connectionSource, PileDeCartes.class, true);
 
-        TableUtils.createTable(this.connectionSource, Carte.class);
-        TableUtils.createTable(this.connectionSource, Pile.class);
+        TableUtils.createTable(this.connectionSource, DbCarte.class);
+        TableUtils.createTable(this.connectionSource, DbPile.class);
         TableUtils.createTable(this.connectionSource, PileDeCartes.class);
 
-        this.carteDao = DaoManager.createDao(this.connectionSource, Carte.class);
-        this.pileDao = DaoManager.createDao(this.connectionSource, Pile.class);
+        this.carteDao = DaoManager.createDao(this.connectionSource, DbCarte.class);
+        this.pileDao = DaoManager.createDao(this.connectionSource, DbPile.class);
         this.pileDeCartesDao = DaoManager.createDao(this.connectionSource, PileDeCartes.class);
     }
 
@@ -53,22 +53,22 @@ public class DatabaseManager {
 
     // CREATE
 
-    public Carte createCarte(String titre, String question, String reponse, String info,
+    public DbCarte createCarte(String titre, String question, String reponse, String info,
             String metadata) throws SQLException {
-        Carte carte = new Carte(titre, question, reponse, info, metadata);
+        DbCarte carte = new DbCarte(titre, question, reponse, info, metadata);
         this.carteDao.create(carte);
         return carte;
     }
 
-    public Pile createPile(String titre, String description) throws SQLException {
-        Pile pile = new Pile(titre, description);
+    public DbPile createPile(String titre, String description) throws SQLException {
+        DbPile pile = new DbPile(titre, description);
         this.pileDao.create(pile);
         return pile;
     }
 
     public PileDeCartes addCarteToPile(int carteId, int pileId) throws SQLException {
-        Carte carte = this.carteDao.queryForId(carteId);
-        Pile pile = this.pileDao.queryForId(pileId);
+        DbCarte carte = this.carteDao.queryForId(carteId);
+        DbPile pile = this.pileDao.queryForId(pileId);
         PileDeCartes pileDeCartes = new PileDeCartes(carte, pile);
         this.pileDeCartesDao.create(pileDeCartes);
         return pileDeCartes;
@@ -76,94 +76,94 @@ public class DatabaseManager {
 
     // READ
 
-    public Dao<Carte, Integer> getCarteDao() {
+    public Dao<DbCarte, Integer> getCarteDao() {
         return this.carteDao;
     }
 
-    public Dao<Pile, Integer> getPileDao() {
+    public Dao<DbPile, Integer> getPileDao() {
         return this.pileDao;
     }
 
-    public List<Carte> getCartes() throws SQLException {
+    public List<DbCarte> getCartes() throws SQLException {
         return this.carteDao.queryForAll();
     }
 
-    public List<Pile> getPiles() throws SQLException {
+    public List<DbPile> getPiles() throws SQLException {
         return this.pileDao.queryForAll();
     }
 
-    public Carte getCarteById(int id) throws SQLException {
+    public DbCarte getCarteById(int id) throws SQLException {
         return this.carteDao.queryForId(id);
     }
 
-    public Pile getPileById(int id) throws SQLException {
+    public DbPile getPileById(int id) throws SQLException {
         return this.pileDao.queryForId(id);
     }
 
-    public List<Carte> getCartesFromPile(Pile pile) throws SQLException {
+    public List<DbCarte> getCartesFromPile(DbPile pile) throws SQLException {
         QueryBuilder<PileDeCartes, Integer> pileDeCartesQb = this.pileDeCartesDao.queryBuilder();
         pileDeCartesQb.selectColumns(PileDeCartes.CARTE_ID_FIELD_NAME);
         SelectArg pileSelectArg = new SelectArg();
         pileDeCartesQb.where().eq(PileDeCartes.PILE_ID_FIELD_NAME, pileSelectArg);
-        QueryBuilder<Carte, Integer> carteQb = this.carteDao.queryBuilder();
-        carteQb.where().in(Carte.ID_FIELD_NAME, pileDeCartesQb);
-        PreparedQuery<Carte> preparedCarteQb = carteQb.prepare();
+        QueryBuilder<DbCarte, Integer> carteQb = this.carteDao.queryBuilder();
+        carteQb.where().in(DbCarte.ID_FIELD_NAME, pileDeCartesQb);
+        PreparedQuery<DbCarte> preparedCarteQb = carteQb.prepare();
         preparedCarteQb.setArgumentHolderValue(0, pile);
         return this.carteDao.query(preparedCarteQb);
     }
 
-    public List<Pile> getPilesForCarte(Carte carte) throws SQLException {
+    public List<DbPile> getPilesForCarte(DbCarte carte) throws SQLException {
         QueryBuilder<PileDeCartes, Integer> pileDeCartesQb = this.pileDeCartesDao.queryBuilder();
         pileDeCartesQb.selectColumns(PileDeCartes.PILE_ID_FIELD_NAME);
         SelectArg carteSelectArg = new SelectArg();
         pileDeCartesQb.where().eq(PileDeCartes.CARTE_ID_FIELD_NAME, carteSelectArg);
-        QueryBuilder<Pile, Integer> pileQb = this.pileDao.queryBuilder();
-        pileQb.where().in(Pile.ID_FIELD_NAME, pileDeCartesQb);
-        PreparedQuery<Pile> preparedPileQb = pileQb.prepare();
+        QueryBuilder<DbPile, Integer> pileQb = this.pileDao.queryBuilder();
+        pileQb.where().in(DbPile.ID_FIELD_NAME, pileDeCartesQb);
+        PreparedQuery<DbPile> preparedPileQb = pileQb.prepare();
         preparedPileQb.setArgumentHolderValue(0, carte);
         return this.pileDao.query(preparedPileQb);
     }
 
     // UPDATE
 
-    public Carte updateCarteTitre(int id, String titre) throws SQLException {
-        Carte carte = this.carteDao.queryForId(id);
+    public DbCarte updateCarteTitre(int id, String titre) throws SQLException {
+        DbCarte carte = this.carteDao.queryForId(id);
         carte.setTitre(titre);
         this.carteDao.update(carte);
         return carte;
     }
 
-    public Carte updateCarteQuestion(int id, String question) throws SQLException {
-        Carte carte = this.carteDao.queryForId(id);
+    public DbCarte updateCarteQuestion(int id, String question) throws SQLException {
+        DbCarte carte = this.carteDao.queryForId(id);
         carte.setQuestion(question);
         this.carteDao.update(carte);
         return carte;
     }
 
-    public Carte updateCarteReponse(int id, String reponse) throws SQLException {
-        Carte carte = this.carteDao.queryForId(id);
+    public DbCarte updateCarteReponse(int id, String reponse) throws SQLException {
+        DbCarte carte = this.carteDao.queryForId(id);
         carte.setReponse(reponse);
         this.carteDao.update(carte);
         return carte;
     }
 
-    public Carte updateCarteInfo(int id, String info) throws SQLException {
-        Carte carte = this.carteDao.queryForId(id);
+    public DbCarte updateCarteInfo(int id, String info) throws SQLException {
+        DbCarte carte = this.carteDao.queryForId(id);
         carte.setInfo(info);
         this.carteDao.update(carte);
         return carte;
     }
 
-    public Carte updateCarteMetadata(int id, String metadata) throws SQLException {
-        Carte carte = this.carteDao.queryForId(id);
+    public DbCarte updateCarteMetadata(int id, String metadata) throws SQLException {
+        DbCarte carte = this.carteDao.queryForId(id);
         carte.setMetadata(metadata);
         this.carteDao.update(carte);
         return carte;
     }
 
-    public Carte updateCarteAll(int id, String titre, String question, String reponse, String info,
+    public DbCarte updateCarteAll(int id, String titre, String question, String reponse, String info,
             String metadata) throws SQLException {
-        Carte carte = this.carteDao.queryForId(id);
+        DbCarte carte = this.carteDao.queryForId(id);
         carte.setTitre(titre);
         carte.setQuestion(question);
         carte.setReponse(reponse);
@@ -173,22 +173,22 @@ public class DatabaseManager {
         return carte;
     }
 
-    public Pile updatePileNom(int id, String nom) throws SQLException {
-        Pile pile = this.pileDao.queryForId(id);
+    public DbPile updatePileNom(int id, String nom) throws SQLException {
+        DbPile pile = this.pileDao.queryForId(id);
         pile.setNom(nom);
         this.pileDao.update(pile);
         return pile;
     }
 
-    public Pile updatePileDescription(int id, String description) throws SQLException {
-        Pile pile = this.pileDao.queryForId(id);
+    public DbPile updatePileDescription(int id, String description) throws SQLException {
+        DbPile pile = this.pileDao.queryForId(id);
         pile.setDescription(description);
         this.pileDao.update(pile);
         return pile;
     }
 
-    public Pile updatePileAll(int id, String nom, String description) throws SQLException {
-        Pile pile = this.pileDao.queryForId(id);
+    public DbPile updatePileAll(int id, String nom, String description) throws SQLException {
+        DbPile pile = this.pileDao.queryForId(id);
         pile.setNom(nom);
         pile.setDescription(description);
         this.pileDao.update(pile);
@@ -196,7 +196,7 @@ public class DatabaseManager {
     }
 
     public void incrementNbJouees(int id) throws SQLException {
-        Pile pile = this.pileDao.queryForId(id);
+        DbPile pile = this.pileDao.queryForId(id);
         pile.setNbJouees(pile.getNbJouees() + 1);
         this.pileDao.update(pile);
     }
@@ -229,18 +229,18 @@ public class DatabaseManager {
     // DELETE
 
     public void deleteCarte(int id) throws SQLException {
-        Carte carte = this.carteDao.queryForId(id);
+        DbCarte carte = this.carteDao.queryForId(id);
         this.carteDao.delete(carte);
     }
 
     public void deletePile(int id) throws SQLException {
-        Pile pile = this.pileDao.queryForId(id);
+        DbPile pile = this.pileDao.queryForId(id);
         this.pileDao.delete(pile);
     }
 
     public void removeCarteFromPile(int carteId, int pileId) throws SQLException {
-        Carte carte = this.carteDao.queryForId(carteId);
-        Pile pile = this.pileDao.queryForId(pileId);
+        DbCarte carte = this.carteDao.queryForId(carteId);
+        DbPile pile = this.pileDao.queryForId(pileId);
         QueryBuilder<PileDeCartes, Integer> pileDeCartesQb = this.pileDeCartesDao.queryBuilder();
         pileDeCartesQb.where().eq(PileDeCartes.CARTE_ID_FIELD_NAME, carte.getId()).and()
                 .eq(PileDeCartes.PILE_ID_FIELD_NAME, pile.getId());

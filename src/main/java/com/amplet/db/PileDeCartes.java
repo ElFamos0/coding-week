@@ -11,10 +11,10 @@ public class PileDeCartes {
     public final static String PILE_ID_FIELD_NAME = "pile_id";
 
     @DatabaseField(foreign = true, columnName = CARTE_ID_FIELD_NAME)
-    private Carte carte;
+    private DbCarte carte;
 
     @DatabaseField(foreign = true, columnName = PILE_ID_FIELD_NAME)
-    private Pile pile;
+    private DbPile pile;
 
     @DatabaseField
     private int nbJouees = 0;
@@ -26,24 +26,24 @@ public class PileDeCartes {
         // ORMLite needs a no-arg constructor
     }
 
-    public PileDeCartes(Carte carte, Pile pile) {
+    public PileDeCartes(DbCarte carte, DbPile pile) {
         this.carte = carte;
         this.pile = pile;
     }
 
-    public Carte getCarte() {
+    public DbCarte getCarte() {
         return this.carte;
     }
 
-    public void setCarte(Carte carte) {
+    public void setCarte(DbCarte carte) {
         this.carte = carte;
     }
 
-    public Pile getPile() {
+    public DbPile getPile() {
         return this.pile;
     }
 
-    public void setPile(Pile pile) {
+    public void setPile(DbPile pile) {
         this.pile = pile;
     }
 

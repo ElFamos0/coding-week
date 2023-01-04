@@ -5,7 +5,7 @@ import com.j256.ormlite.field.DatabaseField;
 
 
 @DatabaseTable(tableName = "carte")
-public class Carte {
+public class DbCarte {
 
     public final static String ID_FIELD_NAME = "id";
 
@@ -27,11 +27,11 @@ public class Carte {
     @DatabaseField
     private String metadata;
 
-    public Carte() {
+    public DbCarte() {
         // ORMLite needs a no-arg constructor
     }
 
-    public Carte(String titre, String question, String reponse, String info, String metadata) {
+    public DbCarte(String titre, String question, String reponse, String info, String metadata) {
         this.titre = titre;
         this.question = question;
         this.reponse = reponse;

@@ -4,7 +4,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import com.j256.ormlite.field.DatabaseField;
 
 @DatabaseTable(tableName = "pile")
-public class Pile {
+public class DbPile {
 
     public final static String ID_FIELD_NAME = "id";
 
@@ -20,11 +20,11 @@ public class Pile {
     @DatabaseField
     private int nbJouees = 0;
 
-    public Pile() {
+    public DbPile() {
         // ORMLite needs a no-arg constructor
     }
 
-    public Pile(String nom, String description) {
+    public DbPile(String nom, String description) {
         this.nom = nom;
         this.description = description;
     }
