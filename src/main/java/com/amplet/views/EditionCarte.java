@@ -1,19 +1,31 @@
 package com.amplet.views;
 
+import com.amplet.app.Carte;
 import com.amplet.app.Model;
+import com.amplet.app.Pile;
 import com.amplet.app.ViewController;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 
 public class EditionCarte extends ViewController {
-    public EditionCarte(Model model) {
+
+    private Carte currentCarte;
+    private Pile currentPile;
+
+
+    public EditionCarte(Model model, Object... args) {
         super(model);
         model.addObserver(this);
+        currentCarte = (Carte) args[0];
+        currentPile = (Pile) args[1];
+
     }
 
     @Override
@@ -28,6 +40,26 @@ public class EditionCarte extends ViewController {
     private VBox carteBack;
     private boolean isFront = true;
     private boolean isFlipping = false;
+
+    @FXML
+    private Label labelQuestion;
+
+    @FXML
+    private Label labelTitre;
+
+    @FXML
+    private Label labelReponse;
+
+    @FXML
+    private TextField prompttitre;
+
+    @FXML
+    private TextArea promptquestion;
+
+    @FXML
+    private TextField promptreponse;
+
+
 
     @FXML
     public void initialize() {
@@ -86,14 +118,6 @@ public class EditionCarte extends ViewController {
         isFront = !isFront;
     }
 
-    @FXML
-    private Label labelQuestion;
-
-    @FXML
-    private Label labelTitre;
-
-    @FXML
-    private Label labelReponse;
 
     @FXML
     public void validerTitre() {

@@ -3,6 +3,10 @@ package com.amplet.views;
 
 import com.amplet.app.Model;
 import com.amplet.app.ViewController;
+import com.amplet.app.Carte;
+import com.amplet.app.Context;
+import com.amplet.app.Model;
+import com.amplet.app.Pile;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -28,6 +32,8 @@ public class ApprIg extends ViewController {
 
     int interval = 10;
 
+
+    Context ctx;
     private VBox carteFront;
     private VBox carteBack;
     private boolean isFront = true;
@@ -36,6 +42,7 @@ public class ApprIg extends ViewController {
     public ApprIg(Model model) {
         super(model);
         model.addObserver(this);
+        ctx = model.getCtx();
     }
 
     @Override
@@ -50,6 +57,7 @@ public class ApprIg extends ViewController {
         carteFront.getChildren().addAll(carte.getChildren());
         carte.getChildren().clear();
         carte.getChildren().addAll(carteFront);
+        nbdecarte.setText("Nombre de cartes : " + ctx.getNbCartes());
         setTimer();
     }
 
