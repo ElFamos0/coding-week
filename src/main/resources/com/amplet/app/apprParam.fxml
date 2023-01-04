@@ -150,7 +150,7 @@
             </HBox>
             <ScrollPane prefHeight="300.0" prefWidth="400.0">
                <content>
-                  <VBox fx:id="vboxPile" prefHeight="300.0" prefWidth="400.0" />
+                  <VBox fx:id="vboxPile" prefHeight="300.0" prefWidth="390.0" spacing="10.0" />
                </content>
             </ScrollPane>
             <Button mnemonicParsing="false" onAction="#validerParam" text="Commencer la session !">

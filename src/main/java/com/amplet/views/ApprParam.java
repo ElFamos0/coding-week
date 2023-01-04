@@ -149,8 +149,12 @@ public class ApprParam extends ViewController {
     @FXML
     public void selectNewPile(String pileName) {
         HBox hbox = new HBox();
-        Label label = new Label(pileName + "   ");
-        label.setAlignment(Pos.CENTER);
+        hbox.setSpacing(10);
+        Label label = new Label(pileName);
+        label.setAlignment(Pos.CENTER_LEFT);
+        label.setPrefWidth(335);
+        label.setMaxWidth(335);
+        label.setFont(new Font(14));;
         Button bout = new Button("X");
         bout.setOnAction(new EcouteurPileRemove(listeSelectedPiles.size() - 1));
         hbox.setAlignment(Pos.CENTER);
@@ -187,24 +191,32 @@ public class ApprParam extends ViewController {
     public void update() {
 
         loadPileNames();
-        choicePile.setItems(FXCollections.observableArrayList(listePileNames));
+        if (choicePile.getItems().size() != listePileNames.size()) {
+            choicePile.setItems(FXCollections.observableArrayList(listePileNames));
+        }
 
-        ArrayList<HBox> listeHBox = new ArrayList<HBox>();
-        vboxPile.getChildren().clear();
-        int i = 0;
-        for (Pile p : listeSelectedPiles) {
-            HBox hbox = new HBox();
-            Label label = new Label(listeSelectedPileNames.get(i) + "   ");
-            label.setAlignment(Pos.CENTER);
-            Button bout = new Button("X");
-            bout.setOnAction(new EcouteurPileRemove(i));
-            hbox.setAlignment(Pos.CENTER);
-            this.listeHBox.add(hbox);
-            bout.setFont(new Font(12));
-            hbox.getChildren().add(label);
-            hbox.getChildren().add(bout);
-            i++;
-            vboxPile.getChildren().add(hbox);
+        if (listeHBox.size() != listeSelectedPileNames.size()) {
+            ArrayList<HBox> listeHBox = new ArrayList<HBox>();
+            vboxPile.getChildren().clear();
+            int i = 0;
+            for (Pile p : listeSelectedPiles) {
+                HBox hbox = new HBox();
+                hbox.setSpacing(10);
+                Label label = new Label(listeSelectedPileNames.get(i));
+                label.setAlignment(Pos.CENTER_LEFT);
+                label.setPrefWidth(335);
+                label.setMaxWidth(335);
+                label.setFont(new Font(14));;
+                Button bout = new Button("X");
+                bout.setOnAction(new EcouteurPileRemove(i));
+                hbox.setAlignment(Pos.CENTER);
+                this.listeHBox.add(hbox);
+                bout.setFont(new Font(12));
+                hbox.getChildren().add(label);
+                hbox.getChildren().add(bout);
+                i++;
+                vboxPile.getChildren().add(hbox);
+            }
         }
 
     }
