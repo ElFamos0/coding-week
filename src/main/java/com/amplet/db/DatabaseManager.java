@@ -53,22 +53,25 @@ public class DatabaseManager {
 
     // CREATE
 
-    public void createCarte(String titre, String question, String reponse, String info,
+    public Carte createCarte(String titre, String question, String reponse, String info,
             String metadata) throws SQLException {
         Carte carte = new Carte(titre, question, reponse, info, metadata);
         this.carteDao.create(carte);
+        return carte;
     }
 
-    public void createPile(String titre, String description) throws SQLException {
+    public Pile createPile(String titre, String description) throws SQLException {
         Pile pile = new Pile(titre, description);
         this.pileDao.create(pile);
+        return pile;
     }
 
-    public void addCarteToPile(int carteId, int pileId) throws SQLException {
+    public PileDeCartes addCarteToPile(int carteId, int pileId) throws SQLException {
         Carte carte = this.carteDao.queryForId(carteId);
         Pile pile = this.pileDao.queryForId(pileId);
         PileDeCartes pileDeCartes = new PileDeCartes(carte, pile);
         this.pileDeCartesDao.create(pileDeCartes);
+        return pileDeCartes;
     }
 
     // READ
@@ -123,37 +126,42 @@ public class DatabaseManager {
 
     // UPDATE
 
-    public void updateCarteTitre(int id, String titre) throws SQLException {
+    public Carte updateCarteTitre(int id, String titre) throws SQLException {
         Carte carte = this.carteDao.queryForId(id);
         carte.setTitre(titre);
         this.carteDao.update(carte);
+        return carte;
     }
 
-    public void updateCarteQuestion(int id, String question) throws SQLException {
+    public Carte updateCarteQuestion(int id, String question) throws SQLException {
         Carte carte = this.carteDao.queryForId(id);
         carte.setQuestion(question);
         this.carteDao.update(carte);
+        return carte;
     }
 
-    public void updateCarteReponse(int id, String reponse) throws SQLException {
+    public Carte updateCarteReponse(int id, String reponse) throws SQLException {
         Carte carte = this.carteDao.queryForId(id);
         carte.setReponse(reponse);
         this.carteDao.update(carte);
+        return carte;
     }
 
-    public void updateCarteInfo(int id, String info) throws SQLException {
+    public Carte updateCarteInfo(int id, String info) throws SQLException {
         Carte carte = this.carteDao.queryForId(id);
         carte.setInfo(info);
         this.carteDao.update(carte);
+        return carte;
     }
 
-    public void updateCarteMetadata(int id, String metadata) throws SQLException {
+    public Carte updateCarteMetadata(int id, String metadata) throws SQLException {
         Carte carte = this.carteDao.queryForId(id);
         carte.setMetadata(metadata);
         this.carteDao.update(carte);
+        return carte;
     }
 
-    public void updateCarteAll(int id, String titre, String question, String reponse, String info,
+    public Carte updateCarteAll(int id, String titre, String question, String reponse, String info,
             String metadata) throws SQLException {
         Carte carte = this.carteDao.queryForId(id);
         carte.setTitre(titre);
@@ -162,25 +170,29 @@ public class DatabaseManager {
         carte.setInfo(info);
         carte.setMetadata(metadata);
         this.carteDao.update(carte);
+        return carte;
     }
 
-    public void updatePileNom(int id, String nom) throws SQLException {
+    public Pile updatePileNom(int id, String nom) throws SQLException {
         Pile pile = this.pileDao.queryForId(id);
         pile.setNom(nom);
         this.pileDao.update(pile);
+        return pile;
     }
 
-    public void updatePileDescription(int id, String description) throws SQLException {
+    public Pile updatePileDescription(int id, String description) throws SQLException {
         Pile pile = this.pileDao.queryForId(id);
         pile.setDescription(description);
         this.pileDao.update(pile);
+        return pile;
     }
 
-    public void updatePileAll(int id, String nom, String description) throws SQLException {
+    public Pile updatePileAll(int id, String nom, String description) throws SQLException {
         Pile pile = this.pileDao.queryForId(id);
         pile.setNom(nom);
         pile.setDescription(description);
         this.pileDao.update(pile);
+        return pile;
     }
 
     public void incrementNbJouees(int id) throws SQLException {
