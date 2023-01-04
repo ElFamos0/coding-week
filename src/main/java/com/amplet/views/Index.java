@@ -18,15 +18,9 @@ public class Index extends ViewController {
     }
 
     @FXML
-    public void switchToCreatePile() throws IOException {
-        System.out.println("Création de pile");
-        App.setRoot("editionPile");
-    }
-
-    @FXML
-    public void switchToModifyPile() throws IOException {
-        System.out.println("Edition de pile");
-        App.setRoot("editionPile");
+    public void switchToListePile() throws IOException {
+        System.out.println("Liste de piles");
+        App.setRoot("listePile");
     }
 
     @FXML
