@@ -33,7 +33,7 @@
                               <Insets left="20.0" />
                            </HBox.margin>
                         </Label>
-                        <ChoiceBox prefWidth="150.0" />
+                        <ChoiceBox fx:id="choiceBoxPile" prefWidth="150.0" />
                      </children>
                   </HBox>
                   <BarChart prefHeight="320.0" prefWidth="617.0" title="Victoire / Défaite">
