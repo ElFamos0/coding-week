@@ -14,6 +14,15 @@
   </top>
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <top>
+         <Button onAction="#retourIndex" mnemonicParsing="false" styleClass="return" stylesheets="@boutonRetour.css" text="&lt;" BorderPane.alignment="TOP_LEFT">
+            <font>
+               <Font name="Fira Mono Bold" size="12.0" />
+            </font>
+         </Button>
+      </top>
+      <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
             <Label text="Piles" BorderPane.alignment="CENTER">
                <font>
@@ -40,6 +49,8 @@
                </BorderPane.margin>
             </TableView>
          </center>
+      </BorderPane>
+      </center>
       </BorderPane>
    </center>
 </BorderPane>

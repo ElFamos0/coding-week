@@ -5,7 +5,6 @@ import com.amplet.app.App;
 import com.amplet.app.Model;
 import com.amplet.app.ViewController;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 
 public class Menu extends ViewController {
     public Menu(Model model) {

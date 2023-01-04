@@ -278,4 +278,13 @@ public class EditionPile extends ViewController {
         return card;
     }
 
+    @FXML
+    public void retourListe() {
+        try {
+            App.setRoot("listePile");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }

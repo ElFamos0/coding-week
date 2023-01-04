@@ -123,4 +123,13 @@ public class ListePile extends ViewController {
             System.out.println(e.getMessage());
         }
     }
+
+    @FXML
+    public void retourIndex() {
+        try {
+            App.setRoot("index");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
