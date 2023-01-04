@@ -103,10 +103,14 @@ public class ApprParam extends ViewController {
                             String selectedPileName = listePileNames.get(newValue.intValue());
                             int selectedCartesPileId = listePileIds.get(newValue.intValue());
                             Pile selectedPile = model.getPileById(selectedCartesPileId);
-                            if (!(isElementInArrayList(listeSelectedPiles, selectedPile))) {
-                                listeSelectedPiles.add(selectedPile);
-                                listeSelectedPileNames.add(selectedPileName);
-                                selectNewPile(selectedPileName);
+                            if (selectedPile != null) {
+                                if (selectedPile.getCartes().size() > 0) {
+                                    if (!(isElementInArrayList(listeSelectedPiles, selectedPile))) {
+                                        listeSelectedPiles.add(selectedPile);
+                                        listeSelectedPileNames.add(selectedPileName);
+                                        selectNewPile(selectedPileName);
+                                    }
+                                }
                             }
                         }
 
@@ -244,8 +248,10 @@ public class ApprParam extends ViewController {
         listePileIds = new ArrayList<Integer>();
         listePileNames = new ArrayList<String>();
         for (Pile p : piles) {
-            listePileNames.add(p.getNom());
-            listePileIds.add(p.getId());
+            if (p.getCartes().size() > 0) {
+                listePileNames.add(p.getNom());
+                listePileIds.add(p.getId());
+            }
         }
     }
 
@@ -270,7 +276,6 @@ public class ApprParam extends ViewController {
             listeSelectedPiles.add(selectedPile);
             listeSelectedPileNames.add(selectedPileName);
             selectNewPile(selectedPileName);
-            System.out.println("yo");
 
         }
     }
@@ -307,9 +312,23 @@ public class ApprParam extends ViewController {
 
         if (listeSelectedPiles.size() < 1) {
             state = false;
-            warningPiles.setText("Veuillez sélectionner au moins une pile !");
+            warningPiles.setText("Veuillez sélectionner au moins une pile non vide !");
         } else {
-            warningPiles.setText("");
+            ctx.resetSelectedCartes();
+            for (Pile p : listeSelectedPiles) {
+                for (Carte c : p.getCartes()) {
+                    if (!(isElementInArrayList(ctx.getSelectedCartes(), c))) {
+                        ctx.getSelectedCartes().add(c);
+                    }
+                }
+            }
+            if (ctx.getSelectedCartes().size() < 1) {
+                state = false;
+                warningPiles.setText("Veuillez sélectionner au moins une pile non vide !");
+            } else {
+                warningPiles.setText("");
+            }
+
         }
         return state;
     }
