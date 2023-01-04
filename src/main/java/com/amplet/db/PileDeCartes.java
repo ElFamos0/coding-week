@@ -3,12 +3,15 @@ package com.amplet.db;
 import com.j256.ormlite.table.DatabaseTable;
 import com.j256.ormlite.field.DatabaseField;
 
-
 @DatabaseTable(tableName = "pile_de_carte")
 public class PileDeCartes {
 
+    public final static String ID_FIELD_NAME = "id";
     public final static String CARTE_ID_FIELD_NAME = "carte_id";
     public final static String PILE_ID_FIELD_NAME = "pile_id";
+
+    @DatabaseField(generatedId = true)
+    private int id;
 
     @DatabaseField(foreign = true, columnName = CARTE_ID_FIELD_NAME)
     private DbCarte carte;
@@ -29,6 +32,10 @@ public class PileDeCartes {
     public PileDeCartes(DbCarte carte, DbPile pile) {
         this.carte = carte;
         this.pile = pile;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public DbCarte getCarte() {
