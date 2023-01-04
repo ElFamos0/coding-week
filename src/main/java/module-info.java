@@ -1,5 +1,5 @@
 module com.amplet {
-    requires javafx.controls;
+    requires transitive javafx.controls;
     requires javafx.fxml;
 
     requires ormlite.jdbc;
