@@ -57,11 +57,9 @@ public class Model implements Observed {
     }
 
     public void notifyAllObservers() {
-
-    }
-
-    public void mangemoilepoiro() {
-        System.out.println("mangemoilepoiro");
+        for (Observer o : observers) {
+            o.update();
+        }
     }
 
     public void create(Pile pile) throws SQLException {
@@ -120,6 +118,16 @@ public class Model implements Observed {
 
     public DatabaseManager getDbManager() {
         return dbManager;
+    }
+
+    public Pile getPileById(int i) {
+        Pile p = null;
+        for (Pile pile : allPiles) {
+            if (pile.getId() == i) {
+                p = pile;
+            }
+        }
+        return p;
     }
 }
 

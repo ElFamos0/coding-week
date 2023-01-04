@@ -1,15 +1,19 @@
 package com.amplet.views;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import com.amplet.app.App;
+import com.amplet.app.Carte;
 import com.amplet.app.Context;
 import com.amplet.app.Model;
+import com.amplet.app.Pile;
 import com.amplet.app.ViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 
 public class ApprParam extends ViewController {
 
@@ -25,6 +29,10 @@ public class ApprParam extends ViewController {
     boolean repetition;
     int valSliderRepetition;
     Context ctx;
+    ArrayList<Pile> listeSelectedPiles = new ArrayList<Pile>();
+    ArrayList<Carte> listeSelectedCartes = new ArrayList<Carte>();
+    ArrayList<String> listePileNames = new ArrayList<String>();
+    ArrayList<Integer> listePileIds = new ArrayList<Integer>();
 
     public void setValSliderRepetition(int valSliderRepetition) {
         this.valSliderRepetition = valSliderRepetition;
@@ -43,6 +51,11 @@ public class ApprParam extends ViewController {
         random = false;
         repetition = false;
         valSliderRepetition = 0;
+
+        loadPileNames();
+        choicePile.setItems(FXCollections.observableArrayList(listePileNames));
+
+
 
         sliderRepetition.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -76,7 +89,7 @@ public class ApprParam extends ViewController {
     private Label labelRepetition;
 
     @FXML
-    private ChoiceBox choicePile;
+    private ChoiceBox<String> choicePile;
 
     @FXML
     private VBox vboxPile;
@@ -117,6 +130,16 @@ public class ApprParam extends ViewController {
 
     public void update() {
 
+
+    }
+
+    public void loadPileNames() {
+
+        ArrayList<Pile> piles = model.getAllPiles();
+        for (Pile p : piles) {
+            listePileNames.add(p.getNom());
+            listePileIds.add(p.getId());
+        }
 
     }
 }
