@@ -44,8 +44,8 @@ public class App extends Application {
                 ViewController controller = (ViewController) c
                         .getDeclaredConstructor(model.getClass()).newInstance(model);
                 return controller;
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException
-                    | NoSuchMethodException e) {
+            } catch (Exception e) {
+                e.printStackTrace();
                 throw new RuntimeException(e.getCause());
             }
         });
@@ -60,8 +60,8 @@ public class App extends Application {
                         (ViewController) c.getDeclaredConstructor(model.getClass(), args.getClass())
                                 .newInstance(model, args);
                 return controller;
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException
-                    | NoSuchMethodException e) {
+            } catch (Exception e) {
+                e.printStackTrace();
                 throw new RuntimeException(e.getCause());
             }
         });
