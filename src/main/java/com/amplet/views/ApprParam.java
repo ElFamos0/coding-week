@@ -64,6 +64,11 @@ public class ApprParam extends ViewController {
     }
 
     @FXML
+    public void retourAccueil() throws IOException {
+        App.setRoot("index");
+    }
+
+    @FXML
     public void initialize() {
 
         nbCartes = 20;
@@ -332,4 +337,5 @@ public class ApprParam extends ViewController {
         }
         return state;
     }
+
 }

@@ -23,9 +23,19 @@
       <VBox alignment="CENTER" fillWidth="false" prefHeight="451.0" prefWidth="640.0"
          BorderPane.alignment="CENTER">
          <children>
+            <HBox prefHeight="30.0" prefWidth="800.0">
+               <children>
+                  <Button onAction="#retourAccueil" mnemonicParsing="false" styleClass="return"
+                     stylesheets="@boutonRetour.css" text="&lt;" BorderPane.alignment="TOP_LEFT">
+                     <font>
+                        <Font name="Fira Mono Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
             <Label text="Paramétrage de la session ">
                <VBox.margin>
-                  <Insets top="30.0" />
+                  <Insets />
                </VBox.margin>
                <font>
                   <Font name="System Bold" size="18.0" />
