@@ -143,6 +143,15 @@ public class EditionCarte extends ViewController {
 
     @FXML
     public void dupliquerCarte() {
+        try {
+            Carte newCarte = new Carte(currentCarte.getTitre(), currentCarte.getQuestion(),
+                    currentCarte.getReponse(), currentCarte.getMetadata(),
+                    currentCarte.getMetadata());
+            model.create(newCarte);
+            App.setRoot("editionPile", currentPile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
