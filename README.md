@@ -8,7 +8,13 @@ Le projet se lance avec la commande `./launch.sh`.
 
 ### Build System
 
-Ce projet utilise Maven en tant que build system.
+Ce projet utilise Maven en tant que build system. L'utilitaire `mvn` est donc nécessaire pour l'utilisation correcte de celui-ci.
+
+### Packaging
+
+Le projet peut être compilé en un seul fichier `.jar` avec les dépendances gràce à la commande `./assemble.sh`.
+
+Il sera enregistré dans le dossier `target`.
 
 ### Base de données
 
