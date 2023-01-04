@@ -26,7 +26,8 @@ public class Carte {
         this.description = description;
     }
 
-    public Carte() {}
+    public Carte() {
+    }
 
     public int getId() {
         return id;
@@ -52,6 +53,10 @@ public class Carte {
         return description;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setTitre(String titre) {
         this.titre = titre;
     }
@@ -71,6 +76,5 @@ public class Carte {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
 }
