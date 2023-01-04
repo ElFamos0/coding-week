@@ -19,6 +19,10 @@ public class Carte {
 
     public Carte() {}
 
+    public int getId() {
+        return id;
+    }
+
     public String getTitre() {
         return titre;
     }
