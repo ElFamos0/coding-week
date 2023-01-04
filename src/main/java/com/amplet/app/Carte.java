@@ -1,17 +1,26 @@
 package com.amplet.app;
 
 public class Carte {
-    int id;
+    Integer id;
     String titre;
     String question;
     String reponse;
     String metadata;
     String description;
 
-    public Carte(int id, String titre, String question, String reponse, String metadata,
+    public Carte(Integer id, String titre, String question, String reponse, String metadata,
             String description) {
         this.id = id; // c'est pour tristan il en a besoin pour drag and drop.
         this.titre = titre;
+        this.reponse = reponse;
+        this.metadata = metadata;
+        this.description = description;
+    }
+
+    public Carte(String titre, String question, String reponse, String metadata,
+            String description) {
+        this.titre = titre;
+        this.question = question;
         this.reponse = reponse;
         this.metadata = metadata;
         this.description = description;

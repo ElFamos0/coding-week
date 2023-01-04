@@ -15,6 +15,12 @@ public class Pile {
         this.cartes = new ArrayList<Carte>();
     }
 
+    public Pile(String nom, String description) {
+        this.nom = nom;
+        this.description = description;
+        this.cartes = new ArrayList<Carte>();
+    }
+
     public void addCarte(Carte carte) {
         this.cartes.add(carte);
     }
