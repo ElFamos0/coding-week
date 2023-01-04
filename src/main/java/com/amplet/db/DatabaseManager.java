@@ -31,10 +31,16 @@ public class DatabaseManager {
     }
 
     public DatabaseManager(String dbName) throws SQLException {
+        // This class is used for tests, it will reset the database
         this.connectionSource = new JdbcPooledConnectionSource("jdbc:sqlite:" + dbName);
-        TableUtils.createTableIfNotExists(this.connectionSource, Carte.class);
-        TableUtils.createTableIfNotExists(this.connectionSource, Pile.class);
-        TableUtils.createTableIfNotExists(this.connectionSource, PileDeCartes.class);
+        // Drop the tables to reset the database
+        TableUtils.dropTable(connectionSource, Carte.class, true);
+        TableUtils.dropTable(connectionSource, Pile.class, true);
+        TableUtils.dropTable(connectionSource, PileDeCartes.class, true);
+
+        TableUtils.createTable(this.connectionSource, Carte.class);
+        TableUtils.createTable(this.connectionSource, Pile.class);
+        TableUtils.createTable(this.connectionSource, PileDeCartes.class);
 
         this.carteDao = DaoManager.createDao(this.connectionSource, Carte.class);
         this.pileDao = DaoManager.createDao(this.connectionSource, Pile.class);
@@ -147,7 +153,8 @@ public class DatabaseManager {
         this.carteDao.update(carte);
     }
 
-    public void updateCarteAll(int id, String titre, String question, String reponse, String info, String metadata) throws SQLException {
+    public void updateCarteAll(int id, String titre, String question, String reponse, String info,
+            String metadata) throws SQLException {
         Carte carte = this.carteDao.queryForId(id);
         carte.setTitre(titre);
         carte.setQuestion(question);
