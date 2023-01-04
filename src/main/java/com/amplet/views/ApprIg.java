@@ -3,12 +3,14 @@ package com.amplet.views;
 
 import com.amplet.app.Model;
 import com.amplet.app.ViewController;
+import com.amplet.app.App;
 import com.amplet.app.Carte;
 import com.amplet.app.Context;
 import com.amplet.app.Model;
 import com.amplet.app.Pile;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.transform.Rotate;
@@ -32,16 +34,23 @@ public class ApprIg extends ViewController {
     private Label question;
     @FXML
     private Label reponse;
+    @FXML
+    private Button boutonrefuser;
+    @FXML
+    private Button boutonvalider;
 
     private ArrayList<Carte> cartesaproposer;
     private ArrayList<Carte> cartesapprouvees;
 
-    int interval = 10;
+    int interval;
     int cartesrestantes = 1;
     int cartesvues = 0;
-    int isRandomSelected = 0;
-    int repetitionProbability = 0;
-    int isFavorisedFailedSelected = 0;
+    boolean isRandomSelected;
+    int repetitionProbability;
+    boolean isFavorisedFailedSelected;
+    int tempsreponse;
+
+    Carte currentCarte;
 
 
     Context ctx;
@@ -56,7 +65,10 @@ public class ApprIg extends ViewController {
         ctx = model.getCtx();
         this.cartesaproposer = ctx.getSelectedCartes();
         this.cartesapprouvees = new ArrayList<Carte>();
-
+        this.isRandomSelected = ctx.isRandomSelected();
+        this.repetitionProbability = ctx.getRepetitionProbability();
+        this.isFavorisedFailedSelected = ctx.isFavorisedFailedSelected();
+        this.tempsreponse = ctx.getTempsReponse();
     }
 
     @Override
@@ -72,26 +84,77 @@ public class ApprIg extends ViewController {
         carte.getChildren().clear();
         carte.getChildren().addAll(carteFront);
         nbdecarte.setText("Nombre de cartes : " + ctx.getNbCartes());
-        setTimer();
+        dealcard();
     }
 
 
     public void setTimer() {
+        boutonrefuser.setDisable(true);
+        boutonvalider.setDisable(true);
         Timer timer = new Timer();
+        interval = tempsreponse;
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 if (interval > 0) {
                     Platform.runLater(() -> timertext.setText("Temps : " + interval));
                     interval--;
-                } else
+                } else {
+                    flipCard();
+                    boutonvalider.setDisable(false);
+                    boutonrefuser.setDisable(false);
                     timer.cancel();
+                }
             }
         }, 1000, 1000);
     }
 
 
     public void dealcard() {
+        if (isRandomSelected) {
+            int random = (int) (Math.random() * cartesaproposer.size());
+            currentCarte = cartesaproposer.get(random);
+            cartesaproposer.remove(random);
+            update();
+            setTimer();
+        } else {
+            currentCarte = cartesaproposer.get(0);
+            cartesaproposer.remove(0);
+        }
 
+    }
+
+    @FXML
+    public void valider() {
+        cartesapprouvees.add(currentCarte);
+        cartesvues++;
+        if (cartesaproposer.size() == 0) {
+            try {
+                App.setRoot("apprResultat", new ApprResultat(model));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            dealcard();
+            flipCard();
+            update();
+        }
+    }
+
+    public void refuser() {
+        cartesapprouvees.add(currentCarte);
+        cartesvues++;
+        cartesaproposer.add(currentCarte);
+        if (cartesaproposer.size() == 0) {
+            try {
+                App.setRoot("apprResultat", new ApprResultat(model));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            dealcard();
+            flipCard();
+            update();
+        }
     }
 
 
@@ -146,6 +209,10 @@ public class ApprIg extends ViewController {
         isFront = !isFront;
     }
 
-    public void update() {}
+    public void update() {
+        titrecarte.setText(currentCarte.getTitre());
+        question.setText(currentCarte.getQuestion());
+        reponse.setText(currentCarte.getReponse());
+    }
 
 }
