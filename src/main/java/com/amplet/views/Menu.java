@@ -22,15 +22,6 @@ public class Menu extends ViewController {
     }
 
     @FXML
-    private void retourAccueil() throws IOException {
-        // System.out.println("Retour à l'accueil");
-        App.setRoot("index");
-    }
-
-    @FXML
-    private javafx.scene.control.Menu button;
-
-    @FXML
     private void test() {
         // System.out.println("Retour à l'accueil");
     }
@@ -40,8 +31,13 @@ public class Menu extends ViewController {
     }
 
     @FXML
+    public void retourAccueil() throws IOException {
+        App.setRoot("index");
+    }
+
+    @FXML
     public void initialize() {
-        button.setStyle("-fx-focus-color: #00000000; -fx-faint-focus-color: #00000000;");
+
     }
 
     @FXML
