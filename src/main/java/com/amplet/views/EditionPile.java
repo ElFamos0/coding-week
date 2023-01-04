@@ -1,8 +1,6 @@
 package com.amplet.views;
 
-import java.util.ArrayList;
 import com.amplet.app.Model;
-import com.amplet.app.Pile;
 import com.amplet.app.ViewController;
 import javafx.fxml.FXML;
 import javafx.scene.Node;

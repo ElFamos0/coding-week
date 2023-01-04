@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.Index">
+<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.ListePile">
   <top>
     <fx:include fx:id="menu" source="menu.fxml" />
   </top>
@@ -32,11 +32,8 @@
             </Button>
          </bottom>
          <center>
-            <TableView prefHeight="332.0" prefWidth="349.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="tablePile" prefHeight="332.0" prefWidth="349.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn prefWidth="249.0" text="Nom" />
-                  <TableColumn minWidth="0.0" prefWidth="156.0" text="Modification" />
-                  <TableColumn prefWidth="174.0" text="Suppression" />
               </columns>
                <BorderPane.margin>
                   <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
