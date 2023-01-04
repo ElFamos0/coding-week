@@ -77,6 +77,10 @@ public class ApprParam extends ViewController {
         listePileIds = new ArrayList<Integer>();
         listeHBox = new ArrayList<HBox>();
 
+        warningNb.setText("");
+        warningTps.setText("");
+        warningPiles.setText("");
+
 
         sliderRepetition.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -137,6 +141,15 @@ public class ApprParam extends ViewController {
     private VBox vboxPile;
 
     @FXML
+    private Label warningNb;
+
+    @FXML
+    private Label warningTps;
+
+    @FXML
+    private Label warningPiles;
+
+    @FXML
     public void switchRandom() {
         random = !random;
     }
@@ -149,8 +162,12 @@ public class ApprParam extends ViewController {
     @FXML
     public void selectNewPile(String pileName) {
         HBox hbox = new HBox();
-        Label label = new Label(pileName + "   ");
-        label.setAlignment(Pos.CENTER);
+        hbox.setSpacing(10);
+        Label label = new Label(pileName);
+        label.setAlignment(Pos.CENTER_LEFT);
+        label.setPrefWidth(335);
+        label.setMaxWidth(335);
+        label.setFont(new Font(14));;
         Button bout = new Button("X");
         bout.setOnAction(new EcouteurPileRemove(listeSelectedPiles.size() - 1));
         hbox.setAlignment(Pos.CENTER);
@@ -165,46 +182,58 @@ public class ApprParam extends ViewController {
     @FXML
     public void validerParam() throws IOException {
 
-        ctx.setNbCartes(nbCartes);
-        ctx.setTempsReponse(tempsReponse);
-        ctx.setRepetitionProbability(valSliderRepetition);
-        ctx.setRandomSelected(random);
-        ctx.setFavorisedFailedSelected(repetition);
-        ctx.resetSelectedCartes();
-        for (Pile p : listeSelectedPiles) {
-            for (Carte c : p.getCartes()) {
-                if (!(isElementInArrayList(ctx.getSelectedCartes(), c))) {
-                    ctx.getSelectedCartes().add(c);
+        if (test_validation()) {
+
+            ctx.setNbCartes(nbCartes);
+            ctx.setTempsReponse(tempsReponse);
+            ctx.setRepetitionProbability(valSliderRepetition);
+            ctx.setRandomSelected(random);
+            ctx.setFavorisedFailedSelected(repetition);
+            ctx.resetSelectedCartes();
+            for (Pile p : listeSelectedPiles) {
+                for (Carte c : p.getCartes()) {
+                    if (!(isElementInArrayList(ctx.getSelectedCartes(), c))) {
+                        ctx.getSelectedCartes().add(c);
+                    }
                 }
             }
-        }
 
-        System.out.println("Apprentissage in game");
-        App.setRoot("apprIg");
+            System.out.println("Apprentissage in game");
+            App.setRoot("apprIg");
+
+        }
     }
 
 
     public void update() {
 
         loadPileNames();
-        choicePile.setItems(FXCollections.observableArrayList(listePileNames));
+        if (choicePile.getItems().size() != listePileNames.size()) {
+            choicePile.setItems(FXCollections.observableArrayList(listePileNames));
+        }
 
-        ArrayList<HBox> listeHBox = new ArrayList<HBox>();
-        vboxPile.getChildren().clear();
-        int i = 0;
-        for (Pile p : listeSelectedPiles) {
-            HBox hbox = new HBox();
-            Label label = new Label(listeSelectedPileNames.get(i) + "   ");
-            label.setAlignment(Pos.CENTER);
-            Button bout = new Button("X");
-            bout.setOnAction(new EcouteurPileRemove(i));
-            hbox.setAlignment(Pos.CENTER);
-            this.listeHBox.add(hbox);
-            bout.setFont(new Font(12));
-            hbox.getChildren().add(label);
-            hbox.getChildren().add(bout);
-            i++;
-            vboxPile.getChildren().add(hbox);
+        if (listeHBox.size() != listeSelectedPileNames.size()) {
+            ArrayList<HBox> listeHBox = new ArrayList<HBox>();
+            vboxPile.getChildren().clear();
+            int i = 0;
+            for (Pile p : listeSelectedPiles) {
+                HBox hbox = new HBox();
+                hbox.setSpacing(10);
+                Label label = new Label(listeSelectedPileNames.get(i));
+                label.setAlignment(Pos.CENTER_LEFT);
+                label.setPrefWidth(335);
+                label.setMaxWidth(335);
+                label.setFont(new Font(14));;
+                Button bout = new Button("X");
+                bout.setOnAction(new EcouteurPileRemove(i));
+                hbox.setAlignment(Pos.CENTER);
+                this.listeHBox.add(hbox);
+                bout.setFont(new Font(12));
+                hbox.getChildren().add(label);
+                hbox.getChildren().add(bout);
+                i++;
+                vboxPile.getChildren().add(hbox);
+            }
         }
 
     }
@@ -250,5 +279,38 @@ public class ApprParam extends ViewController {
         listeSelectedPiles.remove(id);
         listeSelectedPileNames.remove(id);
         update();
+    }
+
+    public boolean test_validation() {
+        boolean state = true;
+
+        String strNb = labelNbCartes.getText();
+        String strTps = labelTempsReponse.getText();
+
+        try {
+            int i = Integer.parseInt(strNb);
+            nbCartes = i;
+            warningNb.setText("");
+        } catch (NumberFormatException nfe) {
+            state = false;
+            warningNb.setText("Veuillez entrer une valeur entière !");
+        }
+
+        try {
+            int i = Integer.parseInt(strTps);
+            tempsReponse = i;
+            warningTps.setText("");
+        } catch (NumberFormatException nfe) {
+            state = false;
+            warningTps.setText("Veuillez entrer une valeur entière !");
+        }
+
+        if (listeSelectedPiles.size() < 1) {
+            state = false;
+            warningPiles.setText("Veuillez sélectionner au moins une pile !");
+        } else {
+            warningPiles.setText("");
+        }
+        return state;
     }
 }

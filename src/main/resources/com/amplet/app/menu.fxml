@@ -2,15 +2,16 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 
 <MenuBar xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.Menu">
   <menus>
-      <Menu mnemonicParsing="false">
+      <Menu fx:id="button" mnemonicParsing="false">
          <graphic>
-            <Button mnemonicParsing="false" onAction="#retourAccueil" style="-fx-background-color: #00000000;" text="Accueil" textAlignment="CENTER">
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#retourAccueil" style="-fx-background-color: #00000000;" text="Accueil" textAlignment="CENTER">
                <padding>
                   <Insets left="5.0" right="5.0" />
                </padding>
@@ -32,5 +33,10 @@
         <MenuItem mnemonicParsing="false" onAction="#vaApprResultat" text="Apprentissage Resultat" />
       </items>
     </Menu>
+      <Menu mnemonicParsing="false">
+         <graphic>
+            <Label />
+         </graphic>
+      </Menu>
   </menus>
 </MenuBar>

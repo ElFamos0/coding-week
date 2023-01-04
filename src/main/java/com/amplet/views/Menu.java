@@ -5,6 +5,7 @@ import com.amplet.app.App;
 import com.amplet.app.Model;
 import com.amplet.app.ViewController;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 
 public class Menu extends ViewController {
     public Menu(Model model) {
@@ -28,6 +29,9 @@ public class Menu extends ViewController {
     }
 
     @FXML
+    private javafx.scene.control.Menu button;
+
+    @FXML
     private void test() {
         // System.out.println("Retour à l'accueil");
     }
@@ -38,7 +42,7 @@ public class Menu extends ViewController {
 
     @FXML
     public void initialize() {
-
+        button.setStyle("-fx-focus-color: #00000000; -fx-faint-focus-color: #00000000;");
     }
 
     @FXML

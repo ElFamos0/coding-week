@@ -16,7 +16,7 @@
 
 <BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.ApprParam">
   <top>
-    <fx:include fx:id="menu" source="menu.fxml" />
+    <fx:include fx:id="menu" layoutX="-50.0" source="menu.fxml" />
   </top>
    <center>
       <VBox alignment="CENTER" fillWidth="false" prefHeight="451.0" prefWidth="640.0" BorderPane.alignment="CENTER">
@@ -29,7 +29,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="600.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Nombre de cartes :">
                      <font>
@@ -44,12 +44,17 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </TextField>
+                  <Label fx:id="warningNb" textFill="#e41515">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" top="20.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="600.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Temps de réponse par carte (s) :">
                      <font>
@@ -64,12 +69,17 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </TextField>
+                  <Label fx:id="warningTps" textFill="#e41515">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="600.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
                <children>
                   <CheckBox fx:id="checkboxRandom" mnemonicParsing="false" onAction="#switchRandom" text="Cartes aléatoires">
                      <font>
@@ -92,7 +102,7 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="600.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Probabilité de répétition :">
                      <font>
@@ -125,7 +135,7 @@
                   <Insets bottom="5.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="600.0">
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="780.0">
                <children>
                   <Label text="Sélectionner une pile :">
                      <HBox.margin>
@@ -148,11 +158,19 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </HBox>
-            <ScrollPane prefHeight="300.0" prefWidth="400.0">
+            <ScrollPane prefHeight="200.0" prefWidth="400.0">
                <content>
-                  <VBox fx:id="vboxPile" prefHeight="300.0" prefWidth="400.0" />
+                  <VBox fx:id="vboxPile" prefHeight="200.0" prefWidth="390.0" spacing="10.0" />
                </content>
             </ScrollPane>
+            <Label fx:id="warningPiles" textFill="#e41515">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </Label>
             <Button mnemonicParsing="false" onAction="#validerParam" text="Commencer la session !">
                <VBox.margin>
                   <Insets bottom="20.0" top="20.0" />
