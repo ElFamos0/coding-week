@@ -3,6 +3,8 @@ package com.amplet.app;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import com.amplet.db.DatabaseManager;
+import com.amplet.db.DbCarte;
+import com.amplet.db.DbPile;
 
 
 public class Model implements Observed {
@@ -63,14 +65,16 @@ public class Model implements Observed {
     }
 
     public void create(Pile pile) throws SQLException {
-        this.dbManager.createPile(pile.getNom(), pile.getDescription());
+        DbPile dbPile = this.dbManager.createPile(pile.getNom(), pile.getDescription());
+        pile.setId(dbPile.getId());
         this.allPiles.add(pile);
         notifyAllObservers();
     }
 
     public void create(Carte carte) throws SQLException {
-        this.dbManager.createCarte(carte.getTitre(), carte.getQuestion(), carte.getReponse(),
+        DbCarte dbCarte = this.dbManager.createCarte(carte.getTitre(), carte.getQuestion(), carte.getReponse(),
                 carte.getDescription(), carte.getMetadata());
+        carte.setId(dbCarte.getId());
         this.allCartes.add(carte);
         notifyAllObservers();
     }
