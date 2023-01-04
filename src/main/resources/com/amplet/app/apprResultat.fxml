@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.EditionPile">
+   <top>
+      <fx:include fx:id="menu" source="menu.fxml" />
+   </top>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+              <tabs>
+                <Tab text="Détail">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0">
+                           <children>
+                              <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <center>
+                                    <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                       <content>
+                                          <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                             <bottom>
+                                                <TilePane hgap="600.0" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                   <children>
+                                                      <Button mnemonicParsing="false" text="B2" />
+                                                   </children>
+                                                </TilePane>
+                                             </bottom>
+                                             <top>
+                                                <TilePane hgap="600.0" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                   <children>
+                                                      <Button mnemonicParsing="false" text="B1" />
+                                                   </children>
+                                                </TilePane>
+                                             </top>
+                                          </BorderPane>
+                                       </content>
+                                    </ScrollPane>
+                                 </center>
+                              </BorderPane>
+                           </children>
+                        </AnchorPane>
+                     </content></Tab>
+                <Tab text="Stats">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0">
+                           <children>
+                              <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <center>
+                                    <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                       <content>
+                                          <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                             <bottom>
+                                                <TilePane hgap="600.0" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                   <children>
+                                                      <Button mnemonicParsing="false" text="B4" />
+                                                   </children>
+                                                </TilePane>
+                                             </bottom>
+                                             <top>
+                                                <TilePane hgap="600.0" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                   <children>
+                                                      <Button mnemonicParsing="false" text="B3" />
+                                                   </children>
+                                                </TilePane>
+                                             </top>
+                                          </BorderPane>
+                                       </content>
+                                    </ScrollPane>
+                                 </center>
+                              </BorderPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </center>
+         <top>
+            <Label text="Fin de partie" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Label>
+         </top>
+      </BorderPane>
+   </center>
+</BorderPane>
