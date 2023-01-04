@@ -62,8 +62,7 @@
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="Reponse"
-                           textFill="#a8a5a5">
+                        <Label fx:id="reponse" alignment="CENTER" contentDisplay="CENTER" text="Reponse" textFill="#a8a5a5">
                            <VBox.margin>
                               <Insets bottom="30.0" top="20.0" />
                            </VBox.margin>

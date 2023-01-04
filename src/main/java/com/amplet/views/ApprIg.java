@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import javafx.application.Platform;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,8 +30,18 @@ public class ApprIg extends ViewController {
     private Label titrecarte;
     @FXML
     private Label question;
+    @FXML
+    private Label reponse;
+
+    private ArrayList<Carte> cartesaproposer;
+    private ArrayList<Carte> cartesapprouvees;
 
     int interval = 10;
+    int cartesrestantes = 1;
+    int cartesvues = 0;
+    int isRandomSelected = 0;
+    int repetitionProbability = 0;
+    int isFavorisedFailedSelected = 0;
 
 
     Context ctx;
@@ -43,6 +54,9 @@ public class ApprIg extends ViewController {
         super(model);
         model.addObserver(this);
         ctx = model.getCtx();
+        this.cartesaproposer = ctx.getSelectedCartes();
+        this.cartesapprouvees = new ArrayList<Carte>();
+
     }
 
     @Override
@@ -74,6 +88,13 @@ public class ApprIg extends ViewController {
             }
         }, 1000, 1000);
     }
+
+
+    public void dealcard() {
+
+    }
+
+
 
     // fonction d'animation de résolution de la carte.
     @FXML
@@ -125,8 +146,6 @@ public class ApprIg extends ViewController {
         isFront = !isFront;
     }
 
-    public void update() {
-        // TODO
-    }
+    public void update() {}
 
 }

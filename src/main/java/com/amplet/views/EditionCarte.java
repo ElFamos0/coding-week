@@ -130,6 +130,7 @@ public class EditionCarte extends ViewController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        update();
     }
 
     @FXML
