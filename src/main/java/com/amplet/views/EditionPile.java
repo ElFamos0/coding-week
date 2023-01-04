@@ -2,6 +2,7 @@ package com.amplet.views;
 
 import java.util.HashMap;
 import java.util.Map;
+import com.amplet.app.App;
 import com.amplet.app.Carte;
 import com.amplet.app.Model;
 import com.amplet.app.Pile;
@@ -171,6 +172,14 @@ public class EditionPile extends ViewController {
             content.putString(card.getId());
             dragboard.setContent(content);
             event.consume();
+        });
+
+        card.setOnAction(event -> {
+            try {
+                App.setRoot("editionCarte", c);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         });
 
         cartes.put(card.getId(), c);
