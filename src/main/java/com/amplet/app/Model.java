@@ -102,10 +102,24 @@ public class Model implements Observed {
         this.dbManager.updatePileAll(pile.getId(), pile.getNom(), pile.getDescription());
     }
 
-    public Context getContext() {
-        return this.ctx;
+    public ArrayList<Pile> getAllPiles() {
+        return allPiles;
     }
 
+    public ArrayList<Carte> getAllCartes() {
+        return allCartes;
+    }
 
+    public ArrayList<Observer> getObservers() {
+        return observers;
+    }
+
+    public Context getCtx() {
+        return ctx;
+    }
+
+    public DatabaseManager getDbManager() {
+        return dbManager;
+    }
 }
 

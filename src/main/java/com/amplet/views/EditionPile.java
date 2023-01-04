@@ -28,7 +28,8 @@ public class EditionPile extends ViewController {
 
     @Override
     public void update() {
-        System.out.println("Edition Pile updated");
+        // Charge les piles
+        ListePile listePile = (ListePile) model.getViewController(ListePile.class.getName());
     }
 
     @FXML
