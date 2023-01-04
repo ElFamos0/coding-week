@@ -64,4 +64,24 @@ public class Model implements Observed {
         System.out.println("mangemoilepoiro");
     }
 
+    public void create(Pile pile) throws SQLException {
+        this.dbManager.createPile(pile.getNom(), pile.getDescription());
+        this.allPiles.add(pile);
+    }
+
+    public void create(Carte carte) throws SQLException {
+        this.dbManager.createCarte(carte.getTitre(), carte.getQuestion(), carte.getReponse(),
+                carte.getDescription(), carte.getMetadata());
+        this.allCartes.add(carte);
+    }
+
+    public void delete(Pile pile) throws SQLException {
+        this.dbManager.deletePile(pile.getId());
+        this.allPiles.remove(pile);
+    }
+
+    public void delete(Carte carte) throws SQLException {
+        this.dbManager.deleteCarte(carte.getId());
+        this.allCartes.remove(carte);
+    }
 }
