@@ -98,24 +98,26 @@ public class Context {
     }
 
 
-    ArrayList<Pile> selectedPiles;
+    ArrayList<Carte> selectedCartes;
 
-    public ArrayList<Pile> getSelectedPiles() {
-        return selectedPiles;
+
+    public ArrayList<Carte> getSelectedCartes() {
+        return selectedCartes;
     }
 
-    public void setSelectedPiles(ArrayList<Pile> selectedPiles) {
-        this.selectedPiles = selectedPiles;
+    public void setSelectedCartes(ArrayList<Carte> selectedCartes) {
+        this.selectedCartes = selectedCartes;
     }
 
-    public void addSelectedPile(Pile pile) {
-        this.selectedPiles.add(pile);
+
+    public void addSelectedCarte(Carte carte) {
+        this.selectedCartes.add(carte);
     }
 
-    public void removeSelectedPile(Integer id) {
-        for (Pile pile : selectedPiles) {
-            if (pile.getId() == id) {
-                selectedPiles.remove(pile);
+    public void removeSelectedCarte(Integer id) {
+        for (Carte carte : selectedCartes) {
+            if (carte.getId() == id) {
+                selectedCartes.remove(carte);
                 break;
             }
         }

@@ -102,7 +102,7 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Label>
-                  <Slider fx:id="sliderRepetition" blockIncrement="5.0" majorTickUnit="5.0" minorTickCount="0" onTouchReleased="#updateSlider" snapToTicks="true">
+                  <Slider fx:id="sliderRepetition" blockIncrement="5.0" majorTickUnit="5.0" minorTickCount="0" snapToTicks="true">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
