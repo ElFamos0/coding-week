@@ -7,17 +7,19 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 
-<MenuBar xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.Menu">
+<MenuBar xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="com.amplet.views.Menu">
   <menus>
-      <Menu fx:id="button" mnemonicParsing="false">
-         <graphic>
-            <Button focusTraversable="false" mnemonicParsing="false" onAction="#retourAccueil" style="-fx-background-color: #00000000;" text="Accueil" textAlignment="CENTER">
-               <padding>
-                  <Insets left="5.0" right="5.0" />
-               </padding>
-            </Button>
-         </graphic>
-      </Menu>
+    <Menu fx:id="button" mnemonicParsing="false">
+      <graphic>
+        <Button focusTraversable="false" mnemonicParsing="false" onAction="#retourAccueil"
+          style="-fx-background-color: #00000000;" text="Accueil" textAlignment="CENTER">
+          <padding>
+            <Insets left="5.0" right="5.0" />
+          </padding>
+        </Button>
+      </graphic>
+    </Menu>
     <Menu mnemonicParsing="false" text="Fichier">
       <items>
         <MenuItem mnemonicParsing="false" onAction="#test" text="Importer" />
@@ -33,10 +35,10 @@
         <MenuItem mnemonicParsing="false" onAction="#vaApprResultat" text="Apprentissage Resultat" />
       </items>
     </Menu>
-      <Menu mnemonicParsing="false">
-         <graphic>
-            <Label />
-         </graphic>
-      </Menu>
+    <Menu mnemonicParsing="false">
+      <graphic>
+        <Label />
+      </graphic>
+    </Menu>
   </menus>
 </MenuBar>

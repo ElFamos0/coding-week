@@ -13,32 +13,40 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.EditionCarte">
-  <top>
-    <fx:include fx:id="menu" source="menu.fxml" />
-  </top>
+<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.EditionCarte">
+   <top>
+      <fx:include fx:id="menu" source="menu.fxml" />
+   </top>
    <center>
-      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" BorderPane.alignment="TOP_CENTER">
+      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0"
+         prefWidth="800.0" BorderPane.alignment="TOP_CENTER">
          <children>
             <BorderPane prefHeight="82.0" prefWidth="640.0">
                <left>
-                  <MenuBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="74.0" style="-fx-border-image-width: 5; -fx-border-color: #a3a3a3; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="ButtonStyle" BorderPane.alignment="CENTER">
-                    <menus>
-                      <Menu mnemonicParsing="false" text="Menu">
-                        <items>
-                          <MenuItem mnemonicParsing="false" onAction="#dupliquerCarte" text="Dupliquer" />
-                              <MenuItem mnemonicParsing="false" onAction="#supprimerCarte" text="Supprimer" />
+                  <MenuBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                     minWidth="-Infinity" prefHeight="27.0" prefWidth="74.0"
+                     style="-fx-border-image-width: 5; -fx-border-color: #a3a3a3; -fx-border-radius: 10; -fx-background-radius: 10;"
+                     styleClass="ButtonStyle" BorderPane.alignment="CENTER">
+                     <menus>
+                        <Menu mnemonicParsing="false" text="Menu">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#dupliquerCarte"
+                                 text="Dupliquer" />
+                              <MenuItem mnemonicParsing="false" onAction="#supprimerCarte"
+                                 text="Supprimer" />
                               <MenuItem mnemonicParsing="false" onAction="#retour" text="Retour" />
-                        </items>
-                      </Menu>
-                    </menus>
+                           </items>
+                        </Menu>
+                     </menus>
                      <BorderPane.margin>
                         <Insets left="15.0" />
                      </BorderPane.margin>
                   </MenuBar>
                </left>
                <center>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="165.0" text="Edition de carte" BorderPane.alignment="CENTER">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0"
+                     prefWidth="165.0" text="Edition de carte" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -51,7 +59,9 @@
                   <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
             </BorderPane>
-            <VBox fx:id="carte" onMouseClicked="#flipCard" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="340.0" prefWidth="460.0" style="-fx-background-color: #efefef; -fx-background-radius: 10; -fx-border-width: 2; -fx-border-radius: 10; -fx-border-color: #a3a3a3;">
+            <VBox fx:id="carte" onMouseClicked="#flipCard" alignment="TOP_CENTER" fillWidth="false"
+               maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="340.0" prefWidth="460.0"
+               style="-fx-background-color: #efefef; -fx-background-radius: 10; -fx-border-width: 2; -fx-border-radius: 10; -fx-border-color: #a3a3a3;">
                <VBox.margin>
                   <Insets bottom="15.0" top="15.0" />
                </VBox.margin>
@@ -67,7 +77,8 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="labelQuestion" alignment="CENTER" contentDisplay="CENTER" text="Question">
+                  <Label fx:id="labelQuestion" alignment="CENTER" contentDisplay="CENTER"
+                     text="Question">
                      <VBox.margin>
                         <Insets bottom="30.0" top="10.0" />
                      </VBox.margin>
@@ -75,7 +86,8 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="labelReponse" alignment="CENTER" contentDisplay="CENTER" text="Réponse" textFill="#a8a5a5">
+                  <Label fx:id="labelReponse" alignment="CENTER" contentDisplay="CENTER"
+                     text="Réponse" textFill="#a8a5a5">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -96,7 +108,9 @@
                      </HBox.margin>
                   </Label>
                   <TextField fx:id="prompttitre" promptText="Nouveau Titre" />
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#valider" style="-fx-background-color: #00000000; -fx-background-radius: 10; -fx-border-color: #a3a3a3; -fx-border-radius: 10;" text="Valider">
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#valider"
+                     style="-fx-background-color: #00000000; -fx-background-radius: 10; -fx-border-color: #a3a3a3; -fx-border-radius: 10;"
+                     text="Valider">
                      <HBox.margin>
                         <Insets left="30.0" />
                      </HBox.margin>
@@ -116,8 +130,11 @@
                         <Insets right="30.0" />
                      </HBox.margin>
                   </Label>
-                  <TextArea fx:id="promptquestion" prefHeight="200.0" prefWidth="200.0" promptText="Nouvelle Question" />
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#valider" style="-fx-background-color: #00000000; -fx-background-radius: 10; -fx-border-color: #a3a3a3; -fx-border-radius: 10;" text="Valider">
+                  <TextArea fx:id="promptquestion" prefHeight="200.0" prefWidth="200.0"
+                     promptText="Nouvelle Question" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#valider"
+                     style="-fx-background-color: #00000000; -fx-background-radius: 10; -fx-border-color: #a3a3a3; -fx-border-radius: 10;"
+                     text="Valider">
                      <HBox.margin>
                         <Insets left="30.0" />
                      </HBox.margin>
@@ -138,7 +155,9 @@
                      </HBox.margin>
                   </Label>
                   <TextField fx:id="promptreponse" promptText="Nouvelle Réponse" />
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#valider" style="-fx-background-color: #00000000; -fx-background-radius: 10; -fx-border-color: #a3a3a3; -fx-border-radius: 10;" text="Valider">
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#valider"
+                     style="-fx-background-color: #00000000; -fx-background-radius: 10; -fx-border-color: #a3a3a3; -fx-border-radius: 10;"
+                     text="Valider">
                      <HBox.margin>
                         <Insets left="30.0" />
                      </HBox.margin>

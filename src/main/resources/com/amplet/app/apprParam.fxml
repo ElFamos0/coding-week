@@ -14,12 +14,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.ApprParam">
-  <top>
-    <fx:include fx:id="menu" layoutX="-50.0" source="menu.fxml" />
-  </top>
+<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.ApprParam">
+   <top>
+      <fx:include fx:id="menu" layoutX="-50.0" source="menu.fxml" />
+   </top>
    <center>
-      <VBox alignment="CENTER" fillWidth="false" prefHeight="451.0" prefWidth="640.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" fillWidth="false" prefHeight="451.0" prefWidth="640.0"
+         BorderPane.alignment="CENTER">
          <children>
             <Label text="Paramétrage de la session ">
                <VBox.margin>
@@ -56,7 +58,8 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Temps de réponse par carte (s) :">
+                  <Label alignment="CENTER" contentDisplay="CENTER"
+                     text="Temps de réponse par carte (s) :">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -81,7 +84,8 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
                <children>
-                  <CheckBox fx:id="checkboxRandom" mnemonicParsing="false" onAction="#switchRandom" text="Cartes aléatoires">
+                  <CheckBox fx:id="checkboxRandom" mnemonicParsing="false" onAction="#switchRandom"
+                     text="Cartes aléatoires">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -89,7 +93,8 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </CheckBox>
-                  <CheckBox fx:id="checkboxRepetion" mnemonicParsing="false" onAction="#switchRepetition" text="Favoriser la répétition des cartes ratées">
+                  <CheckBox fx:id="checkboxRepetion" mnemonicParsing="false"
+                     onAction="#switchRepetition" text="Favoriser la répétition des cartes ratées">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -104,7 +109,8 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Probabilité de répétition :">
+                  <Label alignment="CENTER" contentDisplay="CENTER"
+                     text="Probabilité de répétition :">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -112,7 +118,8 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Label>
-                  <Slider fx:id="sliderRepetition" blockIncrement="5.0" majorTickUnit="5.0" minorTickCount="0" snapToTicks="true">
+                  <Slider fx:id="sliderRepetition" blockIncrement="5.0" majorTickUnit="5.0"
+                     minorTickCount="0" snapToTicks="true">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
@@ -122,12 +129,15 @@
                         <Insets right="15.0" />
                      </HBox.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" style="-fx-background-color: #e2e2e2; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #838383;" text=" ? ">
+                  <Label alignment="CENTER" contentDisplay="CENTER"
+                     style="-fx-background-color: #e2e2e2; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #838383;"
+                     text=" ? ">
                      <font>
                         <Font size="18.0" />
                      </font>
                      <tooltip>
-                        <Tooltip text="Détermine la probabilité qu'a une carté déjà passée de réapparaître à nouveau." />
+                        <Tooltip
+                           text="Détermine la probabilité qu'a une carté déjà passée de réapparaître à nouveau." />
                      </tooltip>
                   </Label>
                </children>

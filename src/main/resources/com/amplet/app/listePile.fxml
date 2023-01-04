@@ -8,49 +8,53 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.ListePile">
-  <top>
-    <fx:include fx:id="menu" source="menu.fxml" />
-  </top>
+<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.ListePile">
+   <top>
+      <fx:include fx:id="menu" source="menu.fxml" />
+   </top>
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-      <top>
-         <Button onAction="#retourIndex" mnemonicParsing="false" styleClass="return" stylesheets="@boutonRetour.css" text="&lt;" BorderPane.alignment="TOP_LEFT">
-            <font>
-               <Font name="Fira Mono Bold" size="12.0" />
-            </font>
-         </Button>
-      </top>
-      <center>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
-            <Label text="Piles" BorderPane.alignment="CENTER">
+            <Button onAction="#retourIndex" mnemonicParsing="false" styleClass="return"
+               stylesheets="@boutonRetour.css" text="&lt;" BorderPane.alignment="TOP_LEFT">
                <font>
-                  <Font name="System Bold" size="26.0" />
+                  <Font name="Fira Mono Bold" size="12.0" />
                </font>
-               <BorderPane.margin>
-                  <Insets top="10.0" />
-               </BorderPane.margin>
-            </Label>
-         </top>
-         <bottom>
-            <Button mnemonicParsing="false" text="Créer une pile" BorderPane.alignment="CENTER" onAction="#creerPile">
-               <BorderPane.margin>
-                  <Insets bottom="30.0" />
-               </BorderPane.margin>
             </Button>
-         </bottom>
+         </top>
          <center>
-            <TableView fx:id="tablePile" prefHeight="332.0" prefWidth="349.0" BorderPane.alignment="CENTER">
-              <columns>
-              </columns>
-               <BorderPane.margin>
-                  <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
-               </BorderPane.margin>
-            </TableView>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <top>
+                  <Label text="Piles" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="26.0" />
+                     </font>
+                     <BorderPane.margin>
+                        <Insets top="10.0" />
+                     </BorderPane.margin>
+                  </Label>
+               </top>
+               <bottom>
+                  <Button mnemonicParsing="false" text="Créer une pile"
+                     BorderPane.alignment="CENTER" onAction="#creerPile">
+                     <BorderPane.margin>
+                        <Insets bottom="30.0" />
+                     </BorderPane.margin>
+                  </Button>
+               </bottom>
+               <center>
+                  <TableView fx:id="tablePile" prefHeight="332.0" prefWidth="349.0"
+                     BorderPane.alignment="CENTER">
+                     <columns>
+                     </columns>
+                     <BorderPane.margin>
+                        <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+                     </BorderPane.margin>
+                  </TableView>
+               </center>
+            </BorderPane>
          </center>
-      </BorderPane>
-      </center>
       </BorderPane>
    </center>
 </BorderPane>

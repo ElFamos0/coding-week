@@ -10,33 +10,41 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.Resultat">
+<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.Resultat">
    <top>
       <fx:include fx:id="menu" source="menu.fxml" />
    </top>
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <center>
-            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-              <tabs>
-                <Tab text="Détail">
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE"
+               BorderPane.alignment="CENTER">
+               <tabs>
+                  <Tab text="Détail">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0">
                            <children>
-                              <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <BorderPane prefHeight="200.0" prefWidth="200.0"
+                                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                 AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <center>
-                                    <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <ScrollPane fitToHeight="true" fitToWidth="true"
+                                       prefHeight="200.0" prefWidth="200.0"
+                                       BorderPane.alignment="CENTER">
                                        <content>
                                           <BorderPane prefHeight="200.0" prefWidth="200.0">
                                              <bottom>
-                                                <TilePane hgap="600.0" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                <TilePane hgap="600.0" prefHeight="200.0"
+                                                   prefWidth="200.0" BorderPane.alignment="CENTER">
                                                    <children>
                                                       <Button mnemonicParsing="false" text="B2" />
                                                    </children>
                                                 </TilePane>
                                              </bottom>
                                              <top>
-                                                <TilePane hgap="600.0" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                <TilePane hgap="600.0" prefHeight="200.0"
+                                                   prefWidth="200.0" BorderPane.alignment="CENTER">
                                                    <children>
                                                       <Button mnemonicParsing="false" text="B1" />
                                                    </children>
@@ -49,25 +57,32 @@
                               </BorderPane>
                            </children>
                         </AnchorPane>
-                     </content></Tab>
-                <Tab text="Stats">
+                     </content>
+                  </Tab>
+                  <Tab text="Stats">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0">
                            <children>
-                              <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <BorderPane prefHeight="200.0" prefWidth="200.0"
+                                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                 AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <center>
-                                    <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <ScrollPane fitToHeight="true" fitToWidth="true"
+                                       prefHeight="200.0" prefWidth="200.0"
+                                       BorderPane.alignment="CENTER">
                                        <content>
                                           <BorderPane prefHeight="200.0" prefWidth="200.0">
                                              <bottom>
-                                                <TilePane hgap="600.0" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                <TilePane hgap="600.0" prefHeight="200.0"
+                                                   prefWidth="200.0" BorderPane.alignment="CENTER">
                                                    <children>
                                                       <Button mnemonicParsing="false" text="B4" />
                                                    </children>
                                                 </TilePane>
                                              </bottom>
                                              <top>
-                                                <TilePane hgap="600.0" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                <TilePane hgap="600.0" prefHeight="200.0"
+                                                   prefWidth="200.0" BorderPane.alignment="CENTER">
                                                    <children>
                                                       <Button mnemonicParsing="false" text="B3" />
                                                    </children>
@@ -81,8 +96,8 @@
                            </children>
                         </AnchorPane>
                      </content>
-                </Tab>
-              </tabs>
+                  </Tab>
+               </tabs>
             </TabPane>
          </center>
          <top>

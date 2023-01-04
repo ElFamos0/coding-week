@@ -12,12 +12,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.Statistiques">
-  <top>
-    <fx:include fx:id="menu" source="menu.fxml" />
-  </top>
+<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.Statistiques">
+   <top>
+      <fx:include fx:id="menu" source="menu.fxml" />
+   </top>
    <center>
-      <ScrollPane hbarPolicy="NEVER" prefHeight="533.0" prefWidth="640.0" BorderPane.alignment="CENTER">
+      <ScrollPane hbarPolicy="NEVER" prefHeight="533.0" prefWidth="640.0"
+         BorderPane.alignment="CENTER">
          <content>
             <VBox alignment="TOP_CENTER" prefHeight="548.0" prefWidth="637.0">
                <children>
@@ -37,18 +39,19 @@
                      </children>
                   </HBox>
                   <BarChart prefHeight="320.0" prefWidth="617.0" title="Victoire / Défaite">
-                    <xAxis>
-                      <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
+                     <xAxis>
+                        <CategoryAxis side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis side="LEFT" />
+                     </yAxis>
                   </BarChart>
                   <Label text="Stat 1" />
                   <Label text="Stat 2" />
                   <Label text="Stat 3" />
                </children>
             </VBox>
-         </content></ScrollPane>
+         </content>
+      </ScrollPane>
    </center>
 </BorderPane>

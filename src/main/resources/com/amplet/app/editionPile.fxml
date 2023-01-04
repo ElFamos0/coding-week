@@ -15,182 +15,223 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.EditionPile">
+<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.EditionPile">
    <top>
       <fx:include fx:id="menu" source="menu.fxml" />
    </top>
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-      <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-        <tabs>
-          <Tab text="Cartes">
-            <content>
-               <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                  <center>
-                     <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-                        <children>
-                           <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                              <children>
-                                 <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: #000000;" HBox.hgrow="ALWAYS">
-                                    <children>
-                                       <Label text="Cartes">
-                                          <font>
-                                             <Font name="System Bold" size="20.0" />
-                                          </font>
-                                       </Label>
-                                       <BorderPane>
-                                          <VBox.margin>
-                                             <Insets top="10.0" />
-                                          </VBox.margin>
-                                          <center>
-                                             <BorderPane style="-fx-border-color: #aaaaaa; -fx-border-radius: 5;" BorderPane.alignment="CENTER">
-                                                <right>
-                                                   <ImageView fitHeight="25.0" fitWidth="25.0" BorderPane.alignment="CENTER">
-                                                      <image>
-                                                         <Image url="@./assets/search.png" />
-                                                      </image>
-                                                   </ImageView>
-                                                </right>
-                                                <center>
-                                                   <TextField fx:id="searchAvailable" snapToPixel="false" style="-fx-border-color: #00000000; -fx-border-width: 0px;" BorderPane.alignment="CENTER" />
-                                                </center>
-                                                <BorderPane.margin>
-                                                   <Insets left="20.0" right="20.0" top="10.0" />
-                                                </BorderPane.margin>
-                                             </BorderPane>
-                                          </center>
-                                       </BorderPane>
-                                       <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                          <content>
-                                             <TilePane fx:id="availableCards" alignment="TOP_CENTER" hgap="20.0" prefWidth="315.0" tileAlignment="TOP_CENTER" vgap="20.0" />
-                                          </content>
-                                          <VBox.margin>
-                                             <Insets top="10.0" />
-                                          </VBox.margin>
-                                       </ScrollPane>
-                                    </children>
-                                 </VBox>
-                                 <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: #000000;" HBox.hgrow="ALWAYS">
-                                    <children>
-                                       <Label text="Contenu">
-                                          <font>
-                                             <Font name="System Bold" size="20.0" />
-                                          </font>
-                                       </Label>
-                                       <BorderPane>
-                                          <center>
-                                             <BorderPane style="-fx-border-color: #aaaaaa; -fx-border-radius: 5;" BorderPane.alignment="CENTER">
-                                                <right>
-                                                   <ImageView fitHeight="25.0" fitWidth="25.0" BorderPane.alignment="CENTER">
-                                                      <image>
-                                                         <Image url="@./assets/search.png" />
-                                                      </image>
-                                                   </ImageView>
-                                                </right>
-                                                <center>
-                                                   <TextField fx:id="searchChosen" snapToPixel="false" style="-fx-border-color: #00000000; -fx-border-width: 0px;" BorderPane.alignment="CENTER" />
-                                                </center>
-                                                <BorderPane.margin>
-                                                   <Insets left="20.0" right="20.0" top="10.0" />
-                                                </BorderPane.margin>
-                                             </BorderPane>
-                                          </center>
-                                          <VBox.margin>
-                                             <Insets top="10.0" />
-                                          </VBox.margin>
-                                       </BorderPane>
-                                       <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                          <content>
-                                             <TilePane fx:id="chosenCards" alignment="TOP_CENTER" hgap="20.0" prefWidth="315.0" tileAlignment="TOP_CENTER" vgap="20.0">
-                                                <children>
-                                                   <!-- Card will go here -->
-                                                   <!-- <Button mnemonicParsing="false" text="Ceci est une carte" /> -->
-                                                </children>
-                                             </TilePane>
-                                          </content>
-                                          <VBox.margin>
-                                             <Insets top="10.0" />
-                                          </VBox.margin>
-                                       </ScrollPane>
-                                    </children>
-                                    <HBox.margin>
-                                       <Insets />
-                                    </HBox.margin>
-                                 </VBox>
-                              </children>
-                           </HBox>
-                        </children>
-                     </VBox>
-                  </center>
-               </BorderPane>
-            </content>
-          </Tab>
-          <Tab text="Paramètres">
-            <content>
-               <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                     <center>
-                        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0">
+         <center>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE"
+               BorderPane.alignment="CENTER">
+               <tabs>
+                  <Tab text="Cartes">
+                     <content>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0"
+                           BorderPane.alignment="CENTER">
+                           <center>
+                              <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0"
+                                 BorderPane.alignment="CENTER">
                                  <children>
-                                    <Label text="Titre de la pile :">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="nomPile">
-                                       <HBox.margin>
-                                          <Insets left="20.0" top="5.0" />
-                                       </HBox.margin>
-                                    </TextField>
+                                    <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <VBox alignment="TOP_CENTER" prefHeight="200.0"
+                                             prefWidth="100.0" style="-fx-border-color: #000000;"
+                                             HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label text="Cartes">
+                                                   <font>
+                                                      <Font name="System Bold" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <BorderPane>
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin>
+                                                   <center>
+                                                      <BorderPane
+                                                         style="-fx-border-color: #aaaaaa; -fx-border-radius: 5;"
+                                                         BorderPane.alignment="CENTER">
+                                                         <right>
+                                                            <ImageView fitHeight="25.0"
+                                                               fitWidth="25.0"
+                                                               BorderPane.alignment="CENTER">
+                                                               <image>
+                                                                  <Image url="@./assets/search.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </right>
+                                                         <center>
+                                                            <TextField fx:id="searchAvailable"
+                                                               snapToPixel="false"
+                                                               style="-fx-border-color: #00000000; -fx-border-width: 0px;"
+                                                               BorderPane.alignment="CENTER" />
+                                                         </center>
+                                                         <BorderPane.margin>
+                                                            <Insets left="20.0" right="20.0"
+                                                               top="10.0" />
+                                                         </BorderPane.margin>
+                                                      </BorderPane>
+                                                   </center>
+                                                </BorderPane>
+                                                <ScrollPane fitToHeight="true" fitToWidth="true"
+                                                   hbarPolicy="NEVER" prefHeight="200.0"
+                                                   prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                   <content>
+                                                      <TilePane fx:id="availableCards"
+                                                         alignment="TOP_CENTER" hgap="20.0"
+                                                         prefWidth="315.0"
+                                                         tileAlignment="TOP_CENTER" vgap="20.0" />
+                                                   </content>
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin>
+                                                </ScrollPane>
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="TOP_CENTER" prefHeight="200.0"
+                                             prefWidth="100.0" style="-fx-border-color: #000000;"
+                                             HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label text="Contenu">
+                                                   <font>
+                                                      <Font name="System Bold" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <BorderPane>
+                                                   <center>
+                                                      <BorderPane
+                                                         style="-fx-border-color: #aaaaaa; -fx-border-radius: 5;"
+                                                         BorderPane.alignment="CENTER">
+                                                         <right>
+                                                            <ImageView fitHeight="25.0"
+                                                               fitWidth="25.0"
+                                                               BorderPane.alignment="CENTER">
+                                                               <image>
+                                                                  <Image url="@./assets/search.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </right>
+                                                         <center>
+                                                            <TextField fx:id="searchChosen"
+                                                               snapToPixel="false"
+                                                               style="-fx-border-color: #00000000; -fx-border-width: 0px;"
+                                                               BorderPane.alignment="CENTER" />
+                                                         </center>
+                                                         <BorderPane.margin>
+                                                            <Insets left="20.0" right="20.0"
+                                                               top="10.0" />
+                                                         </BorderPane.margin>
+                                                      </BorderPane>
+                                                   </center>
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin>
+                                                </BorderPane>
+                                                <ScrollPane fitToHeight="true" fitToWidth="true"
+                                                   hbarPolicy="NEVER" prefHeight="200.0"
+                                                   prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                   <content>
+                                                      <TilePane fx:id="chosenCards"
+                                                         alignment="TOP_CENTER" hgap="20.0"
+                                                         prefWidth="315.0"
+                                                         tileAlignment="TOP_CENTER" vgap="20.0">
+                                                         <children>
+                                                            <!-- Card will go here -->
+                                                            <!-- <Button mnemonicParsing="false"
+                                                            text="Ceci est une carte" /> -->
+                                                         </children>
+                                                      </TilePane>
+                                                   </content>
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin>
+                                                </ScrollPane>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
                                  </children>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0">
+                              </VBox>
+                           </center>
+                        </BorderPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Paramètres">
+                     <content>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0"
+                           BorderPane.alignment="CENTER">
+                           <center>
+                              <VBox prefHeight="200.0" prefWidth="100.0"
+                                 BorderPane.alignment="CENTER">
                                  <children>
-                                    <Label text="Description :">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="descPile">
-                                       <HBox.margin>
-                                          <Insets left="20.0" top="5.0" />
-                                       </HBox.margin>
-                                    </TextField>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="40.0"
+                                       prefWidth="200.0">
+                                       <children>
+                                          <Label text="Titre de la pile :">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="nomPile">
+                                             <HBox.margin>
+                                                <Insets left="20.0" top="5.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="40.0"
+                                       prefWidth="200.0">
+                                       <children>
+                                          <Label text="Description :">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="descPile">
+                                             <HBox.margin>
+                                                <Insets left="20.0" top="5.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
                                  </children>
-                              </HBox>
-                           </children>
-                           <BorderPane.margin>
-                              <Insets left="20.0" right="20.0" top="10.0" />
-                           </BorderPane.margin>
-                        </VBox>
-                     </center>
-                     <top>
-                        <Label text="Paramètre de la pile" BorderPane.alignment="CENTER">
-                           <BorderPane.margin>
-                              <Insets top="10.0" />
-                           </BorderPane.margin>
-                           <font>
-                              <Font name="System Bold" size="26.0" />
-                           </font>
-                        </Label>
-                     </top></BorderPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-      </center>
-      <top>
-         <Button onAction="#retourListe" mnemonicParsing="false" styleClass="return" stylesheets="@boutonRetour.css" text="&lt;" BorderPane.alignment="TOP_LEFT">
-            <font>
-               <Font name="Fira Mono Bold" size="12.0" />
-            </font>
-         </Button>
-      </top>
+                                 <BorderPane.margin>
+                                    <Insets left="20.0" right="20.0" top="10.0" />
+                                 </BorderPane.margin>
+                              </VBox>
+                           </center>
+                           <top>
+                              <Label text="Paramètre de la pile" BorderPane.alignment="CENTER">
+                                 <BorderPane.margin>
+                                    <Insets top="10.0" />
+                                 </BorderPane.margin>
+                                 <font>
+                                    <Font name="System Bold" size="26.0" />
+                                 </font>
+                              </Label>
+                           </top>
+                        </BorderPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </center>
+         <top>
+            <Button onAction="#retourListe" mnemonicParsing="false" styleClass="return"
+               stylesheets="@boutonRetour.css" text="&lt;" BorderPane.alignment="TOP_LEFT">
+               <font>
+                  <Font name="Fira Mono Bold" size="12.0" />
+               </font>
+            </Button>
+         </top>
       </BorderPane>
    </center>
 </BorderPane>
