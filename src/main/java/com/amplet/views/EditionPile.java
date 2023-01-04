@@ -10,6 +10,7 @@ import com.amplet.app.ViewController;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -18,6 +19,11 @@ import javafx.scene.layout.TilePane;
 public class EditionPile extends ViewController {
     private Pile pile;
     private Map<String, Carte> cartes;
+
+    @FXML
+    private TextField nomPile;
+    @FXML
+    private TextField descPile;
 
     public EditionPile(Model model) {
         super(model);
@@ -164,6 +170,25 @@ public class EditionPile extends ViewController {
         });
 
         cartes = new HashMap<>();
+
+        nomPile.setText(pile.getNom());
+        descPile.setText(pile.getDescription());
+        nomPile.textProperty().addListener((observable, oldValue, newValue) -> {
+            pile.setNom(newValue);
+            try {
+                model.update(pile);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        });
+        descPile.textProperty().addListener((observable, oldValue, newValue) -> {
+            pile.setDescription(newValue);
+            try {
+                model.update(pile);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        });
 
         update();
     }
