@@ -148,7 +148,14 @@ public class EditionCarte extends ViewController {
 
     @FXML
     public void supprimerCarte() {
-
+        try {
+            // si y'a un bug regarder ici
+            model.delete(currentCarte);
+            currentPile.removeCarte(currentCarte);
+            App.setRoot("editionPile", currentPile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void update() {
