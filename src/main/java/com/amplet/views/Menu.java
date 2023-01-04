@@ -19,17 +19,17 @@ public class Menu extends ViewController {
 
     @FXML
     private void retourAccueil() throws IOException {
-        System.out.println("Retour à l'accueil");
+        // System.out.println("Retour à l'accueil");
         App.setRoot("index");
     }
 
     @FXML
     private void test() {
-        System.out.println("Retour à l'accueil");
+        // System.out.println("Retour à l'accueil");
     }
 
     public void update() {
-        System.out.println("Menu updated");
+        // System.out.println("Menu updated");
     }
 
     @FXML
@@ -39,31 +39,31 @@ public class Menu extends ViewController {
 
     @FXML
     private void vaEditionPile() throws IOException {
-        System.out.println("Edition de pile");
+        // System.out.println("Edition de pile");
         App.setRoot("editionPile");
     }
 
     @FXML
     private void vaEditionCarte() throws IOException {
-        System.out.println("Edition de carte");
+        // System.out.println("Edition de carte");
         App.setRoot("editionCarte");
     }
 
     @FXML
     private void vaApprIg() throws IOException {
-        System.out.println("Apprentissage in game");
+        // System.out.println("Apprentissage in game");
         App.setRoot("apprIg");
     }
 
     @FXML
     private void vaApprResultat() throws IOException {
-        System.out.println("Apprentissage resultats");
+        // System.out.println("Apprentissage resultats");
         App.setRoot("apprResultat");
     }
 
     @FXML
     private void vaApprParam() throws IOException {
-        System.out.println("Apprentissage param");
+        // System.out.println("Apprentissage param");
         App.setRoot("apprParam");
     }
 }

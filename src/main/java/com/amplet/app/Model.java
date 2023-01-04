@@ -65,26 +65,31 @@ public class Model implements Observed {
     public void create(Pile pile) throws SQLException {
         this.dbManager.createPile(pile.getNom(), pile.getDescription());
         this.allPiles.add(pile);
+        notifyAllObservers();
     }
 
     public void create(Carte carte) throws SQLException {
         this.dbManager.createCarte(carte.getTitre(), carte.getQuestion(), carte.getReponse(),
                 carte.getDescription(), carte.getMetadata());
         this.allCartes.add(carte);
+        notifyAllObservers();
     }
 
     public void create(Pile pile, Carte carte) throws SQLException {
         this.dbManager.addCarteToPile(carte.getId(), pile.getId());
+        notifyAllObservers();
     }
 
     public void delete(Pile pile) throws SQLException {
         this.dbManager.deletePile(pile.getId());
         this.allPiles.remove(pile);
+        notifyAllObservers();
     }
 
     public void delete(Carte carte) throws SQLException {
         this.dbManager.deleteCarte(carte.getId());
         this.allCartes.remove(carte);
+        notifyAllObservers();
     }
 
     public void delete(Pile pile, Carte carte) throws SQLException {

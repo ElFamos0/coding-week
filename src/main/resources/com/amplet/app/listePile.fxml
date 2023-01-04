@@ -25,7 +25,7 @@
             </Label>
          </top>
          <bottom>
-            <Button mnemonicParsing="false" text="Créer une pile" BorderPane.alignment="CENTER">
+            <Button mnemonicParsing="false" text="Créer une pile" BorderPane.alignment="CENTER" onAction="#creerPile">
                <BorderPane.margin>
                   <Insets bottom="30.0" />
                </BorderPane.margin>

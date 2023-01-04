@@ -1,6 +1,7 @@
 package com.amplet.views;
 
 import java.util.ArrayList;
+import com.amplet.app.App;
 import com.amplet.app.Model;
 import com.amplet.app.Pile;
 import com.amplet.app.ViewController;
@@ -18,10 +19,29 @@ public class ListePile extends ViewController {
         private Button modifier;
         private Button supprimer;
 
-        public Row(String nom) {
-            this.nom = new Label(nom);
+        public Row(Pile pile) {
+            this.nom = new Label(pile.getNom());
             this.modifier = new Button("Modifier");
             this.supprimer = new Button("Supprimer");
+
+            // On ajoute les actions
+            this.supprimer.setOnAction(evt -> {
+                // On supprime la pile
+                try {
+                    model.delete(pile);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            });
+
+            this.modifier.setOnAction(evt -> {
+                // On switch vers la vue d'édition de pile
+                try {
+                    App.setRoot("editionPile");
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            });
         }
 
         public Label getNom() {
@@ -59,7 +79,7 @@ public class ListePile extends ViewController {
         // On ajoute les piles
         for (Pile pile : piles) {
             // Trois colonne : nom, bouton modifier, bouton supprimer
-            Row row = new Row(pile.getNom());
+            Row row = new Row(pile);
             tablePile.getItems().add(row);
         }
     }
@@ -89,5 +109,15 @@ public class ListePile extends ViewController {
 
         // On charge les piles
         update();
+    }
+
+    @FXML
+    public void creerPile() {
+        try {
+            Pile pile = new Pile("Nouvelle pile", "Description pour la pile");
+            model.create(pile);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

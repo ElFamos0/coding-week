@@ -37,10 +37,8 @@ public class Index extends ViewController {
         App.setRoot("statistiques");
     }
 
-
-
     public void update() {
-        System.out.println("Index updated");
+        // System.out.println("Index updated");
     }
 
     public void initialize() {}
