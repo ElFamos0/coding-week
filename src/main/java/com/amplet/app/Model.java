@@ -10,6 +10,7 @@ public class Model implements Observed {
     ArrayList<Carte> allCartes;
     ArrayList<Observer> observers;
     Context ctx;
+    private DatabaseManager dbManager;
 
     public Model() throws SQLException {
 
@@ -18,19 +19,20 @@ public class Model implements Observed {
         observers = new ArrayList<Observer>();
         ctx = new Context();
 
+        this.dbManager = new DatabaseManager();
+
         this.initModel();
     }
 
     void initModel() throws SQLException {
-        DatabaseManager dbManager = new DatabaseManager();
-        dbManager.getCartes()
+        this.dbManager.getCartes()
                 .forEach(dbCarte -> this.allCartes
                         .add(new Carte(dbCarte.getId(), dbCarte.getTitre(), dbCarte.getQuestion(),
                                 dbCarte.getReponse(), dbCarte.getMetadata(), dbCarte.getInfo())));
-        dbManager.getPiles().forEach(dbPile -> {
+        this.dbManager.getPiles().forEach(dbPile -> {
             Pile pile = new Pile(dbPile.getId(), dbPile.getNom(), dbPile.getDescription());
             try {
-                dbManager.getCartesFromPile(dbPile)
+                this.dbManager.getCartesFromPile(dbPile)
                         .forEach(dbCarte -> pile.addCarte(new Carte(dbCarte.getId(),
                                 dbCarte.getTitre(), dbCarte.getQuestion(), dbCarte.getReponse(),
                                 dbCarte.getMetadata(), dbCarte.getInfo())));
