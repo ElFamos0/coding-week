@@ -1,20 +1,44 @@
 package com.amplet.app;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import com.amplet.db.DatabaseManager;
+
 
 public class Model implements Observed {
-    ArrayList<Pile> allpiles;
-    ArrayList<Carte> allcartes;
+    ArrayList<Pile> allPiles;
+    ArrayList<Carte> allCartes;
     ArrayList<Observer> observers;
     Context ctx;
 
-    public Model() {
+    public Model() throws SQLException {
 
-        allpiles = new ArrayList<Pile>();
-        allcartes = new ArrayList<Carte>();
+        allPiles = new ArrayList<Pile>();
+        allCartes = new ArrayList<Carte>();
         observers = new ArrayList<Observer>();
         ctx = new Context();
 
+        this.initModel();
+    }
+
+    void initModel() throws SQLException {
+        DatabaseManager dbManager = new DatabaseManager();
+        dbManager.getCartes()
+                .forEach(dbCarte -> this.allCartes
+                        .add(new Carte(dbCarte.getId(), dbCarte.getTitre(), dbCarte.getQuestion(),
+                                dbCarte.getReponse(), dbCarte.getMetadata(), dbCarte.getInfo())));
+        dbManager.getPiles().forEach(dbPile -> {
+            Pile pile = new Pile(dbPile.getNom(), dbPile.getDescription());
+            try {
+                dbManager.getCartesFromPile(dbPile)
+                        .forEach(dbCarte -> pile.addCarte(new Carte(dbCarte.getId(),
+                                dbCarte.getTitre(), dbCarte.getQuestion(), dbCarte.getReponse(),
+                                dbCarte.getMetadata(), dbCarte.getInfo())));
+            } catch (SQLException ex) {
+                System.err.println("SQL Exception " + ex);
+            }
+            this.allPiles.add(pile);
+        });
     }
 
     public void addObserver(Observer o) {
