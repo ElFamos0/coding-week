@@ -75,6 +75,10 @@ public class Model implements Observed {
         this.allCartes.add(carte);
     }
 
+    public void create(Pile pile, Carte carte) throws SQLException {
+        this.dbManager.addCarteToPile(carte.getId(), pile.getId());
+    }
+
     public void delete(Pile pile) throws SQLException {
         this.dbManager.deletePile(pile.getId());
         this.allPiles.remove(pile);
@@ -85,11 +89,16 @@ public class Model implements Observed {
         this.allCartes.remove(carte);
     }
 
-    public void create(Pile pile, Carte carte) throws SQLException {
-        this.dbManager.addCarteToPile(carte.getId(), pile.getId());
-    }
-
     public void delete(Pile pile, Carte carte) throws SQLException {
         this.dbManager.removeCarteFromPile(carte.getId(), pile.getId());
+    }
+
+    public void update(Carte carte) throws SQLException {
+        this.dbManager.updateCarteAll(carte.getId(), carte.getTitre(), carte.getQuestion(),
+                carte.getReponse(), carte.getDescription(), carte.getMetadata());
+    }
+
+    public void update(Pile pile) throws SQLException {
+        this.dbManager.updatePileAll(pile.getId(), pile.getNom(), pile.getDescription());
     }
 }
