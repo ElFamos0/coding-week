@@ -161,8 +161,8 @@ public class DatabaseManager {
         return carte;
     }
 
-    public DbCarte updateCarteAll(int id, String titre, String question, String reponse, String info,
-            String metadata) throws SQLException {
+    public DbCarte updateCarteAll(int id, String titre, String question, String reponse,
+            String info, String metadata) throws SQLException {
         DbCarte carte = this.carteDao.queryForId(id);
         carte.setTitre(titre);
         carte.setQuestion(question);

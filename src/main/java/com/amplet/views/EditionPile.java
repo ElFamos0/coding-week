@@ -44,11 +44,16 @@ public class EditionPile extends ViewController {
     private TilePane availableCards;
     @FXML
     private TilePane chosenCards;
+    @FXML
+    private TextField searchAvailable;
+    @FXML
+    private TextField searchChosen;
 
     @Override
     public void update() {
         // Clear the list
         availableCards.getChildren().clear();
+        chosenCards.getChildren().clear();
 
         // Add the plus button
         Button button = createAddCard();
@@ -57,7 +62,9 @@ public class EditionPile extends ViewController {
         // Add in chosenCards the cards that are in the pile
         for (Carte carte : pile.getCartes()) {
             Button card = createCard(carte);
-            chosenCards.getChildren().add(card);
+            if (carte.getTitre().toLowerCase().contains(searchChosen.getText().toLowerCase())) {
+                chosenCards.getChildren().add(card);
+            }
         }
 
         // Add the cards that are not in chosenCards
@@ -74,7 +81,10 @@ public class EditionPile extends ViewController {
             }
             if (!found) {
                 Button card = createCard(carte);
-                availableCards.getChildren().add(card);
+                if (carte.getTitre().toLowerCase()
+                        .contains(searchAvailable.getText().toLowerCase())) {
+                    availableCards.getChildren().add(card);
+                }
             }
         }
     }
@@ -123,6 +133,7 @@ public class EditionPile extends ViewController {
             }
             event.setDropCompleted(success);
             event.consume();
+            update();
         });
 
         chosenCards.setOnDragOver(event -> {
@@ -167,6 +178,7 @@ public class EditionPile extends ViewController {
             }
             event.setDropCompleted(success);
             event.consume();
+            update();
         });
 
         cartes = new HashMap<>();
@@ -188,6 +200,14 @@ public class EditionPile extends ViewController {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+        });
+
+        searchAvailable.textProperty().addListener((observable, oldValue, newValue) -> {
+            update();
+        });
+
+        searchChosen.textProperty().addListener((observable, oldValue, newValue) -> {
+            update();
         });
 
         update();
