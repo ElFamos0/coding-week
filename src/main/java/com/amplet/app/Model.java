@@ -99,6 +99,8 @@ public class Model implements Observed {
 
     public void delete(Pile pile, Carte carte) throws SQLException {
         this.dbManager.removeCarteFromPile(carte.getId(), pile.getId());
+        pile.removeCarte(carte);
+        notifyAllObservers();
     }
 
     public void update(Carte carte) throws SQLException {

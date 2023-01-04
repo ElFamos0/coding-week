@@ -48,8 +48,14 @@ public class EditionPile extends ViewController {
         Button button = createAddCard();
         availableCards.getChildren().add(button);
 
-        // Add the cards that are not in chosenCards
+        // Add in chosenCards the cards that are in the pile
         for (Carte carte : pile.getCartes()) {
+            Button card = createCard(carte);
+            chosenCards.getChildren().add(card);
+        }
+
+        // Add the cards that are not in chosenCards
+        for (Carte carte : model.getAllCartes()) {
             Boolean found = false;
             for (Node node : chosenCards.getChildren()) {
                 if (node instanceof Button) {
@@ -103,6 +109,11 @@ public class EditionPile extends ViewController {
                 Button card = createCard(c);
                 availableCards.getChildren().add(card);
                 success = true;
+                try {
+                    model.delete(pile, c);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
             }
             event.setDropCompleted(success);
             event.consume();
@@ -142,6 +153,11 @@ public class EditionPile extends ViewController {
                 Button card = createCard(c);
                 chosenCards.getChildren().add(card);
                 success = true;
+                try {
+                    model.create(pile, c);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
             }
             event.setDropCompleted(success);
             event.consume();
@@ -176,7 +192,7 @@ public class EditionPile extends ViewController {
 
         card.setOnAction(event -> {
             try {
-                App.setRoot("editionCarte", c);
+                App.setRoot("editionCarte", c, pile);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -199,7 +215,6 @@ public class EditionPile extends ViewController {
             Carte c = new Carte("Nouvelle carte", "Question", "Réponse", "", "Description");
             try {
                 model.create(c);
-                model.create(pile, c);
             } catch (Exception e) {
                 e.printStackTrace();
             }
