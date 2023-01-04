@@ -1,6 +1,7 @@
 package com.amplet.views;
 
-import com.amplet.app.Observer;
+import com.amplet.app.Model;
+import com.amplet.app.ViewController;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -9,7 +10,16 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 
-public class EditionCarte implements Observer {
+public class EditionCarte extends ViewController {
+    public EditionCarte(Model model) {
+        super(model);
+        model.addObserver(this);
+    }
+
+    @Override
+    public String getName() {
+        return this.getClass().getName();
+    }
 
     @FXML
     private VBox carte;

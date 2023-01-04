@@ -1,14 +1,21 @@
 package com.amplet.views;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import com.amplet.app.App;
-import com.amplet.app.Observer;
+import com.amplet.app.Model;
+import com.amplet.app.ViewController;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 
-public class Menu implements Observer, Initializable {
+public class Menu extends ViewController {
+    public Menu(Model model) {
+        super(model);
+        model.addObserver(this);
+    }
+
+    @Override
+    public String getName() {
+        return this.getClass().getName();
+    }
 
     @FXML
     private void retourAccueil() throws IOException {
@@ -25,8 +32,8 @@ public class Menu implements Observer, Initializable {
         System.out.println("Menu updated");
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
 
     }
 

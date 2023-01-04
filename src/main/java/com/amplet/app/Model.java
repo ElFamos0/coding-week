@@ -42,6 +42,15 @@ public class Model implements Observed {
     }
 
     public void addObserver(Observer o) {
+        // Check if the class is already in the list of observers
+        for (Observer observer : observers) {
+            if (observer.getName() == o.getName()) {
+                // Remove the old observer
+                observers.remove(observer);
+                break;
+            }
+        }
+
         observers.add(o);
     }
 

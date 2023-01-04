@@ -1,10 +1,8 @@
 package com.amplet.views;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import com.amplet.app.Observer;
+import com.amplet.app.Model;
+import com.amplet.app.ViewController;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.ClipboardContent;
@@ -12,7 +10,17 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.TilePane;
 
-public class EditionPile implements Observer, Initializable {
+public class EditionPile extends ViewController {
+    public EditionPile(Model model) {
+        super(model);
+        model.addObserver(this);
+    }
+
+    @Override
+    public String getName() {
+        return this.getClass().getName();
+    }
+
     @FXML
     private TilePane availableCards;
     @FXML
@@ -23,8 +31,8 @@ public class EditionPile implements Observer, Initializable {
         System.out.println("Edition Pile updated");
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
         // Add two cards to the available cards list
         availableCards.getChildren().add(createCard(0));
         availableCards.getChildren().add(createCard(1));
