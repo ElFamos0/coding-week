@@ -8,7 +8,8 @@ public class Carte {
     String metadata;
     String description;
 
-    public Carte(int id, String titre, String question, String reponse, String metadata, String description) {
+    public Carte(int id, String titre, String question, String reponse, String metadata,
+            String description) {
         this.id = id; // c'est pour tristan il en a besoin pour drag and drop.
         this.titre = titre;
         this.reponse = reponse;
@@ -20,6 +21,10 @@ public class Carte {
 
     public String getTitre() {
         return titre;
+    }
+
+    public String getQuestion() {
+        return question;
     }
 
     public String getReponse() {
@@ -36,6 +41,10 @@ public class Carte {
 
     public void setTitre(String titre) {
         this.titre = titre;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     public void setReponse(String reponse) {
