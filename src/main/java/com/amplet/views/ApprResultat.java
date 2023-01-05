@@ -55,7 +55,7 @@ public class ApprResultat extends ViewController {
 
         }
 
-        public Label getTitreCarte() {
+        public Label getTitre() {
             return titreCarte;
         }
 
@@ -71,7 +71,7 @@ public class ApprResultat extends ViewController {
             return nbReussi;
         }
 
-        public Label getAccuracy() {
+        public Label getPrecision() {
             return accuracy;
         }
     }
@@ -119,8 +119,8 @@ public class ApprResultat extends ViewController {
 
         titreCol.setCellValueFactory(new PropertyValueFactory<>("titre"));
         reponseCol.setCellValueFactory(new PropertyValueFactory<>("reponse"));
-        joueeCol.setCellValueFactory(new PropertyValueFactory<>("nbjouee"));
-        reussiCol.setCellValueFactory(new PropertyValueFactory<>("nbreussi"));
+        joueeCol.setCellValueFactory(new PropertyValueFactory<>("nbJouee"));
+        reussiCol.setCellValueFactory(new PropertyValueFactory<>("nbReussi"));
         accuracyCol.setCellValueFactory(new PropertyValueFactory<>("precision"));
 
 
