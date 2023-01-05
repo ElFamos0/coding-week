@@ -12,6 +12,7 @@ import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
@@ -54,7 +55,7 @@ public class ApprIg extends ViewController {
 
     Context ctx;
     private VBox carteFront;
-    private VBox carteBack;
+    private BorderPane carteBack;
     private boolean isFront = true;
     private boolean isFlipping = false;
 
@@ -165,11 +166,14 @@ public class ApprIg extends ViewController {
             return;
         }
         isFlipping = true;
-        carteBack = new VBox();
-        // Vertically center a label
+        carteBack = new BorderPane();
         Label backLabel = new Label(currentCarte.getReponse());
-        backLabel.setTranslateY(-backLabel.getHeight() / 2);
-        carteBack.getChildren().addAll(backLabel);
+        backLabel.setStyle("-fx-font-size: 20px;");
+        backLabel.setStyle("-fx-font-weight: bold;");
+        carteBack.setCenter(backLabel);
+        carteBack.setPrefSize(carte.getWidth(), carte.getHeight());
+        carteBack.setMaxSize(carte.getWidth(), carte.getHeight());
+        carteBack.setMinSize(carte.getWidth(), carte.getHeight());
         if (isFront) {
             RotateTransition rotateTransition = new RotateTransition(Duration.seconds(0.5), carte);
             rotateTransition.setByAngle(90);
