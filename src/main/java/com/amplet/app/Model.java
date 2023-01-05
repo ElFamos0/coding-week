@@ -175,5 +175,27 @@ public class Model implements Observed {
         }
         return p;
     }
+
+    public void getPilesByTags(ArrayList<Pile> arrayPiles, ArrayList<String> arrayTags) {
+
+        ArrayList<Pile> piles = new ArrayList<Pile>(allPiles);
+
+        for (String tag : arrayTags) {
+            ArrayList<Pile> toRemove = new ArrayList<Pile>();
+            for (Pile p : piles) {
+                for (String pileTag : p.getTags()) {
+                    if (tag.equals(pileTag)) {
+                        arrayPiles.add(p);
+                        toRemove.add(p);
+                        break;
+                    }
+                }
+            }
+            for (Pile p : toRemove) {
+                piles.remove(p);
+            }
+        }
+
+    }
 }
 

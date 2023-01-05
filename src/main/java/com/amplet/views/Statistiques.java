@@ -2,8 +2,10 @@ package com.amplet.views;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import com.amplet.app.App;
+import com.amplet.app.Carte;
 import com.amplet.app.Model;
 import com.amplet.app.Pile;
 import com.amplet.app.ViewController;
@@ -11,6 +13,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -71,6 +74,8 @@ public class Statistiques extends ViewController {
     private Pile selectedPile;
     private ArrayList<String> selectedTagNames = new ArrayList<String>();
     private ArrayList<String> possibleTags = new ArrayList<String>();
+    private ArrayList<PieChart.Data> globalData = new ArrayList<PieChart.Data>();
+    private ArrayList<Carte> selectedCartes = new ArrayList<Carte>();
 
     @FXML
     public void initialize() {
@@ -114,8 +119,7 @@ public class Statistiques extends ViewController {
                             String selectedTag = possibleTags.get(newValue.intValue());
                             if (!(isElementInArrayList(selectedTagNames, selectedTag))) {
                                 selectedTagNames.add(selectedTag);
-                                Row row = new Row(selectedTag);
-                                tableTag.getItems().add(row);
+                                update();
                             }
 
                         }
@@ -123,7 +127,9 @@ public class Statistiques extends ViewController {
                     }
                 });
 
+
         // On charge les tags déjà sélectionnés
+        loadPieChartData();
         update();
     }
 
@@ -133,6 +139,13 @@ public class Statistiques extends ViewController {
     @FXML
     private ChoiceBox<String> choiceBoxTag;
 
+    @FXML
+    private PieChart pieChartGlobal;
+
+    @FXML
+    private Label labelGlobalCartes;
+
+
     public void update() {
 
         tableTag.getItems().clear();
@@ -141,19 +154,17 @@ public class Statistiques extends ViewController {
             Row row = new Row(s);
             tableTag.getItems().add(row);
         }
+        loadPieChartData();
 
     }
 
     public void loadPossibleTags() {
         possibleTags.clear();
-        for (int i = 0; i < 50; i++) {
-            if (!(isElementInArrayList(possibleTags, "Tag " + Integer.toString(i)))) {
-                possibleTags.add("Tag " + Integer.toString(i));
-            }
-        }
-        for (int i = 0; i < 10; i++) {
-            if (!(isElementInArrayList(possibleTags, "Tag " + Integer.toString(i)))) {
-                possibleTags.add("Tag " + Integer.toString(i));
+        for (Pile p : model.getAllPiles()) {
+            for (String tag : p.getTags()) {
+                if (!(isElementInArrayList(possibleTags, tag))) {
+                    possibleTags.add(tag);
+                }
             }
         }
 
@@ -167,5 +178,59 @@ public class Statistiques extends ViewController {
             }
         }
         return false;
+    }
+
+    public void loadPieChartData() {
+        loadSelectedCartes();
+        globalData.clear();
+        int count_tot = 0;
+        int count_win = 0;
+        for (Carte c : selectedCartes) {
+            count_tot += c.getNbJouees();
+            count_win += c.getNbSucces();
+        }
+        if (count_tot == 0) {
+            count_tot = 1;
+            count_win = 1;
+            labelGlobalCartes.setText("Aucune carte n'a été jouée dans les tags sélectionnés");
+        } else {
+            labelGlobalCartes.setText("Au total, vous avez joué " + Integer.toString(count_tot)
+                    + " cartes parmi les tags sélectionnés !");
+        }
+        PieChart.Data datawin = (new PieChart.Data(
+                "Cartes Réussies " + Integer.toString(count_win * 100 / count_tot) + " %",
+                count_win));
+        PieChart.Data datalose = (new PieChart.Data("Cartes Ratées "
+                + Integer.toString((count_tot - count_win) * 100 / count_tot) + " %",
+                count_tot - count_win));
+
+
+        globalData.add(datawin);
+        globalData.add(datalose);
+        pieChartGlobal.setData(FXCollections.observableArrayList(globalData));
+        datalose.getNode().setStyle("-fx-pie-color: #e41515;");
+        datawin.getNode().setStyle("-fx-pie-color: #67d037;");
+    }
+
+    public void loadSelectedCartes() {
+
+        selectedCartes.clear();
+        if (selectedTagNames.size() > 0) {
+            ArrayList<Pile> currentSelectedPiles = new ArrayList<Pile>();
+            model.getPilesByTags(currentSelectedPiles, selectedTagNames);
+
+            HashMap<Integer, Boolean> mapCartes = new HashMap<Integer, Boolean>();
+            for (Pile p : currentSelectedPiles) {
+                for (Carte c : p.getCartes()) {
+                    if (!(mapCartes.containsKey(c.getId()))) {
+                        mapCartes.put(c.getId(), true);
+                        selectedCartes.add(c);
+                    }
+                }
+            }
+        } else {
+            selectedCartes = new ArrayList<Carte>(model.getAllCartes());
+        }
+
     }
 }

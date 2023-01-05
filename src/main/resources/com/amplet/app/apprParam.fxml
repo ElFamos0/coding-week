@@ -154,7 +154,7 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="choicePile" prefWidth="150.0">
+                  <ChoiceBox fx:id="choicePile" prefWidth="150.0" styleClass="choiceboxbase" stylesheets="@choiceboxbase.css">
                      <HBox.margin>
                         <Insets right="15.0" />
                      </HBox.margin>
