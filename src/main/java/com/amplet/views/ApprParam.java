@@ -1,6 +1,7 @@
 package com.amplet.views;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import com.amplet.app.App;
 import com.amplet.app.Carte;
@@ -298,6 +299,15 @@ public class ApprParam extends ViewController {
             ctx.resetSelectedCartes();
             ctx.resetSelectedCartesPileId();
             for (Pile p : listeSelectedPiles) {
+
+                if (modeDeJeu == "Evaluation") {
+                    p.setNbJouees(p.getNbJouees() + 1);
+                    try {
+                        model.getDbManager().incrementNbJouees(p.getId());
+                    } catch (SQLException e) {
+                    }
+                }
+
                 for (Carte c : p.getCartes()) {
                     // On vérifie que la carte n'est pas déjà dans la liste
                     Boolean isInList = false;
