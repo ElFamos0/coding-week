@@ -73,7 +73,7 @@ public class ApprIg extends ViewController {
         this.isRandomSelected = ctx.isRandomSelected();
         this.repetitionProbability = ctx.getRepetitionProbability();
         this.isFavorisedFailedSelected = ctx.isFavorisedFailedSelected();
-        this.tempsreponse = ctx.getTempsReponse();
+        this.tempsreponse = ctx.getTempsReponse() + 1;
 
     }
 
@@ -112,6 +112,7 @@ public class ApprIg extends ViewController {
                     if (isFront) {
                         flipCard();
                     }
+                    Platform.runLater(() -> timertext.setText("Temps : " + interval));
                     boutonvalider.setDisable(false);
                     boutonrefuser.setDisable(false);
                     timer.cancel();
@@ -173,6 +174,7 @@ public class ApprIg extends ViewController {
     public void clickcarte() {
         if (isFront && interval >= 1) {
             flipCard();
+            interval = 0;
         }
     }
 
