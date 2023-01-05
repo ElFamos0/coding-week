@@ -35,7 +35,7 @@
          <center>
             <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <top>
-                  <ProgressBar prefHeight="20.0" prefWidth="340.0" progress="0.0" BorderPane.alignment="CENTER" />
+                  <ProgressBar fx:id="progress" prefHeight="20.0" prefWidth="340.0" progress="0.0" BorderPane.alignment="CENTER" />
                </top>
                <center>
                   <VBox fx:id="carte" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#clickcarte" prefHeight="255.0" prefWidth="512.0" style="-fx-background-color: #efefef; -fx-background-radius: 10; -fx-border-width: 2; -fx-border-radius: 10; -fx-border-color: #a3a3a3;">

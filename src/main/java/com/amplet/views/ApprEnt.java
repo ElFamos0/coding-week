@@ -12,6 +12,7 @@ import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -40,6 +41,8 @@ public class ApprEnt extends ViewController {
     private Button boutonrefuser;
     @FXML
     private Button boutonvalider;
+    @FXML
+    private ProgressBar progress;
 
 
     private ArrayList<Carte> cartesaproposer;
@@ -71,6 +74,7 @@ public class ApprEnt extends ViewController {
         this.isRandomSelected = ctx.isRandomSelected();
         this.repetitionProbability = ctx.getRepetitionProbability();
         this.isFavorisedFailedSelected = ctx.isFavorisedFailedSelected();
+
     }
 
     @Override
@@ -85,8 +89,9 @@ public class ApprEnt extends ViewController {
         carteFront.getChildren().addAll(carte.getChildren());
         carte.getChildren().clear();
         carte.getChildren().addAll(carteFront);
-        nbdecarte.setText("Nombre de cartes : 0/" + ctx.getNbCartes());
+        nbdecarte.setText("Nombre de cartes : 0/" + cartesaproposer.size());
         dealcard();
+        timertext.setText("MODE APPRENTISSAGE");
     }
 
 
@@ -219,7 +224,10 @@ public class ApprEnt extends ViewController {
     public void update() {
         titrecarte.setText(currentCarte.getTitre());
         question.setText(currentCarte.getQuestion());
-        nbdecarte.setText("Nombre de cartes : " + cartesvues + "/" + ctx.getNbCartes());
+        progress.setProgress(
+                (double) cartesvues / (double) (cartesvues + cartesaproposer.size() + 1));
+        nbdecarte.setText("Nombre de cartes : " + cartesvues + "/"
+                + (cartesvues + cartesaproposer.size() + 1));
     }
 
 }

@@ -10,6 +10,7 @@ import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -37,6 +38,9 @@ public class ApprIg extends ViewController {
     private TextField reponseuser;
     @FXML
     private Button textvalider;
+
+    @FXML
+    private ProgressBar progress;
 
     private ArrayList<Carte> cartesaproposer;
     private ArrayList<Carte> cartesapprouvees;
@@ -82,7 +86,7 @@ public class ApprIg extends ViewController {
         carteFront.getChildren().addAll(carte.getChildren());
         carte.getChildren().clear();
         carte.getChildren().addAll(carteFront);
-        nbdecarte.setText("Nombre de cartes : 0/" + ctx.getNbCartes());
+        nbdecarte.setText("Nombre de cartes : 0/" + cartesaproposer.size() + 1);
         dealcard();
         setTimer();
     }
@@ -269,7 +273,9 @@ public class ApprIg extends ViewController {
     public void update() {
         titrecarte.setText(currentCarte.getTitre());
         question.setText(currentCarte.getQuestion());
-        nbdecarte.setText("Nombre de cartes : " + cartesvues + "/" + ctx.getNbCartes());
+        nbdecarte.setText("Nombre de cartes : " + cartesvues + "/"
+                + (cartesvues + cartesaproposer.size() + 1));
+        progress.setProgress((double) cartesvues / (cartesvues + cartesaproposer.size() + 1));
     }
 
 }

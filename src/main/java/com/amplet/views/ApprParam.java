@@ -208,7 +208,7 @@ public class ApprParam extends ViewController {
             }
 
             System.out.println("Apprentissage in game");
-            App.setRoot("apprIg");
+            App.setRoot("apprEnt");
 
         }
     }
