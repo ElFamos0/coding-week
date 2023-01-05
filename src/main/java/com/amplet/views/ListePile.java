@@ -10,17 +10,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ListePile extends ViewController {
 
     public class Row {
-        private Label nom;
+        private TextField nom;
         private Button modifier;
         private Button supprimer;
 
         public Row(Pile pile) {
-            this.nom = new Label(pile.getNom());
+            this.nom = new TextField(pile.getNom());
             this.modifier = new Button("Modifier");
             this.supprimer = new Button("Supprimer");
 
@@ -42,9 +43,23 @@ public class ListePile extends ViewController {
                     System.out.println(e.getMessage());
                 }
             });
+
+            this.nom.setOnKeyReleased(evt -> {
+                // On modifie le nom de la pile
+                try {
+                    pile.setNom(this.nom.getText());
+                    model.update(pile);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            });
+
+            // On modifie le style du text field pour qu'il ressemble à un label
+            this.nom.setStyle(
+                    "-fx-background-color: transparent; -fx-border-color: transparent; -fx-text-fill: black;");
         }
 
-        public Label getNom() {
+        public TextField getNom() {
             return nom;
         }
 
@@ -87,7 +102,7 @@ public class ListePile extends ViewController {
     @FXML
     public void initialize() {
         // On charge les colonnes
-        TableColumn<Row, Label> nomCol = new TableColumn<>("Nom");
+        TableColumn<Row, TextField> nomCol = new TableColumn<>("Nom");
         TableColumn<Row, Button> modifierCol = new TableColumn<>("Modifier");
         TableColumn<Row, Button> supprimerCol = new TableColumn<>("Supprimer");
 
