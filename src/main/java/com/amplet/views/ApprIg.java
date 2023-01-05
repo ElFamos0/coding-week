@@ -73,6 +73,7 @@ public class ApprIg extends ViewController {
         this.repetitionProbability = ctx.getRepetitionProbability();
         this.isFavorisedFailedSelected = ctx.isFavorisedFailedSelected();
         this.tempsreponse = ctx.getTempsReponse() + 1;
+        ctx.resetPlayed();
     }
 
     @Override
@@ -145,6 +146,7 @@ public class ApprIg extends ViewController {
 
         System.out.println("valider");
         cartesapprouvees.add(currentCarte);
+        ctx.addPlayed(currentCarte, true);
         cartesvues++;
         if (cartesaproposer.size() == 0) {
             try {
@@ -167,6 +169,7 @@ public class ApprIg extends ViewController {
                 update();
                 resetTimer();
             }
+            lockvalider = false;
         }
     }
 
@@ -175,6 +178,7 @@ public class ApprIg extends ViewController {
         cartesapprouvees.add(currentCarte);
         cartesvues++;
         // take a random number between 0 and 100
+        ctx.addPlayed(currentCarte, false);
         int random = (int) (Math.random() * 100);
         if (random < repetitionProbability) {
             cartesaproposer.add(currentCarte);
@@ -200,6 +204,7 @@ public class ApprIg extends ViewController {
                 update();
                 resetTimer();
             }
+            lockvalider = false;
         }
     }
 
@@ -217,7 +222,6 @@ public class ApprIg extends ViewController {
         } else {
             refuser();
         }
-        lockvalider = false;
     }
 
     // fonction d'animation de résolution de la carte.
@@ -280,8 +284,8 @@ public class ApprIg extends ViewController {
     public void update() {
         titrecarte.setText(currentCarte.getTitre());
         question.setText(currentCarte.getQuestion());
-        nbdecarte.setText("Nombre de cartes : " + cartesvues + "/"
-                + (cartesvues + cartesaproposer.size() + 1));
+        nbdecarte.setText(
+                "Nombre de cartes : " + cartesvues + "/" + (cartesvues + cartesaproposer.size()));
         progress.setProgress((double) cartesvues / (cartesvues + cartesaproposer.size()));
     }
 
