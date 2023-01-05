@@ -12,6 +12,7 @@ import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.transform.Rotate;
@@ -37,6 +38,10 @@ public class ApprIg extends ViewController {
     private Button boutonrefuser;
     @FXML
     private Button boutonvalider;
+    @FXML
+    private TextField reponseuser;
+    @FXML
+    private Button textvalider;
 
     private ArrayList<Carte> cartesaproposer;
     private ArrayList<Carte> cartesapprouvees;
@@ -45,7 +50,7 @@ public class ApprIg extends ViewController {
     int cartesrestantes = 1;
     int cartesvues = 0;
     boolean isRandomSelected;
-    boolean modeEcriture;
+    boolean modeEcriture = false;
     int repetitionProbability;
     boolean isFavorisedFailedSelected;
     int tempsreponse;
@@ -69,6 +74,7 @@ public class ApprIg extends ViewController {
         this.repetitionProbability = ctx.getRepetitionProbability();
         this.isFavorisedFailedSelected = ctx.isFavorisedFailedSelected();
         this.tempsreponse = ctx.getTempsReponse();
+
     }
 
     @Override
@@ -85,6 +91,10 @@ public class ApprIg extends ViewController {
         carte.getChildren().addAll(carteFront);
         nbdecarte.setText("Nombre de cartes : " + ctx.getNbCartes());
         dealcard();
+        if (!modeEcriture) {
+            reponseuser.setVisible(false);
+            textvalider.setVisible(false);
+        }
     }
 
 
@@ -99,7 +109,9 @@ public class ApprIg extends ViewController {
                     Platform.runLater(() -> timertext.setText("Temps : " + interval));
                     interval--;
                 } else {
-                    flipCard();
+                    if (isFront) {
+                        flipCard();
+                    }
                     boutonvalider.setDisable(false);
                     boutonrefuser.setDisable(false);
                     timer.cancel();
@@ -154,6 +166,13 @@ public class ApprIg extends ViewController {
             dealcard();
             flipCard();
             update();
+        }
+    }
+
+    @FXML
+    public void clickcarte() {
+        if (isFront && interval >= 1) {
+            flipCard();
         }
     }
 

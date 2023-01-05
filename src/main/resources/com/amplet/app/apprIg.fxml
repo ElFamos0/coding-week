@@ -40,7 +40,7 @@
                   <ProgressBar prefHeight="20.0" prefWidth="340.0" progress="0.0" BorderPane.alignment="CENTER" />
                </top>
                <center>
-                  <VBox fx:id="carte" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="255.0" prefWidth="512.0" style="-fx-background-color: #efefef; -fx-background-radius: 10; -fx-border-width: 2; -fx-border-radius: 10; -fx-border-color: #a3a3a3;">
+                  <VBox fx:id="carte" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#clickcarte" prefHeight="255.0" prefWidth="512.0" style="-fx-background-color: #efefef; -fx-background-radius: 10; -fx-border-width: 2; -fx-border-radius: 10; -fx-border-color: #a3a3a3;">
                      <VBox.margin>
                         <Insets bottom="15.0" top="15.0" />
                      </VBox.margin>
@@ -85,8 +85,8 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="49.0" prefWidth="640.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="reponseuser" promptText="Entre ta réponse" />
-            <Button fx:id="textvalider" mnemonicParsing="false" text="Valider" />
+            <TextField fx:id="reponseuser" editable="false" promptText="Entre ta réponse" />
+            <Button fx:id="textvalider" disable="true" mnemonicParsing="false" text="Valider" />
          </children>
       </HBox>
    </bottom>
