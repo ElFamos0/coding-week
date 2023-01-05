@@ -3,27 +3,32 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.ApprParam">
+<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.ApprParam">
    <top>
       <fx:include fx:id="menu" layoutX="-50.0" source="menu.fxml" />
    </top>
    <center>
-      <VBox alignment="CENTER" fillWidth="false" prefHeight="451.0" prefWidth="640.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" fillWidth="false" prefHeight="451.0" prefWidth="640.0"
+         BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="30.0" prefWidth="800.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#retourAccueil" styleClass="return" stylesheets="@boutonRetour.css" text="&lt;" BorderPane.alignment="TOP_LEFT">
+                  <Button mnemonicParsing="false" onAction="#retourAccueil" styleClass="return"
+                     stylesheets="@boutonRetour.css" text="&lt;" BorderPane.alignment="TOP_LEFT">
                      <font>
                         <Font name="Fira Mono Bold" size="12.0" />
                      </font>
@@ -38,6 +43,29 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Mode de jeu :">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <RadioButton fx:id="radioApprentissage" mnemonicParsing="false"
+                     text="Apprentissage">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="radioEval" mnemonicParsing="false" text="Evaluation">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </RadioButton>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="20.0" />
+               </VBox.margin>
+            </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Nombre de cartes :">
@@ -59,13 +87,11 @@
                      </font>
                   </Label>
                </children>
-               <VBox.margin>
-                  <Insets bottom="5.0" top="20.0" />
-               </VBox.margin>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Temps de réponse par carte (s) :">
+                  <Label alignment="CENTER" contentDisplay="CENTER"
+                     text="Temps de réponse par carte (s) :">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -90,7 +116,8 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
                <children>
-                  <CheckBox fx:id="checkboxRandom" mnemonicParsing="false" onAction="#switchRandom" text="Cartes aléatoires">
+                  <CheckBox fx:id="checkboxRandom" mnemonicParsing="false" onAction="#switchRandom"
+                     text="Cartes aléatoires">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -98,7 +125,8 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </CheckBox>
-                  <CheckBox fx:id="checkboxRepetion" mnemonicParsing="false" onAction="#switchRepetition" text="Favoriser la répétition des cartes ratées">
+                  <CheckBox fx:id="checkboxRepetion" mnemonicParsing="false"
+                     onAction="#switchRepetition" text="Favoriser la répétition des cartes ratées">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -113,7 +141,8 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Probabilité de répétition :">
+                  <Label alignment="CENTER" contentDisplay="CENTER"
+                     text="Probabilité de répétition :">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -121,7 +150,8 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Label>
-                  <Slider fx:id="sliderRepetition" blockIncrement="5.0" majorTickUnit="5.0" minorTickCount="0" snapToTicks="true">
+                  <Slider fx:id="sliderRepetition" blockIncrement="5.0" majorTickUnit="5.0"
+                     minorTickCount="0" snapToTicks="true">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
@@ -131,12 +161,15 @@
                         <Insets right="15.0" />
                      </HBox.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" style="-fx-background-color: #e2e2e2; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #838383;" text=" ? ">
+                  <Label alignment="CENTER" contentDisplay="CENTER"
+                     style="-fx-background-color: #e2e2e2; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #838383;"
+                     text=" ? ">
                      <font>
                         <Font size="18.0" />
                      </font>
                      <tooltip>
-                        <Tooltip text="Détermine la probabilité qu'a une carté déjà passée de réapparaître à nouveau." />
+                        <Tooltip
+                           text="Détermine la probabilité qu'a une carté déjà passée de réapparaître à nouveau." />
                      </tooltip>
                   </Label>
                </children>
@@ -144,34 +177,34 @@
                   <Insets bottom="5.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="780.0">
-               <children>
-                  <Label text="Sélectionner une pile :">
-                     <HBox.margin>
-                        <Insets right="15.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <ChoiceBox fx:id="choicePile" prefWidth="150.0" styleClass="choiceboxbase" stylesheets="@choiceboxbase.css">
-                     <HBox.margin>
-                        <Insets right="15.0" />
-                     </HBox.margin>
-                  </ChoiceBox>
-               </children>
-               <opaqueInsets>
-                  <Insets bottom="10.0" />
-               </opaqueInsets>
+            <BorderPane prefWidth="150.0"
+               style="-fx-background-color: #dedede; -fx-background-radius: 10;"
+               BorderPane.alignment="CENTER">
+               <right>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" BorderPane.alignment="CENTER">
+                     <image>
+                        <Image url="@assets/search.png" />
+                     </image>
+                  </ImageView>
+               </right>
+               <center>
+                  <TextField fx:id="recherchePile" prefWidth="50.0"
+                     style="-fx-background-color: #0000; -fx-background-radius: 15;"
+                     BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets />
+                     </BorderPane.margin>
+                  </TextField>
+               </center>
+               <BorderPane.margin>
+                  <Insets top="5.0" />
+               </BorderPane.margin>
+            </BorderPane>
+            <TableView fx:id="tablePile" prefHeight="200.0" prefWidth="500.0">
                <VBox.margin>
-                  <Insets bottom="5.0" />
+                  <Insets top="10.0" />
                </VBox.margin>
-            </HBox>
-            <ScrollPane prefHeight="200.0" prefWidth="400.0">
-               <content>
-                  <VBox fx:id="vboxPile" prefHeight="200.0" prefWidth="390.0" spacing="10.0" />
-               </content>
-            </ScrollPane>
+            </TableView>
             <Label fx:id="warningPiles" textFill="#e41515">
                <font>
                   <Font size="16.0" />

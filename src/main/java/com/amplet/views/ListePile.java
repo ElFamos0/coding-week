@@ -43,13 +43,15 @@ public class ListePile extends ViewController {
                 }
             });
 
-            this.nom.setOnKeyReleased(evt -> {
-                // On modifie le nom de la pile
-                try {
-                    pile.setNom(this.nom.getText());
-                    model.update(pile);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
+            // Quand le texte n'est plus en focus, on sauvegarde
+            this.nom.focusedProperty().addListener((obs, oldVal, newVal) -> {
+                if (!newVal) {
+                    try {
+                        pile.setNom(this.nom.getText());
+                        model.update(pile);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
             });
 

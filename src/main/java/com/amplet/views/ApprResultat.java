@@ -1,10 +1,12 @@
 package com.amplet.views;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import com.amplet.app.App;
 import com.amplet.app.Carte;
 import com.amplet.app.Model;
+import com.amplet.app.Pile;
 import com.amplet.app.ViewController;
 import com.amplet.db.DatabaseManager;
 import javafx.fxml.FXML;
@@ -55,7 +57,7 @@ public class ApprResultat extends ViewController {
 
         }
 
-        public Label getTitreCarte() {
+        public Label getTitre() {
             return titreCarte;
         }
 
@@ -71,7 +73,7 @@ public class ApprResultat extends ViewController {
             return nbReussi;
         }
 
-        public Label getAccuracy() {
+        public Label getPrecision() {
             return accuracy;
         }
     }
@@ -100,6 +102,8 @@ public class ApprResultat extends ViewController {
 
         ArrayList<Carte> playedCartes = model.getCtx().getPlayedCartes();
         ArrayList<Boolean> playedReponses = model.getCtx().getPlayedReponse();
+        ArrayList<Integer> playedCartesPileId = model.getCtx().getPlayedCartesPileId();
+
 
         if (playedCartes == null) {
             playedCartes = new ArrayList<Carte>();
@@ -119,8 +123,8 @@ public class ApprResultat extends ViewController {
 
         titreCol.setCellValueFactory(new PropertyValueFactory<>("titre"));
         reponseCol.setCellValueFactory(new PropertyValueFactory<>("reponse"));
-        joueeCol.setCellValueFactory(new PropertyValueFactory<>("nbjouee"));
-        reussiCol.setCellValueFactory(new PropertyValueFactory<>("nbreussi"));
+        joueeCol.setCellValueFactory(new PropertyValueFactory<>("nbJouee"));
+        reussiCol.setCellValueFactory(new PropertyValueFactory<>("nbReussi"));
         accuracyCol.setCellValueFactory(new PropertyValueFactory<>("precision"));
 
 
@@ -145,12 +149,21 @@ public class ApprResultat extends ViewController {
         reussiCol.setStyle("-fx-alignment: CENTER;");
         accuracyCol.setStyle("-fx-alignment: CENTER;");
 
+
+
         for (int i = 0; i < playedCartes.size(); i++) {
             Carte currentCarte = playedCartes.get(i);
             Boolean currentReponse = playedReponses.get(i);
+            int currentPileId = playedCartesPileId.get(i);
+            Pile pile = model.getPileById(currentPileId);
             int currentCarteId = currentCarte.getId();
             Row row = new Row(currentCarte, currentReponse);
             currentCarte.setNbJouees(currentCarte.getNbJouees() + 1);
+            try {
+                model.update(currentCarte, pile, currentReponse);
+            } catch (SQLException e) {
+
+            }
             if (currentReponse) {
                 currentCarte.setNbSucces(currentCarte.getNbSucces() + 1);
             }
