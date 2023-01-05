@@ -13,14 +13,18 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class Statistiques extends ViewController {
     public Statistiques(Model model) {
@@ -81,7 +85,28 @@ public class Statistiques extends ViewController {
     boolean isOnGlobal = true;
 
     @FXML
+    private Label labelTooltip;
+
+    final Tooltip customTooltip = new Tooltip();
+
+    @FXML
+    public void showToolTip() {
+
+        Point2D p = labelTooltip.localToScene(0.0, 0.0);
+        Stage stage = (Stage) labelTooltip.getScene().getWindow();
+        customTooltip.show(stage, stage.getX() + labelTooltip.getScene().getX() + p.getX(),
+                stage.getY() + labelTooltip.getScene().getY() + p.getY());
+    }
+
+    @FXML
+    public void hidetoolTip() {
+        customTooltip.hide();
+    }
+
+    @FXML
     public void initialize() {
+        customTooltip.setText(
+                "Si aucun tag n'est choisi, alors toutes les piles sont sélectionnées.\nSinon, toutes les piles possédant tous les tags de la liste seront prises en compte.");
         isOnGlobal = true;
         selectedPile = null;
         this.piles = model.getAllPiles();
@@ -175,6 +200,9 @@ public class Statistiques extends ViewController {
     private Tab tabPile;
 
     @FXML
+    private TabPane tabPane;
+
+    @FXML
     public void viewGlobal() {
         isOnGlobal = true;
         update();
@@ -242,6 +270,7 @@ public class Statistiques extends ViewController {
     public void loadPieChartData() {
         pieChartGlobal.getData().removeAll(globalData);
         globalData.clear();
+        loadSelectedCartes();
         int count_tot = 0;
         int count_win = 0;
         for (Carte c : selectedCartes) {
@@ -267,11 +296,11 @@ public class Statistiques extends ViewController {
         globalData.add(datawin);
         globalData.add(datalose);
         pieChartGlobal.setData(FXCollections.observableArrayList(globalData));
+        tabGlobal.getContent().requestFocus();
 
     }
 
     public void loadSelectedCartes() {
-
         selectedCartes.clear();
         if (selectedTagNames.size() > 0) {
             ArrayList<Pile> currentSelectedPiles = new ArrayList<Pile>();
@@ -288,6 +317,7 @@ public class Statistiques extends ViewController {
             }
         } else {
             selectedCartes = new ArrayList<Carte>(model.getAllCartes());
+
         }
 
     }
@@ -320,6 +350,7 @@ public class Statistiques extends ViewController {
         pileData.add(datawin);
         pileData.add(datalose);
         pieChartPile.setData(FXCollections.observableArrayList(pileData));
+        tabPile.getContent().requestFocus();
 
     }
 

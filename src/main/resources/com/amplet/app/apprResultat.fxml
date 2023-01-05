@@ -38,15 +38,10 @@
                         </BorderPane.margin>
                      </TableView>
                   </VBox>
-                  <Label fx:id="labelGlobalCartes" text="Au total, vous avez joué 0 cartes parmi les piles sélectionnées !&#10;">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
+                  <Button mnemonicParsing="false" onAction="#switchToIndex" prefHeight="35.0" prefWidth="200.0" style="-fx-background-radius: 20;" styleClass="btn" stylesheets="@boutonIndex.css" text="Retour à l'Accueil" textFill="WHITE">
                      <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Button mnemonicParsing="false" onAction="#switchToIndex" prefHeight="35.0" prefWidth="200.0" style="-fx-background-radius: 20;" styleClass="btn" stylesheets="@boutonIndex.css" text="Retour à l'Accueil" textFill="WHITE" />
+                        <Insets bottom="20.0" top="20.0" />
+                     </VBox.margin></Button>
                </children>
             </VBox>
          </content>

@@ -9,10 +9,12 @@ import com.amplet.app.Model;
 import com.amplet.app.Pile;
 import com.amplet.app.ViewController;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class ApprParam extends ViewController {
 
@@ -80,6 +82,8 @@ public class ApprParam extends ViewController {
 
     @FXML
     public void initialize() {
+        customTooltip.setText(
+                "Détermine la probabilité qu'a une carté déjà passée de réapparaître à nouveau.");
         // On charge les colonnes
         TableColumn<Row, CheckBox> checkBoxCol = new TableColumn<>("Active");
         TableColumn<Row, TextField> titreCol = new TableColumn<>("Nom");
@@ -173,6 +177,28 @@ public class ApprParam extends ViewController {
 
     @FXML
     private RadioButton radioEval;
+
+
+    @FXML
+    private Label labelTooltip;
+
+    final Tooltip customTooltip = new Tooltip();
+
+
+    @FXML
+    public void showToolTip() {
+
+        Point2D p = labelTooltip.localToScene(0.0, 0.0);
+        Stage stage = (Stage) labelTooltip.getScene().getWindow();
+        customTooltip.show(stage, stage.getX() + labelTooltip.getScene().getX() + p.getX(),
+                stage.getY() + labelTooltip.getScene().getY() + p.getY());
+    }
+
+
+    @FXML
+    public void hidetoolTip() {
+        customTooltip.hide();
+    }
 
     @FXML
     public void switchRandom() {

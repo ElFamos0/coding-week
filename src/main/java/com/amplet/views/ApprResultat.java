@@ -10,11 +10,14 @@ import com.amplet.app.Pile;
 import com.amplet.app.ViewController;
 import com.amplet.db.DatabaseManager;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class ApprResultat extends ViewController {
 
@@ -97,6 +100,7 @@ public class ApprResultat extends ViewController {
     @FXML
     private TableView<Row> tableResult;
 
+
     @FXML
     public void initialize() {
 
@@ -156,7 +160,7 @@ public class ApprResultat extends ViewController {
             Boolean currentReponse = playedReponses.get(i);
             int currentPileId = playedCartesPileId.get(i);
             Pile pile = model.getPileById(currentPileId);
-            int currentCarteId = currentCarte.getId();
+
             Row row = new Row(currentCarte, currentReponse);
             currentCarte.setNbJouees(currentCarte.getNbJouees() + 1);
             try {
@@ -169,6 +173,8 @@ public class ApprResultat extends ViewController {
             }
             tableResult.getItems().add(row);
         }
+
+        System.out.println(playedCartes.size());
 
     }
 

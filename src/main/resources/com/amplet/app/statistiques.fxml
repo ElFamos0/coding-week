@@ -11,7 +11,6 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -33,7 +32,7 @@
                   </Button>
                </children>
             </HBox>
-            <TabPane prefHeight="1000.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="tabPane" prefHeight="1000.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
                <tabs>
                   <Tab fx:id="tabGlobal" onSelectionChanged="#viewGlobal" text="Globales">
                      <content>
@@ -68,13 +67,10 @@
                                                 </ContextMenu>
                                              </contextMenu>
                                           </ChoiceBox>
-                                          <Label alignment="CENTER" contentDisplay="CENTER" style="-fx-background-color: #e2e2e2; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #838383;" text=" ? ">
+                                          <Label fx:id="labelTooltip" alignment="CENTER" contentDisplay="CENTER" onMouseEntered="#showToolTip" onMouseExited="#hidetoolTip" style="-fx-background-color: #e2e2e2; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #838383;" text=" ? ">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
-                                             <tooltip>
-                                                <Tooltip text="Si aucun tag n'est choisi, alors toutes les piles sont sélectionnées.&#10;Sinon, toutes les piles possédant tous les tags de la liste seront prises en compte." />
-                                             </tooltip>
                                           </Label>
                                        </children>
                                     </HBox>
@@ -98,7 +94,7 @@
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <PieChart fx:id="pieChartGlobal" clockwise="false" labelLineLength="0.0" labelsVisible="false" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="300.0" styleClass="pieChart" stylesheets="@pieChart.css" title="Taux de réussite sur les tags sélectionnés :">
+                                    <PieChart fx:id="pieChartGlobal" clockwise="false" labelLineLength="0.0" labelsVisible="false" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="300.0" startAngle="50.0" styleClass="pieChart" stylesheets="@pieChart.css" title="Taux de réussite sur les tags sélectionnés :">
                                        <VBox.margin>
                                           <Insets top="20.0" />
                                        </VBox.margin>
@@ -145,7 +141,7 @@
                                           <Insets bottom="20.0" top="20.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <PieChart fx:id="pieChartPile" clockwise="false" labelsVisible="false" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="300.0" styleClass="pieChart" stylesheets="@pieChart.css" title="Taux de réussite sur la pile :" />
+                                    <PieChart fx:id="pieChartPile" animated="false" clockwise="false" labelsVisible="false" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="300.0" startAngle="50.0" styleClass="pieChart" stylesheets="@pieChart.css" title="Taux de réussite sur la pile :" />
                                  </children>
                               </VBox>
                            </content>
