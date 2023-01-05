@@ -7,8 +7,8 @@ public class Carte {
     private String reponse;
     private String metadata;
     private String description;
-    private int nbJouees = 0;
-    private int nbSucces = 0;
+    private transient int nbJouees = 0;
+    private transient int nbSucces = 0;
 
     public Carte(Integer id, String titre, String question, String reponse, String metadata,
             String description, int nbJouees, int nbSucces) {
