@@ -1,6 +1,7 @@
 package com.amplet.db;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
@@ -16,6 +17,7 @@ public class DatabaseManager {
     private Dao<DbCarte, Integer> carteDao;
     private Dao<DbPile, Integer> pileDao;
     private Dao<PileDeCartes, Integer> pileDeCartesDao;
+    private Dao<DbTag, Integer> tagDao;
 
     public DatabaseManager() throws SQLException {
         String tempDir = System.getProperty("java.io.tmpdir");
@@ -24,10 +26,12 @@ public class DatabaseManager {
         TableUtils.createTableIfNotExists(this.connectionSource, DbCarte.class);
         TableUtils.createTableIfNotExists(this.connectionSource, DbPile.class);
         TableUtils.createTableIfNotExists(this.connectionSource, PileDeCartes.class);
+        TableUtils.createTableIfNotExists(this.connectionSource, DbTag.class);
 
         this.carteDao = DaoManager.createDao(this.connectionSource, DbCarte.class);
         this.pileDao = DaoManager.createDao(this.connectionSource, DbPile.class);
         this.pileDeCartesDao = DaoManager.createDao(this.connectionSource, PileDeCartes.class);
+        this.tagDao = DaoManager.createDao(this.connectionSource, DbTag.class);
     }
 
     public DatabaseManager(String dbName) throws SQLException {
@@ -37,14 +41,17 @@ public class DatabaseManager {
         TableUtils.dropTable(connectionSource, DbCarte.class, true);
         TableUtils.dropTable(connectionSource, DbPile.class, true);
         TableUtils.dropTable(connectionSource, PileDeCartes.class, true);
+        TableUtils.dropTable(connectionSource, DbTag.class, true);
 
         TableUtils.createTable(this.connectionSource, DbCarte.class);
         TableUtils.createTable(this.connectionSource, DbPile.class);
         TableUtils.createTable(this.connectionSource, PileDeCartes.class);
+        TableUtils.createTable(this.connectionSource, DbTag.class);
 
         this.carteDao = DaoManager.createDao(this.connectionSource, DbCarte.class);
         this.pileDao = DaoManager.createDao(this.connectionSource, DbPile.class);
         this.pileDeCartesDao = DaoManager.createDao(this.connectionSource, PileDeCartes.class);
+        this.tagDao = DaoManager.createDao(this.connectionSource, DbTag.class);
     }
 
     public void closeConnection() {
@@ -72,6 +79,13 @@ public class DatabaseManager {
         PileDeCartes pileDeCartes = new PileDeCartes(carte, pile);
         this.pileDeCartesDao.create(pileDeCartes);
         return pileDeCartes;
+    }
+
+    public DbTag addTagToPile(int pileId, String tag) throws SQLException {
+        DbPile pile = this.pileDao.queryForId(pileId);
+        DbTag dbTag = new DbTag(pile, tag);
+        this.tagDao.create(dbTag);
+        return dbTag;
     }
 
     // READ
@@ -112,6 +126,21 @@ public class DatabaseManager {
         return this.carteDao.query(preparedCarteQb);
     }
 
+    public List<String> getTagsFromPile(DbPile pile) throws SQLException {
+        QueryBuilder<DbTag, Integer> tagQb = this.tagDao.queryBuilder();
+        tagQb.selectColumns(DbTag.TAG_FIELD_NAME);
+        SelectArg pileSelectArg = new SelectArg();
+        tagQb.where().eq(DbTag.PILE_ID_FIELD_NAME, pileSelectArg);
+        PreparedQuery<DbTag> preparedTagQb = tagQb.prepare();
+        preparedTagQb.setArgumentHolderValue(0, pile);
+        List<DbTag> tags = this.tagDao.query(preparedTagQb);
+        List<String> tagsString = new ArrayList<String>();
+        for (DbTag tag : tags) {
+            tagsString.add(tag.getTag());
+        }
+        return tagsString;
+    }
+
     public List<DbPile> getPilesForCarte(DbCarte carte) throws SQLException {
         QueryBuilder<PileDeCartes, Integer> pileDeCartesQb = this.pileDeCartesDao.queryBuilder();
         pileDeCartesQb.selectColumns(PileDeCartes.PILE_ID_FIELD_NAME);
@@ -121,6 +150,18 @@ public class DatabaseManager {
         pileQb.where().in(DbPile.ID_FIELD_NAME, pileDeCartesQb);
         PreparedQuery<DbPile> preparedPileQb = pileQb.prepare();
         preparedPileQb.setArgumentHolderValue(0, carte);
+        return this.pileDao.query(preparedPileQb);
+    }
+
+    public List<DbPile> getPilesForTag(DbTag tag) throws SQLException {
+        QueryBuilder<DbTag, Integer> tagQb = this.tagDao.queryBuilder();
+        tagQb.selectColumns(DbTag.PILE_ID_FIELD_NAME);
+        SelectArg tagSelectArg = new SelectArg();
+        tagQb.where().eq(DbTag.PILE_ID_FIELD_NAME, tagSelectArg);
+        QueryBuilder<DbPile, Integer> pileQb = this.pileDao.queryBuilder();
+        pileQb.where().in(DbPile.ID_FIELD_NAME, tagQb);
+        PreparedQuery<DbPile> preparedPileQb = pileQb.prepare();
+        preparedPileQb.setArgumentHolderValue(0, tag);
         return this.pileDao.query(preparedPileQb);
     }
 
@@ -248,6 +289,18 @@ public class DatabaseManager {
         List<PileDeCartes> pileDeCartes = this.pileDeCartesDao.query(preparedPileDeCartesQb);
         for (PileDeCartes pileDeCarte : pileDeCartes) {
             this.pileDeCartesDao.delete(pileDeCarte);
+        }
+    }
+
+    public void removeTagFromPile(int pileId, String tag) throws SQLException {
+        DbPile pile = this.pileDao.queryForId(pileId);
+        QueryBuilder<DbTag, Integer> tagQb = this.tagDao.queryBuilder();
+        tagQb.where().eq(DbTag.TAG_FIELD_NAME, tag).and().eq(DbTag.PILE_ID_FIELD_NAME,
+                pile.getId());
+        PreparedQuery<DbTag> preparedTagQb = tagQb.prepare();
+        List<DbTag> tags = this.tagDao.query(preparedTagQb);
+        for (DbTag dbTag : tags) {
+            this.tagDao.delete(dbTag);
         }
     }
 

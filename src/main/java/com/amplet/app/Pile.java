@@ -6,6 +6,7 @@ public class Pile {
     Integer id;
     String nom;
     String description;
+    ArrayList<String> tags;
     ArrayList<Carte> cartes;
 
     public Pile(Integer id, String nom, String description) {
@@ -13,12 +14,14 @@ public class Pile {
         this.nom = nom;
         this.description = description;
         this.cartes = new ArrayList<Carte>();
+        this.tags = new ArrayList<String>();
     }
 
     public Pile(String nom, String description) {
         this.nom = nom;
         this.description = description;
         this.cartes = new ArrayList<Carte>();
+        this.tags = new ArrayList<String>();
     }
 
     public void addCarte(Carte carte) {
@@ -27,6 +30,14 @@ public class Pile {
 
     public void removeCarte(Carte carte) {
         this.cartes.remove(carte);
+    }
+
+    public void addTag(String tag) {
+        this.tags.add(tag);
+    }
+
+    public void removeTag(String tag) {
+        this.tags.remove(tag);
     }
 
     public String getNom() {

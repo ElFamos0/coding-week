@@ -38,6 +38,7 @@ public class Model implements Observed {
                         .forEach(dbCarte -> pile.addCarte(new Carte(dbCarte.getId(),
                                 dbCarte.getTitre(), dbCarte.getQuestion(), dbCarte.getReponse(),
                                 dbCarte.getMetadata(), dbCarte.getInfo())));
+                this.dbManager.getTagsFromPile(dbPile).forEach(dbTag -> pile.addTag(dbTag));
             } catch (SQLException ex) {
                 System.err.println("SQL Exception " + ex);
             }
@@ -85,6 +86,12 @@ public class Model implements Observed {
         notifyAllObservers();
     }
 
+    public void create(Pile pile, String tag) throws SQLException {
+        this.dbManager.addTagToPile(pile.getId(), tag);
+        pile.addTag(tag);
+        notifyAllObservers();
+    }
+
     public void delete(Pile pile) throws SQLException {
         this.dbManager.deletePile(pile.getId());
         this.allPiles.remove(pile);
@@ -100,6 +107,12 @@ public class Model implements Observed {
     public void delete(Pile pile, Carte carte) throws SQLException {
         this.dbManager.removeCarteFromPile(carte.getId(), pile.getId());
         pile.removeCarte(carte);
+        notifyAllObservers();
+    }
+
+    public void delete(Pile pile, String tag) throws SQLException {
+        this.dbManager.removeTagFromPile(pile.getId(), tag);
+        pile.removeTag(tag);
         notifyAllObservers();
     }
 
