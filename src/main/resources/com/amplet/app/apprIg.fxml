@@ -6,9 +6,9 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19"
-   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.ApprIg">
+<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.ApprIg">
    <top>
       <fx:include fx:id="menu" source="menu.fxml" />
    </top>
@@ -35,14 +35,10 @@
          <center>
             <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <top>
-                  <ProgressBar prefHeight="20.0" prefWidth="340.0" progress="0.0"
-                     BorderPane.alignment="CENTER" />
+                  <ProgressBar prefHeight="20.0" prefWidth="340.0" progress="0.0" BorderPane.alignment="CENTER" />
                </top>
                <center>
-                  <VBox fx:id="carte" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity"
-                     maxWidth="-Infinity" onMouseClicked="#flipCard" prefHeight="255.0"
-                     prefWidth="512.0"
-                     style="-fx-background-color: #efefef; -fx-background-radius: 10; -fx-border-width: 2; -fx-border-radius: 10; -fx-border-color: #a3a3a3;">
+                  <VBox fx:id="carte" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="255.0" prefWidth="512.0" style="-fx-background-color: #efefef; -fx-background-radius: 10; -fx-border-width: 2; -fx-border-radius: 10; -fx-border-color: #a3a3a3;">
                      <VBox.margin>
                         <Insets bottom="15.0" top="15.0" />
                      </VBox.margin>
@@ -50,38 +46,31 @@
                         <Insets left="10.0" right="10.0" />
                      </opaqueInsets>
                      <children>
-                        <Label fx:id="titrecarte" alignment="CENTER" contentDisplay="CENTER"
-                           text="Titre">
+                        <Label fx:id="titrecarte" alignment="CENTER" contentDisplay="CENTER" text="Titre">
                            <VBox.margin>
                               <Insets bottom="40.0" top="30.0" />
                            </VBox.margin>
                         </Label>
-                        <Label fx:id="question" alignment="CENTER" contentDisplay="CENTER"
-                           text="Question">
+                        <Label fx:id="question" alignment="CENTER" contentDisplay="CENTER" text="Question">
                            <VBox.margin>
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
-                        </Label>
-                        <Label fx:id="reponse" alignment="CENTER" contentDisplay="CENTER"
-                           text="Reponse" textFill="#a8a5a5">
-                           <VBox.margin>
-                              <Insets bottom="30.0" top="20.0" />
-                           </VBox.margin>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
                         </Label>
                      </children>
                   </VBox>
                </center>
                <left>
-                  <Button fx:id="boutonrefuser" onAction="#refuser" mnemonicParsing="false" text="✘"
-                     BorderPane.alignment="CENTER">
+                  <Button fx:id="boutonrefuser" mnemonicParsing="false" onAction="#refuser" text="✘" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets left="10.0" />
                      </BorderPane.margin>
                   </Button>
                </left>
                <right>
-                  <Button fx:id="boutonvalider" onAction="#valider" mnemonicParsing="false" text="✔"
-                     BorderPane.alignment="CENTER">
+                  <Button fx:id="boutonvalider" mnemonicParsing="false" onAction="#valider" text="✔" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets right="10.0" />
                      </BorderPane.margin>

@@ -33,8 +33,6 @@ public class ApprIg extends ViewController {
     @FXML
     private Label question;
     @FXML
-    private Label reponse;
-    @FXML
     private Button boutonrefuser;
     @FXML
     private Button boutonvalider;
@@ -169,7 +167,7 @@ public class ApprIg extends ViewController {
         isFlipping = true;
         carteBack = new VBox();
         // Vertically center a label
-        Label backLabel = new Label("Back");
+        Label backLabel = new Label(currentCarte.getReponse());
         backLabel.setTranslateY(-backLabel.getHeight() / 2);
         carteBack.getChildren().addAll(backLabel);
         if (isFront) {
@@ -213,7 +211,6 @@ public class ApprIg extends ViewController {
     public void update() {
         titrecarte.setText(currentCarte.getTitre());
         question.setText(currentCarte.getQuestion());
-        reponse.setText(currentCarte.getReponse());
     }
 
 }
