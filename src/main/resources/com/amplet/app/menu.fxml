@@ -17,7 +17,7 @@
       <items>
         <Menu mnemonicParsing="false" text="Importer">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#importCardMenu" text="Importer une carte" />
+            <MenuItem mnemonicParsing="false" onAction="#importCarteMenu" text="Importer une carte" />
             <MenuItem mnemonicParsing="false" onAction="#importPileMenu" text="Importer une pile" />
           </items>
         </Menu>
