@@ -17,6 +17,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -71,21 +72,24 @@ public class Statistiques extends ViewController {
 
     private ArrayList<Pile> piles;
     private ArrayList<String> pilesNames = new ArrayList<String>();
-    private Pile selectedPile;
+    private Pile selectedPile = null;
     private ArrayList<String> selectedTagNames = new ArrayList<String>();
     private ArrayList<String> possibleTags = new ArrayList<String>();
     private ArrayList<PieChart.Data> globalData = new ArrayList<PieChart.Data>();
+    private ArrayList<PieChart.Data> pileData = new ArrayList<PieChart.Data>();
     private ArrayList<Carte> selectedCartes = new ArrayList<Carte>();
+    boolean isOnGlobal = true;
+    boolean isSwitching = true;
 
     @FXML
     public void initialize() {
-
+        isOnGlobal = true;
+        isSwitching = true;
+        selectedPile = null;
         this.piles = model.getAllPiles();
-        this.selectedPile = this.piles.get(0);
         this.piles.forEach(pile -> this.pilesNames.add(pile.getNom()));
         this.choiceBoxPile.getItems().clear();
         this.choiceBoxPile.getItems().addAll(this.pilesNames);
-        this.choiceBoxPile.setValue(selectedPile.getNom());
 
         loadPossibleTags();
 
@@ -141,8 +145,8 @@ public class Statistiques extends ViewController {
 
 
         // On charge les tags déjà sélectionnés
-        loadPieChartData();
-        update();
+        // update();
+
     }
 
     @FXML
@@ -155,19 +159,60 @@ public class Statistiques extends ViewController {
     private PieChart pieChartGlobal;
 
     @FXML
-    private Label labelGlobalCartes;
-
+    private PieChart pieChartPile;
 
     @FXML
+    private Label labelGlobalCartes;
+
+    @FXML
+    private Label labelPile;
+
+    @FXML
+    private Label warningPile;
+
+    @FXML
+    private Tab tabGlobal;
+
+    @FXML
+    private Tab tabPile;
+
+    @FXML
+    public void viewGlobal() {
+        isOnGlobal = true;
+        update();
+    }
+
+    @FXML
+    public void viewPile() {
+        isOnGlobal = false;
+        update();
+    }
+
     public void update() {
 
-        tableTag.getItems().clear();
-        // On ajoute les tags déjà sélectionnés
-        for (String s : selectedTagNames) {
-            Row row = new Row(s);
-            tableTag.getItems().add(row);
+        if (isOnGlobal) {
+            tableTag.getItems().clear();
+            // On ajoute les tags déjà sélectionnés
+            for (String s : selectedTagNames) {
+                Row row = new Row(s);
+                tableTag.getItems().add(row);
+            }
+            loadPieChartData();
+        } else {
+            if (selectedPile == null) {
+                warningPile.setText("Veillez choisir une pile");
+                pieChartPile.setTitle("");
+                labelPile.setText("");
+            } else {
+                warningPile.setText("");
+                pieChartPile
+                        .setTitle("Taux de réussite sur la pile " + selectedPile.getNom() + " :");
+                loadPieChartDataPile();
+            }
+
         }
-        loadPieChartData();
+
+
 
     }
 
@@ -194,7 +239,7 @@ public class Statistiques extends ViewController {
     }
 
     public void loadPieChartData() {
-        loadSelectedCartes();
+        pieChartGlobal.getData().removeAll(globalData);
         globalData.clear();
         int count_tot = 0;
         int count_win = 0;
@@ -218,12 +263,10 @@ public class Statistiques extends ViewController {
                 + Integer.toString((count_tot - count_win) * 100 / count_tot) + " %",
                 count_tot - count_win));
 
-
         globalData.add(datawin);
         globalData.add(datalose);
         pieChartGlobal.setData(FXCollections.observableArrayList(globalData));
-        datalose.getNode().setStyle("-fx-pie-color: #e41515;");
-        datawin.getNode().setStyle("-fx-pie-color: #67d037;");
+
     }
 
     public void loadSelectedCartes() {
@@ -247,4 +290,36 @@ public class Statistiques extends ViewController {
         }
 
     }
+
+    public void loadPieChartDataPile() {
+        ArrayList<Carte> cartesToShow = selectedPile.getCartes();
+        pieChartGlobal.getData().removeAll(globalData);
+        pileData.clear();
+        int count_tot = 0;
+        int count_win = 0;
+        for (Carte c : cartesToShow) {
+            count_tot += c.getNbJouees();
+            count_win += c.getNbSucces();
+        }
+        if (count_tot == 0) {
+            count_tot = 1;
+            count_win = 1;
+            labelPile.setText("Aucune carte de cette pile n'a été jouée ");
+        } else {
+            labelPile.setText("Jouée " + Integer.toString(selectedPile.getNbJouees())
+                    + " fois, pour un total de " + Integer.toString(count_tot)
+                    + " cartes testées !");
+        }
+        PieChart.Data datawin = (new PieChart.Data(
+                "Cartes Réussies " + Integer.toString(count_win * 100 / count_tot) + " %",
+                count_win));
+        PieChart.Data datalose = (new PieChart.Data("Cartes Ratées "
+                + Integer.toString((count_tot - count_win) * 100 / count_tot) + " %",
+                count_tot - count_win));
+        pileData.add(datawin);
+        pileData.add(datalose);
+        pieChartPile.setData(FXCollections.observableArrayList(pileData));
+
+    }
+
 }

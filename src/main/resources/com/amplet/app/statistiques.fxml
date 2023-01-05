@@ -35,7 +35,7 @@
             </HBox>
             <TabPane prefHeight="1000.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
                <tabs>
-                  <Tab onSelectionChanged="#update" text="Globales">
+                  <Tab fx:id="tabGlobal" onSelectionChanged="#viewGlobal" text="Globales">
                      <content>
                         <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0">
                            <content>
@@ -73,7 +73,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                              <tooltip>
-                                                <Tooltip text="Si aucun tag n'est choisi, alors toutes les piles sont sélectionnées.&#10;Sinon, toutes les piles possédant au moins un tag de la liste seront prises en compte." />
+                                                <Tooltip text="Si aucun tag n'est choisi, alors toutes les piles sont sélectionnées.&#10;Sinon, toutes les piles possédant tous les tags de la liste seront prises en compte." />
                                              </tooltip>
                                           </Label>
                                        </children>
@@ -98,7 +98,7 @@
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <PieChart fx:id="pieChartGlobal" legendVisible="false" minHeight="300.0" minWidth="300.0" prefHeight="600.0" prefWidth="600.0" title="Taux de réussite sur les tags sélectionnés :">
+                                    <PieChart fx:id="pieChartGlobal" clockwise="false" labelsVisible="false" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="300.0" styleClass="pieChart" stylesheets="@pieChart.css" title="Taux de réussite sur les tags sélectionnés :">
                                        <VBox.margin>
                                           <Insets top="20.0" />
                                        </VBox.margin>
@@ -109,39 +109,43 @@
                         </ScrollPane>
                      </content>
                   </Tab>
-                  <Tab onSelectionChanged="#update" text="Par pile">
+                  <Tab fx:id="tabPile" onSelectionChanged="#viewPile" text="Par pile">
                      <content>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="400.0" prefWidth="800.0">
                            <content>
-                              <VBox alignment="TOP_CENTER" prefHeight="548.0" prefWidth="637.0">
+                              <VBox alignment="TOP_CENTER" prefHeight="548.0" prefWidth="750.0">
                                  <children>
                                     <Label text="Stats par pile">
                                        <font>
                                           <Font size="30.0" />
                                        </font>
                                     </Label>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
                                        <children>
                                           <Label text="Choisir une pile : ">
                                              <HBox.margin>
-                                                <Insets left="20.0" />
+                                                <Insets left="10.0" />
                                              </HBox.margin>
-                                          </Label>
-                                          <ChoiceBox fx:id="choiceBoxPile" prefWidth="150.0" styleClass="choiceboxbase" stylesheets="@choiceboxbase.css" />
-                                       </children>
-                                    </HBox>
-                                    <HBox prefHeight="100.0" prefWidth="200.0">
-                                       <children>
-                                          <Label fx:id="labelPile" text="Jouée 0 fois au total !">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>
-                                             <HBox.margin>
-                                                <Insets left="20.0" />
-                                             </HBox.margin>
                                           </Label>
+                                          <ChoiceBox fx:id="choiceBoxPile" prefWidth="150.0" styleClass="choiceboxbase" stylesheets="@choiceboxbase.css" />
+                                          <Label fx:id="warningPile" textFill="#e41515" />
                                        </children>
+                                       <VBox.margin>
+                                          <Insets top="20.0" />
+                                       </VBox.margin>
                                     </HBox>
+                                    <Label fx:id="labelPile" text="Jouée 0 fois, pour un total de 0 cartes !">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="20.0" top="20.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <PieChart fx:id="pieChartPile" clockwise="false" labelsVisible="false" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="300.0" styleClass="pieChart" stylesheets="@pieChart.css" title="Taux de réussite sur la pile :" />
                                  </children>
                               </VBox>
                            </content>

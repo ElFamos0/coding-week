@@ -38,7 +38,8 @@ public class Model implements Observed {
             }
         });
         this.dbManager.getPiles().forEach(dbPile -> {
-            Pile pile = new Pile(dbPile.getId(), dbPile.getNom(), dbPile.getDescription(), dbPile.getNbJouees());
+            Pile pile = new Pile(dbPile.getId(), dbPile.getNom(), dbPile.getDescription(),
+                    dbPile.getNbJouees());
             try {
                 this.dbManager.getCartesFromPile(dbPile).forEach(dbCarte -> {
                     try {
@@ -183,17 +184,25 @@ public class Model implements Observed {
         for (String tag : arrayTags) {
             ArrayList<Pile> toRemove = new ArrayList<Pile>();
             for (Pile p : piles) {
+                boolean state = false;
                 for (String pileTag : p.getTags()) {
                     if (tag.equals(pileTag)) {
-                        arrayPiles.add(p);
-                        toRemove.add(p);
+                        state = true;
                         break;
                     }
+                }
+
+                if (!state) {
+                    toRemove.add(p);
                 }
             }
             for (Pile p : toRemove) {
                 piles.remove(p);
             }
+        }
+
+        for (Pile p : piles) {
+            arrayPiles.add(p);
         }
 
     }
