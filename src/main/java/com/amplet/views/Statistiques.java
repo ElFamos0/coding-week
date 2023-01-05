@@ -79,12 +79,10 @@ public class Statistiques extends ViewController {
     private ArrayList<PieChart.Data> pileData = new ArrayList<PieChart.Data>();
     private ArrayList<Carte> selectedCartes = new ArrayList<Carte>();
     boolean isOnGlobal = true;
-    boolean isSwitching = true;
 
     @FXML
     public void initialize() {
         isOnGlobal = true;
-        isSwitching = true;
         selectedPile = null;
         this.piles = model.getAllPiles();
         this.piles.forEach(pile -> this.pilesNames.add(pile.getNom()));
@@ -192,6 +190,8 @@ public class Statistiques extends ViewController {
 
         if (isOnGlobal) {
             tableTag.getItems().clear();
+            loadPossibleTags();
+            choiceBoxTag.setItems(FXCollections.observableArrayList(possibleTags));
             // On ajoute les tags déjà sélectionnés
             for (String s : selectedTagNames) {
                 Row row = new Row(s);
@@ -221,7 +221,8 @@ public class Statistiques extends ViewController {
         for (Pile p : model.getAllPiles()) {
             for (String tag : p.getTags()) {
                 if (!(isElementInArrayList(possibleTags, tag))) {
-                    possibleTags.add(tag);
+                    if (!(isElementInArrayList(selectedTagNames, tag)))
+                        possibleTags.add(tag);
                 }
             }
         }
@@ -293,7 +294,7 @@ public class Statistiques extends ViewController {
 
     public void loadPieChartDataPile() {
         ArrayList<Carte> cartesToShow = selectedPile.getCartes();
-        pieChartGlobal.getData().removeAll(globalData);
+        pieChartGlobal.getData().removeAll(pileData);
         pileData.clear();
         int count_tot = 0;
         int count_win = 0;
