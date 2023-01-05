@@ -38,7 +38,7 @@ public class Model implements Observed {
             }
         });
         this.dbManager.getPiles().forEach(dbPile -> {
-            Pile pile = new Pile(dbPile.getId(), dbPile.getNom(), dbPile.getDescription());
+            Pile pile = new Pile(dbPile.getId(), dbPile.getNom(), dbPile.getDescription(), dbPile.getNbJouees());
             try {
                 this.dbManager.getCartesFromPile(dbPile).forEach(dbCarte -> {
                     try {

@@ -6,22 +6,20 @@ public class Pile {
     private transient Integer id;
     private String nom;
     private String description;
-    private ArrayList<String> tags;
-    private ArrayList<Carte> cartes;
+    private ArrayList<String> tags = new ArrayList<String>();
+    private ArrayList<Carte> cartes = new ArrayList<Carte>();
+    private int nbJouees = 0;
 
-    public Pile(Integer id, String nom, String description) {
+    public Pile(Integer id, String nom, String description, int nbJouees) {
         this.id = id;
         this.nom = nom;
         this.description = description;
-        this.cartes = new ArrayList<Carte>();
-        this.tags = new ArrayList<String>();
+        this.nbJouees = nbJouees;
     }
 
     public Pile(String nom, String description) {
         this.nom = nom;
         this.description = description;
-        this.cartes = new ArrayList<Carte>();
-        this.tags = new ArrayList<String>();
     }
 
     @Override
@@ -37,8 +35,7 @@ public class Pile {
             return false;
         if (nom != null ? !nom.equals(pile.nom) : pile.nom != null)
             return false;
-        if (description != null ? !description.equals(pile.description)
-                : pile.description != null)
+        if (description != null ? !description.equals(pile.description) : pile.description != null)
             return false;
         if (tags != null ? !tags.equals(pile.tags) : pile.tags != null)
             return false;
@@ -77,6 +74,10 @@ public class Pile {
         return tags;
     }
 
+    public int getNbJouees() {
+        return nbJouees;
+    }
+
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -95,6 +96,14 @@ public class Pile {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public void setTags(ArrayList<String> tags) {
+        this.tags = tags;
+    }
+
+    public void setNbJouees(int nbJouees) {
+        this.nbJouees = nbJouees;
     }
 
 }
