@@ -64,20 +64,6 @@
                      </children>
                   </VBox>
                </center>
-               <left>
-                  <Button fx:id="boutonrefuser" mnemonicParsing="false" onAction="#refuser" text="✘" BorderPane.alignment="CENTER">
-                     <BorderPane.margin>
-                        <Insets left="10.0" />
-                     </BorderPane.margin>
-                  </Button>
-               </left>
-               <right>
-                  <Button fx:id="boutonvalider" mnemonicParsing="false" onAction="#valider" text="✔" BorderPane.alignment="CENTER">
-                     <BorderPane.margin>
-                        <Insets right="10.0" />
-                     </BorderPane.margin>
-                  </Button>
-               </right>
             </BorderPane>
          </center>
       </BorderPane>
@@ -85,8 +71,8 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="49.0" prefWidth="640.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="reponseuser"  promptText="Entre ta réponse" />
-            <Button fx:id="textvalider" onAction="#textvalider" mnemonicParsing="false" text="Valider" />
+            <TextField fx:id="reponseuser" promptText="Entre ta réponse" />
+            <Button fx:id="textvalider" mnemonicParsing="false" onAction="#textvalider" text="Valider" />
          </children>
       </HBox>
    </bottom>

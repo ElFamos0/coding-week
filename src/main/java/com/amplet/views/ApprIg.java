@@ -34,10 +34,6 @@ public class ApprIg extends ViewController {
     @FXML
     private Label question;
     @FXML
-    private Button boutonrefuser;
-    @FXML
-    private Button boutonvalider;
-    @FXML
     private TextField reponseuser;
     @FXML
     private Button textvalider;
@@ -49,7 +45,6 @@ public class ApprIg extends ViewController {
     int cartesrestantes = 1;
     int cartesvues = 0;
     boolean isRandomSelected;
-    boolean modeEcriture = true;
     int repetitionProbability;
     boolean isFavorisedFailedSelected;
     int tempsreponse;
@@ -89,20 +84,11 @@ public class ApprIg extends ViewController {
         carte.getChildren().addAll(carteFront);
         nbdecarte.setText("Nombre de cartes : 0/" + ctx.getNbCartes());
         dealcard();
-        if (!modeEcriture) {
-            reponseuser.setVisible(false);
-            textvalider.setVisible(false);
-        } else {
-            boutonrefuser.setVisible(false);
-            boutonvalider.setVisible(false);
-        }
         setTimer();
     }
 
 
     public void setTimer() {
-        boutonrefuser.setDisable(true);
-        boutonvalider.setDisable(true);
         Timer timer = new Timer();
         interval = tempsreponse;
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -113,22 +99,27 @@ public class ApprIg extends ViewController {
                 } else {
                     if (isFront && !isFlipping) {
                         flipCard(e -> {
-                            // dealcard();
-                            // update();
+                            attendre(1);
+                            refuser();
                         });
+
                     }
                     Platform.runLater(() -> timertext.setText("Temps : 0"));
-                    boutonvalider.setDisable(false);
-                    boutonrefuser.setDisable(false);
                 }
             }
         }, 1000, 1000);
     }
 
     public void resetTimer() {
-        boutonrefuser.setDisable(true);
-        boutonvalider.setDisable(true);
         interval = tempsreponse;
+    }
+
+    public void attendre(int secondes) {
+        try {
+            Thread.sleep(secondes * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void dealcard() {
@@ -158,6 +149,7 @@ public class ApprIg extends ViewController {
         } else {
             if (isFront) {
                 flipCard(e -> {
+                    attendre(1);
                     flipCard(null);
                     dealcard();
                     update();
@@ -176,7 +168,11 @@ public class ApprIg extends ViewController {
     public void refuser() {
         cartesapprouvees.add(currentCarte);
         cartesvues++;
-        cartesaproposer.add(currentCarte);
+        // take a random number between 0 and 100
+        int random = (int) (Math.random() * 100);
+        if (random < repetitionProbability) {
+            cartesaproposer.add(currentCarte);
+        }
         if (cartesaproposer.size() == 0) {
             try {
                 App.setRoot("apprResultat");
@@ -186,6 +182,7 @@ public class ApprIg extends ViewController {
         } else {
             if (isFront) {
                 flipCard(e -> {
+                    attendre(1);
                     flipCard(null);
                     dealcard();
                     update();
@@ -201,16 +198,7 @@ public class ApprIg extends ViewController {
     }
 
     @FXML
-    public void clickcarte() {
-        if (isFront && interval >= 1) {
-            flipCard(e -> {
-                interval = 0;
-            });
-        }
-        // if (interval == 0) {
-        // flipCard(null);
-        // }
-    }
+    public void clickcarte() {}
 
     @FXML
     public void textvalider() {
