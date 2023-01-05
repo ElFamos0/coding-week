@@ -44,6 +44,7 @@ public class ApprIg extends ViewController {
     int cartesrestantes = 1;
     int cartesvues = 0;
     boolean isRandomSelected;
+    boolean modeEcriture;
     int repetitionProbability;
     boolean isFavorisedFailedSelected;
     int tempsreponse;
@@ -144,7 +145,6 @@ public class ApprIg extends ViewController {
         cartesaproposer.add(currentCarte);
         if (cartesaproposer.size() == 0) {
             try {
-                System.out.println("Shot");
                 App.setRoot("apprResultat");
             } catch (Exception e) {
                 e.printStackTrace();

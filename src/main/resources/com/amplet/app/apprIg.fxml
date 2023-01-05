@@ -4,7 +4,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -80,4 +82,12 @@
          </center>
       </BorderPane>
    </center>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="49.0" prefWidth="640.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="reponseuser" promptText="Entre ta réponse" />
+            <Button fx:id="textvalider" mnemonicParsing="false" text="Valider" />
+         </children>
+      </HBox>
+   </bottom>
 </BorderPane>
