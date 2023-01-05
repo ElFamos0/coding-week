@@ -27,16 +27,16 @@ public class Model implements Observed {
     }
 
     void initModel() throws SQLException {
-        this.dbManager.getCartes().forEach(dbCarte -> {
-            try {
-                this.allCartes.add(new Carte(dbCarte.getId(), dbCarte.getTitre(),
-                        dbCarte.getQuestion(), dbCarte.getReponse(), dbCarte.getMetadata(),
-                        dbCarte.getInfo(), this.dbManager.getNbJoueesForCarte(dbCarte.getId()),
-                        this.dbManager.getNbJustesForCarte(dbCarte.getId())));
-            } catch (SQLException ex) {
-                System.err.println("SQL Exception " + ex);
-            }
-        });
+        // this.dbManager.getCartes().forEach(dbCarte -> {
+        // try {
+        // this.allCartes.add(new Carte(dbCarte.getId(), dbCarte.getTitre(),
+        // dbCarte.getQuestion(), dbCarte.getReponse(), dbCarte.getMetadata(),
+        // dbCarte.getInfo(), this.dbManager.getNbJoueesForCarte(dbCarte.getId()),
+        // this.dbManager.getNbJustesForCarte(dbCarte.getId())));
+        // } catch (SQLException ex) {
+        // System.err.println("SQL Exception " + ex);
+        // }
+        // });
         this.dbManager.getPiles().forEach(dbPile -> {
             Pile pile = new Pile(dbPile.getId(), dbPile.getNom(), dbPile.getDescription(),
                     dbPile.getNbJouees());
@@ -58,6 +58,7 @@ public class Model implements Observed {
             }
             this.allPiles.add(pile);
         });
+        generateAllCartes();
     }
 
     public void addObserver(Observer o) {
@@ -208,6 +209,51 @@ public class Model implements Observed {
             arrayPiles.add(p);
         }
 
+    }
+
+    public void generateAllCartes() throws SQLException {
+
+        for (Pile p : allPiles) {
+            for (Carte c : p.getCartes()) {
+                if (!(isElementInArrayList(allCartes, c))) {
+                    allCartes.add(c);
+                }
+            }
+        }
+        this.dbManager.getCartes().forEach(dbCarte -> {
+            try {
+                Carte test_carte = new Carte(dbCarte.getId(), dbCarte.getTitre(),
+                        dbCarte.getQuestion(), dbCarte.getReponse(), dbCarte.getMetadata(),
+                        dbCarte.getInfo(), this.dbManager.getNbJoueesForCarte(dbCarte.getId()),
+                        this.dbManager.getNbJustesForCarte(dbCarte.getId()));
+                if (!(isIdContained(allCartes, test_carte.getId()))) {
+                    allCartes.add(test_carte);
+                }
+            } catch (SQLException ex) {
+                System.err.println("SQL Exception " + ex);
+            }
+        });
+
+    }
+
+    public <T> boolean isElementInArrayList(ArrayList<T> array, T element) {
+
+        for (T array_element : array) {
+            if (element.equals(array_element)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isIdContained(ArrayList<Carte> array, int id) {
+
+        for (Carte array_element : array) {
+            if (id == array_element.getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

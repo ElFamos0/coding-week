@@ -161,7 +161,7 @@ public class ApprResultat extends ViewController {
             int currentPileId = playedCartesPileId.get(i);
             Pile pile = model.getPileById(currentPileId);
 
-            Row row = new Row(currentCarte, currentReponse);
+
             currentCarte.setNbJouees(currentCarte.getNbJouees() + 1);
             try {
                 model.update(currentCarte, pile, currentReponse);
@@ -171,6 +171,7 @@ public class ApprResultat extends ViewController {
             if (currentReponse) {
                 currentCarte.setNbSucces(currentCarte.getNbSucces() + 1);
             }
+            Row row = new Row(currentCarte, currentReponse);
             tableResult.getItems().add(row);
         }
 

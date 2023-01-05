@@ -112,7 +112,7 @@ public class ApprEnt extends ViewController {
         cartesvues++;
         if (cartesaproposer.size() == 0) {
             try {
-                App.setRoot("apprResultat");
+                App.setRoot("apprFinEntrainement");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -138,7 +138,7 @@ public class ApprEnt extends ViewController {
         cartesaproposer.add(currentCarte);
         if (cartesaproposer.size() == 0) {
             try {
-                App.setRoot("apprResultat");
+                App.setRoot("apprFinEntrainement");
             } catch (Exception e) {
                 e.printStackTrace();
             }

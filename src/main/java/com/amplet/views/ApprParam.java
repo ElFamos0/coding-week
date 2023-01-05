@@ -84,6 +84,9 @@ public class ApprParam extends ViewController {
     public void initialize() {
         customTooltip.setText(
                 "Détermine la probabilité qu'a une carté déjà passée de réapparaître à nouveau.");
+
+        labelNbCartes.setText("20");
+        labelTempsReponse.setText("20");
         // On charge les colonnes
         TableColumn<Row, CheckBox> checkBoxCol = new TableColumn<>("Active");
         TableColumn<Row, TextField> titreCol = new TableColumn<>("Nom");

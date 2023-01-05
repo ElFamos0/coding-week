@@ -18,7 +18,7 @@
          <content>
             <VBox alignment="TOP_CENTER" prefHeight="640.0" prefWidth="654.0">
                <children>
-                  <Label text="Fin d'apprentissage">
+                  <Label text="Fin de l'évaluation">
                      <font>
                         <Font size="30.0" />
                      </font>
