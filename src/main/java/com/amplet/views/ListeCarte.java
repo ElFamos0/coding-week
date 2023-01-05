@@ -43,13 +43,16 @@ public class ListeCarte extends ViewController {
                 }
             });
 
-            this.titre.setOnKeyReleased(evt -> {
-                // On modifie le nom de la pile
-                try {
-                    carte.setTitre(this.titre.getText());
-                    model.update(carte);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
+
+            // Quand le texte n'est plus en focus, on sauvegarde
+            this.titre.focusedProperty().addListener((obs, oldVal, newVal) -> {
+                if (!newVal) {
+                    try {
+                        carte.setTitre(this.titre.getText());
+                        model.update(carte);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
             });
 
