@@ -133,10 +133,12 @@ public class Model implements Observed {
     public void update(Carte carte) throws SQLException {
         this.dbManager.updateCarteAll(carte.getId(), carte.getTitre(), carte.getQuestion(),
                 carte.getReponse(), carte.getDescription(), carte.getMetadata());
+        notifyAllObservers();
     }
 
     public void update(Pile pile) throws SQLException {
         this.dbManager.updatePileAll(pile.getId(), pile.getNom(), pile.getDescription());
+        notifyAllObservers();
     }
 
     public void update(Carte carte, Pile pile, boolean reussite) throws SQLException {
@@ -145,6 +147,7 @@ public class Model implements Observed {
         } else {
             this.dbManager.addCarteEchec(carte.getId(), pile.getId());
         }
+        notifyAllObservers();
     }
 
     public ArrayList<Pile> getAllPiles() {

@@ -79,6 +79,36 @@ public class EditionCarte extends ViewController {
         carteFront.getChildren().addAll(carte.getChildren());
         carte.getChildren().clear();
         carte.getChildren().addAll(carteFront);
+
+        // update on text change
+        prompttitre.textProperty().addListener((observable, oldValue, newValue) -> {
+            currentCarte.setTitre(newValue);
+            try {
+                model.update(currentCarte);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        promptquestion.textProperty().addListener((observable, oldValue, newValue) -> {
+            currentCarte.setQuestion(newValue);
+            try {
+                model.update(currentCarte);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        promptreponse.textProperty().addListener((observable, oldValue, newValue) -> {
+            currentCarte.setReponse(newValue);
+            try {
+                model.update(currentCarte);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+
         update();
     }
 
@@ -129,19 +159,6 @@ public class EditionCarte extends ViewController {
             });
         }
         isFront = !isFront;
-    }
-
-    @FXML
-    public void valider() {
-        currentCarte.setTitre(prompttitre.getText());
-        currentCarte.setQuestion(promptquestion.getText());
-        currentCarte.setReponse(promptreponse.getText());
-        try {
-            model.update(currentCarte);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        update();
     }
 
     @FXML
