@@ -1,8 +1,10 @@
 package com.amplet.io;
 
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.nio.Buffer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
@@ -41,11 +43,17 @@ public class JsonIo {
     }
 
     public void export(Pile pile) throws IOException {
-        this.gson.toJson(pile, Pile.class, new FileWriter(this.filePath));
+        String output = this.gson.toJson(pile, Pile.class);
+        BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath));
+        writer.write(output);
+        writer.close();
     }
 
     public void export(Carte carte) throws IOException {
-        this.gson.toJson(carte, Carte.class, new FileWriter(this.filePath));
+        String output = this.gson.toJson(carte, Carte.class);
+        BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath));
+        writer.write(output);
+        writer.close();
     }
 
     public <T> T importFromFile(Type type) throws IOException {
