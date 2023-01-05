@@ -236,7 +236,12 @@ public class ApprIg extends ViewController {
 
     @FXML
     public void textvalider() {
-        if (reponseuser.getText().toLowerCase().equals(currentCarte.getReponse().toLowerCase())) {
+        String reponse = reponseuser.getText();
+        if (reponse.equals("")) {
+            return;
+        }
+        reponseuser.clear();
+        if (reponse.toLowerCase().equals(currentCarte.getReponse().toLowerCase())) {
             valider();
         } else {
             refuser();
