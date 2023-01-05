@@ -123,6 +123,30 @@ public class Context {
         }
     }
 
+    /* Context for ApprResult */
+
+    ArrayList<Carte> playedCartes;
+
+    public ArrayList<Carte> getPlayedCartes() {
+        return playedCartes;
+    }
+
+
+    ArrayList<Boolean> playedReponse;
+
+    public ArrayList<Boolean> getPlayedReponse() {
+        return playedReponse;
+    }
+
+    public void resetPlayed() {
+        playedCartes = new ArrayList<Carte>();
+        playedReponse = new ArrayList<Boolean>();
+    }
+
+    public void addPlayed(Carte c, Boolean b) {
+        playedCartes.add(c);
+        playedReponse.add(b);
+    }
 
     public Context() {
 
