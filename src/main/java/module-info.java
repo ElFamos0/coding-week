@@ -6,7 +6,7 @@ module com.amplet {
     requires java.sql;
     requires com.google.gson;
 
-    opens com.amplet.app to javafx.fxml;
+    opens com.amplet.app to javafx.fxml, com.google.gson;
     opens com.amplet.views to javafx.fxml;
     opens com.amplet.db to ormlite.jdbc;
     opens com.amplet.io to com.google.gson;
