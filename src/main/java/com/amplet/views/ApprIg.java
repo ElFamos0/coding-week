@@ -129,7 +129,7 @@ public class ApprIg extends ViewController {
         cartesvues++;
         if (cartesaproposer.size() == 0) {
             try {
-                App.setRoot("apprResultat", new ApprResultat(model));
+                App.setRoot("apprResultat");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -146,7 +146,8 @@ public class ApprIg extends ViewController {
         cartesaproposer.add(currentCarte);
         if (cartesaproposer.size() == 0) {
             try {
-                App.setRoot("apprResultat", new ApprResultat(model));
+                System.out.println("Shot");
+                App.setRoot("apprResultat");
             } catch (Exception e) {
                 e.printStackTrace();
             }
