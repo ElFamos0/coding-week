@@ -329,4 +329,13 @@ public class EditionPile extends ViewController {
         }
     }
 
+    @FXML
+    public void exporterPile() {
+        try {
+            App.exportPile(this.pile);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }
