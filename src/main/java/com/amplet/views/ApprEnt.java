@@ -225,8 +225,8 @@ public class ApprEnt extends ViewController {
         titrecarte.setText(currentCarte.getTitre());
         question.setText(currentCarte.getQuestion());
         progress.setProgress((double) cartesvues / (double) (cartesvues + cartesaproposer.size()));
-        nbdecarte.setText("Nombre de cartes : " + cartesvues + "/"
-                + (cartesvues + cartesaproposer.size() + 1));
+        nbdecarte.setText(
+                "Nombre de cartes : " + cartesvues + "/" + (cartesvues + cartesaproposer.size()));
     }
 
 }
