@@ -85,8 +85,8 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="49.0" prefWidth="640.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="reponseuser" editable="false" promptText="Entre ta réponse" />
-            <Button fx:id="textvalider" disable="true" mnemonicParsing="false" text="Valider" />
+            <TextField fx:id="reponseuser"  promptText="Entre ta réponse" />
+            <Button fx:id="textvalider" onAction="#textvalider" mnemonicParsing="false" text="Valider" />
          </children>
       </HBox>
    </bottom>

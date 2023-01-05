@@ -50,7 +50,7 @@ public class ApprIg extends ViewController {
     int cartesrestantes = 1;
     int cartesvues = 0;
     boolean isRandomSelected;
-    boolean modeEcriture = false;
+    boolean modeEcriture = true;
     int repetitionProbability;
     boolean isFavorisedFailedSelected;
     int tempsreponse;
@@ -74,7 +74,6 @@ public class ApprIg extends ViewController {
         this.repetitionProbability = ctx.getRepetitionProbability();
         this.isFavorisedFailedSelected = ctx.isFavorisedFailedSelected();
         this.tempsreponse = ctx.getTempsReponse() + 1;
-
     }
 
     @Override
@@ -89,11 +88,14 @@ public class ApprIg extends ViewController {
         carteFront.getChildren().addAll(carte.getChildren());
         carte.getChildren().clear();
         carte.getChildren().addAll(carteFront);
-        nbdecarte.setText("Nombre de cartes : " + ctx.getNbCartes());
+        nbdecarte.setText("Nombre de cartes : 0/" + ctx.getNbCartes());
         dealcard();
         if (!modeEcriture) {
             reponseuser.setVisible(false);
             textvalider.setVisible(false);
+        } else {
+            boutonrefuser.setVisible(false);
+            boutonvalider.setVisible(false);
         }
     }
 
@@ -109,7 +111,7 @@ public class ApprIg extends ViewController {
                     Platform.runLater(() -> timertext.setText("Temps : " + interval));
                     interval--;
                 } else {
-                    if (isFront) {
+                    if (isFront && !isFlipping) {
                         flipCard();
                     }
                     Platform.runLater(() -> timertext.setText("Temps : " + interval));
@@ -138,6 +140,7 @@ public class ApprIg extends ViewController {
 
     @FXML
     public void valider() {
+        System.out.println("valider");
         cartesapprouvees.add(currentCarte);
         cartesvues++;
         if (cartesaproposer.size() == 0) {
@@ -153,7 +156,9 @@ public class ApprIg extends ViewController {
         }
     }
 
+    @FXML
     public void refuser() {
+        System.out.println("refuser");
         cartesapprouvees.add(currentCarte);
         cartesvues++;
         cartesaproposer.add(currentCarte);
@@ -178,6 +183,11 @@ public class ApprIg extends ViewController {
         }
     }
 
+    @FXML
+    public void textvalider() {
+        // TODO
+    }
+
 
 
     // fonction d'animation de résolution de la carte.
@@ -196,13 +206,13 @@ public class ApprIg extends ViewController {
         carteBack.setMaxSize(carte.getWidth(), carte.getHeight());
         carteBack.setMinSize(carte.getWidth(), carte.getHeight());
         if (isFront) {
-            RotateTransition rotateTransition = new RotateTransition(Duration.seconds(0.5), carte);
+            RotateTransition rotateTransition = new RotateTransition(Duration.seconds(0.2), carte);
             rotateTransition.setByAngle(90);
             rotateTransition.setAxis(Rotate.X_AXIS);
             rotateTransition.play();
             rotateTransition.setOnFinished(event -> {
                 // Put upside down
-                RotateTransition flip = new RotateTransition(Duration.seconds(0.5), carte);
+                RotateTransition flip = new RotateTransition(Duration.seconds(0.2), carte);
                 flip.setByAngle(-90);
                 flip.setAxis(Rotate.X_AXIS);
                 flip.play();
@@ -213,13 +223,13 @@ public class ApprIg extends ViewController {
                 });
             });
         } else {
-            RotateTransition rotateTransition = new RotateTransition(Duration.seconds(0.5), carte);
+            RotateTransition rotateTransition = new RotateTransition(Duration.seconds(0.2), carte);
             rotateTransition.setByAngle(90);
             rotateTransition.setAxis(Rotate.X_AXIS);
             rotateTransition.play();
             rotateTransition.setOnFinished(event -> {
                 // Put upside down
-                RotateTransition flip = new RotateTransition(Duration.seconds(0.5), carte);
+                RotateTransition flip = new RotateTransition(Duration.seconds(0.2), carte);
                 flip.setByAngle(-90);
                 flip.setAxis(Rotate.X_AXIS);
                 flip.play();
@@ -236,6 +246,7 @@ public class ApprIg extends ViewController {
     public void update() {
         titrecarte.setText(currentCarte.getTitre());
         question.setText(currentCarte.getQuestion());
+        nbdecarte.setText("Nombre de cartes : " + cartesvues + "/" + ctx.getNbCartes());
     }
 
 }
