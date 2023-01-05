@@ -24,6 +24,27 @@ public class Pile {
         this.tags = new ArrayList<String>();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Pile pile = (Pile) o;
+
+        if (id != null ? !id.equals(pile.id) : pile.id != null)
+            return false;
+        if (nom != null ? !nom.equals(pile.nom) : pile.nom != null)
+            return false;
+        if (description != null ? !description.equals(pile.description)
+                : pile.description != null)
+            return false;
+        if (tags != null ? !tags.equals(pile.tags) : pile.tags != null)
+            return false;
+        return cartes != null ? cartes.equals(pile.cartes) : pile.cartes == null;
+    }
+
     public void addCarte(Carte carte) {
         this.cartes.add(carte);
     }

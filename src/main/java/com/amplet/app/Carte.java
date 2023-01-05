@@ -31,6 +31,33 @@ public class Carte {
         this.description = description;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Carte carte = (Carte) o;
+
+        if (id != null ? !id.equals(carte.id) : carte.id != null)
+            return false;
+        if (titre != null ? !titre.equals(carte.titre) : carte.titre != null)
+            return false;
+        if (question != null ? !question.equals(carte.question) : carte.question != null)
+            return false;
+        if (reponse != null ? !reponse.equals(carte.reponse) : carte.reponse != null)
+            return false;
+        if (metadata != null ? !metadata.equals(carte.metadata) : carte.metadata != null)
+            return false;
+        if (description != null ? !description.equals(carte.description)
+                : carte.description != null)
+            return false;
+        if (nbJouees != carte.nbJouees)
+            return false;
+        return nbSucces == carte.nbSucces;
+    }
+
     public Integer getId() {
         return id;
     }
