@@ -121,6 +121,18 @@ public class Statistiques extends ViewController {
                                 selectedTagNames.add(selectedTag);
                                 update();
                             }
+                        }
+                    }
+                });
+        choiceBoxPile.getSelectionModel().selectedIndexProperty()
+                .addListener(new ChangeListener<Number>() {
+
+                    public void changed(ObservableValue<? extends Number> observable,
+                            Number oldValue, Number newValue) {
+                        if (newValue.intValue() >= 0) {
+                            String selectedPileName = pilesNames.get(newValue.intValue());
+                            selectedPile = piles.get(newValue.intValue());
+                            update();
 
                         }
 
@@ -146,6 +158,7 @@ public class Statistiques extends ViewController {
     private Label labelGlobalCartes;
 
 
+    @FXML
     public void update() {
 
         tableTag.getItems().clear();
@@ -192,10 +205,11 @@ public class Statistiques extends ViewController {
         if (count_tot == 0) {
             count_tot = 1;
             count_win = 1;
-            labelGlobalCartes.setText("Aucune carte n'a été jouée dans les tags sélectionnés");
+            labelGlobalCartes
+                    .setText("Aucune carte possédant les tags sélectionnés n'a été jouée ");
         } else {
             labelGlobalCartes.setText("Au total, vous avez joué " + Integer.toString(count_tot)
-                    + " cartes parmi les tags sélectionnés !");
+                    + " cartes possédant les tags sélectionnés !");
         }
         PieChart.Data datawin = (new PieChart.Data(
                 "Cartes Réussies " + Integer.toString(count_win * 100 / count_tot) + " %",

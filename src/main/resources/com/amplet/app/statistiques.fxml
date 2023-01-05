@@ -35,7 +35,7 @@
             </HBox>
             <TabPane prefHeight="1000.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
                <tabs>
-                  <Tab text="Globales">
+                  <Tab onSelectionChanged="#update" text="Globales">
                      <content>
                         <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0">
                            <content>
@@ -109,7 +109,7 @@
                         </ScrollPane>
                      </content>
                   </Tab>
-                  <Tab text="Par pile">
+                  <Tab onSelectionChanged="#update" text="Par pile">
                      <content>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="400.0" prefWidth="800.0">
                            <content>
