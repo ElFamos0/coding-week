@@ -47,10 +47,11 @@ public class ApprIg extends ViewController {
 
     int interval;
     int cartesrestantes = 1;
-    int cartesvues = 0;
+    int cartesvues = 1;
     boolean isRandomSelected;
     int repetitionProbability;
     boolean isFavorisedFailedSelected;
+    boolean lockvalider = false;
     int tempsreponse;
 
     Carte currentCarte;
@@ -86,7 +87,7 @@ public class ApprIg extends ViewController {
         carteFront.getChildren().addAll(carte.getChildren());
         carte.getChildren().clear();
         carte.getChildren().addAll(carteFront);
-        nbdecarte.setText("Nombre de cartes : 0/" + cartesaproposer.size() + 1);
+        nbdecarte.setText("Nombre de cartes : 1/" + cartesaproposer.size() + 1);
         dealcard();
         setTimer();
     }
@@ -141,6 +142,7 @@ public class ApprIg extends ViewController {
 
     @FXML
     public void valider() {
+
         System.out.println("valider");
         cartesapprouvees.add(currentCarte);
         cartesvues++;
@@ -206,11 +208,16 @@ public class ApprIg extends ViewController {
 
     @FXML
     public void textvalider() {
+        if (lockvalider) {
+            return;
+        }
+        lockvalider = true;
         if (reponseuser.getText().toLowerCase().equals(currentCarte.getReponse().toLowerCase())) {
             valider();
         } else {
             refuser();
         }
+        lockvalider = false;
     }
 
     // fonction d'animation de résolution de la carte.
@@ -275,7 +282,7 @@ public class ApprIg extends ViewController {
         question.setText(currentCarte.getQuestion());
         nbdecarte.setText("Nombre de cartes : " + cartesvues + "/"
                 + (cartesvues + cartesaproposer.size() + 1));
-        progress.setProgress((double) cartesvues / (cartesvues + cartesaproposer.size() + 1));
+        progress.setProgress((double) cartesvues / (cartesvues + cartesaproposer.size()));
     }
 
 }

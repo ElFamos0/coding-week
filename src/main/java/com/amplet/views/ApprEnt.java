@@ -50,7 +50,7 @@ public class ApprEnt extends ViewController {
 
     int interval;
     int cartesrestantes = 1;
-    int cartesvues = 0;
+    int cartesvues = 1;
     boolean isRandomSelected;
     int repetitionProbability;
     boolean isFavorisedFailedSelected;
@@ -89,7 +89,7 @@ public class ApprEnt extends ViewController {
         carteFront.getChildren().addAll(carte.getChildren());
         carte.getChildren().clear();
         carte.getChildren().addAll(carteFront);
-        nbdecarte.setText("Nombre de cartes : 0/" + cartesaproposer.size());
+        nbdecarte.setText("Nombre de cartes : 1/" + cartesaproposer.size());
         dealcard();
         timertext.setText("MODE APPRENTISSAGE");
     }
@@ -224,8 +224,7 @@ public class ApprEnt extends ViewController {
     public void update() {
         titrecarte.setText(currentCarte.getTitre());
         question.setText(currentCarte.getQuestion());
-        progress.setProgress(
-                (double) cartesvues / (double) (cartesvues + cartesaproposer.size() + 1));
+        progress.setProgress((double) cartesvues / (double) (cartesvues + cartesaproposer.size()));
         nbdecarte.setText("Nombre de cartes : " + cartesvues + "/"
                 + (cartesvues + cartesaproposer.size() + 1));
     }
