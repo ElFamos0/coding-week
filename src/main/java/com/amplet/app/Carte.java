@@ -1,12 +1,12 @@
 package com.amplet.app;
 
 public class Carte {
-    Integer id;
-    String titre;
-    String question;
-    String reponse;
-    String metadata;
-    String description;
+    private transient Integer id;
+    private String titre;
+    private String question;
+    private String reponse;
+    private String metadata;
+    private String description;
 
     public Carte(Integer id, String titre, String question, String reponse, String metadata,
             String description) {

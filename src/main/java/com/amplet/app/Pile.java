@@ -3,11 +3,11 @@ package com.amplet.app;
 import java.util.ArrayList;
 
 public class Pile {
-    Integer id;
-    String nom;
-    String description;
-    ArrayList<String> tags;
-    ArrayList<Carte> cartes;
+    private transient Integer id;
+    private String nom;
+    private String description;
+    private ArrayList<String> tags;
+    private ArrayList<Carte> cartes;
 
     public Pile(Integer id, String nom, String description) {
         this.id = id;
