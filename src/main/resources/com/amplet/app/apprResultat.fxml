@@ -6,56 +6,50 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.AprrResultat">
+<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.ApprResultat">
    <top>
       <fx:include fx:id="menu" source="menu.fxml" />
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox prefHeight="20.0" prefWidth="300.0" />
-            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="500.0" prefWidth="800.0">
-               <content>
-                  <VBox alignment="TOP_CENTER" prefHeight="640.0" prefWidth="654.0">
-                     <children>
-                        <Label text="Fin d'apprentissage">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <VBox alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="500.0">
-                           <TableView fx:id="tableResult" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER">
-                              <placeholder>
-                                 <Label text="Vous n'avez répondu à aucune carte ?" />
-                              </placeholder>
-                              <columns>
-                              </columns>
-                              <BorderPane.margin>
-                                 <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
-                              </BorderPane.margin>
-                           </TableView>
-                        </VBox>
-                        <Label fx:id="labelGlobalCartes" text="Au total, vous avez joué 0 cartes parmi les piles sélectionnées !&#10;">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="10.0" top="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Button mnemonicParsing="false" onAction="#switchToIndex" prefHeight="35.0" prefWidth="200.0" style="-fx-background-radius: 20;" styleClass="btn" stylesheets="@boutonIndex.css" text="Retour à l'Accueil" textFill="WHITE" />
-                     </children>
+      <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="600.0" prefWidth="800.0" BorderPane.alignment="TOP_CENTER">
+         <content>
+            <VBox alignment="TOP_CENTER" prefHeight="640.0" prefWidth="654.0">
+               <children>
+                  <Label text="Fin d'apprentissage">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <VBox alignment="CENTER" fillWidth="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="760.0">
+                     <TableView fx:id="tableResult" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="760.0" BorderPane.alignment="CENTER">
+                        <placeholder>
+                           <Label text="Vous n'avez répondu à aucune carte ?" />
+                        </placeholder>
+                        <columns>
+                        </columns>
+                        <BorderPane.margin>
+                           <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+                        </BorderPane.margin>
+                     </TableView>
                   </VBox>
-               </content>
-            </ScrollPane>
-         </children>
-      </VBox>
+                  <Label fx:id="labelGlobalCartes" text="Au total, vous avez joué 0 cartes parmi les piles sélectionnées !&#10;">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Button mnemonicParsing="false" onAction="#switchToIndex" prefHeight="35.0" prefWidth="200.0" style="-fx-background-radius: 20;" styleClass="btn" stylesheets="@boutonIndex.css" text="Retour à l'Accueil" textFill="WHITE" />
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
    </center>
 </BorderPane>
