@@ -7,15 +7,19 @@ public class Carte {
     private String reponse;
     private String metadata;
     private String description;
+    private int nbJouees = 0;
+    private int nbSucces = 0;
 
     public Carte(Integer id, String titre, String question, String reponse, String metadata,
-            String description) {
+            String description, int nbJouees, int nbSucces) {
         this.id = id; // c'est pour tristan il en a besoin pour drag and drop.
         this.titre = titre;
         this.question = question;
         this.reponse = reponse;
         this.metadata = metadata;
         this.description = description;
+        this.nbJouees = nbJouees;
+        this.nbSucces = nbSucces;
     }
 
     public Carte(String titre, String question, String reponse, String metadata,
@@ -51,6 +55,14 @@ public class Carte {
         return description;
     }
 
+    public int getNbJouees() {
+        return nbJouees;
+    }
+
+    public int getNbSucces() {
+        return nbSucces;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -73,6 +85,14 @@ public class Carte {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setNbJouees(int nbJouees) {
+        this.nbJouees = nbJouees;
+    }
+
+    public void setNbSucces(int nbSucces) {
+        this.nbSucces = nbSucces;
     }
 
 }

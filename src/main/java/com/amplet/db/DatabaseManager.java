@@ -165,6 +165,16 @@ public class DatabaseManager {
         return this.pileDao.query(preparedPileQb);
     }
 
+    public int getNbJoueesForCarte(int id) throws SQLException {
+        return this.pileDeCartesDao.queryBuilder().where().eq(PileDeCartes.CARTE_ID_FIELD_NAME, id)
+                .query().stream().map(pdc -> pdc.getNbJouees()).reduce(0, (a, b) -> a + b);
+    }
+
+    public int getNbJustesForCarte(int id) throws SQLException {
+        return this.pileDeCartesDao.queryBuilder().where().eq(PileDeCartes.CARTE_ID_FIELD_NAME, id)
+                .query().stream().map(pdc -> pdc.getNbJustes()).reduce(0, (a, b) -> a + b);
+    }
+
     // UPDATE
 
     public DbCarte updateCarteTitre(int id, String titre) throws SQLException {
