@@ -168,6 +168,11 @@ public class EditionCarte extends ViewController {
         }
     }
 
+    @FXML
+    public void exporterCarte() {
+
+    }
+
     public void update() {
         labelTitre.setText(currentCarte.getTitre());
         labelQuestion.setText(currentCarte.getQuestion());
