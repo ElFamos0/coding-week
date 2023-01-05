@@ -22,7 +22,7 @@ public class ApprParam extends ViewController {
 
         public Row(Pile pile, Boolean isSelected) {
             nom = new Label(pile.getNom());
-            nom.setFont(new Font("Arial", 20));
+            nom.setFont(new Font("Arial", 15));
             nom.setPrefWidth(200);
             nom.setAlignment(Pos.CENTER);
             checkBox = new CheckBox();

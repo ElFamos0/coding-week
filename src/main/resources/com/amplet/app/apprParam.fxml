@@ -200,7 +200,7 @@
                   <Insets top="5.0" />
                </BorderPane.margin>
             </BorderPane>
-            <TableView fx:id="tablePile" prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="tablePile" prefHeight="200.0" prefWidth="500.0">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
