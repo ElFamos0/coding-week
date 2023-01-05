@@ -44,6 +44,7 @@ public class ApprIg extends ViewController {
 
     private ArrayList<Carte> cartesaproposer;
     private ArrayList<Carte> cartesapprouvees;
+    private ArrayList<Integer> cartesaproposerPileId;
 
     int interval;
     int cartesrestantes = 1;
@@ -55,6 +56,7 @@ public class ApprIg extends ViewController {
     int tempsreponse;
 
     Carte currentCarte;
+    int currentCartePileId;
 
 
     Context ctx;
@@ -68,6 +70,7 @@ public class ApprIg extends ViewController {
         model.addObserver(this);
         ctx = model.getCtx();
         this.cartesaproposer = ctx.getSelectedCartes();
+        this.cartesaproposerPileId = ctx.getSelectedCartesPileId();
         this.cartesapprouvees = new ArrayList<Carte>();
         this.isRandomSelected = ctx.isRandomSelected();
         this.repetitionProbability = ctx.getRepetitionProbability();
@@ -133,10 +136,14 @@ public class ApprIg extends ViewController {
             int random = (int) (Math.random() * cartesaproposer.size());
             currentCarte = cartesaproposer.get(random);
             cartesaproposer.remove(random);
+            currentCartePileId = cartesaproposerPileId.get(random);
+            cartesaproposerPileId.remove(random);
             update();
         } else {
             currentCarte = cartesaproposer.get(0);
             cartesaproposer.remove(0);
+            currentCartePileId = cartesaproposerPileId.get(0);
+            cartesaproposerPileId.remove(0);
         }
 
     }
@@ -146,7 +153,7 @@ public class ApprIg extends ViewController {
 
         System.out.println("valider");
         cartesapprouvees.add(currentCarte);
-        ctx.addPlayed(currentCarte, true);
+        ctx.addPlayed(currentCarte, true, currentCartePileId);
         cartesvues++;
         if (cartesaproposer.size() == 0) {
             try {
@@ -178,7 +185,7 @@ public class ApprIg extends ViewController {
         cartesapprouvees.add(currentCarte);
         cartesvues++;
         // take a random number between 0 and 100
-        ctx.addPlayed(currentCarte, false);
+        ctx.addPlayed(currentCarte, false, currentCartePileId);
         int random = (int) (Math.random() * 100);
         if (random < repetitionProbability) {
             cartesaproposer.add(currentCarte);

@@ -159,12 +159,22 @@ public class Context {
     public void resetPlayed() {
         playedCartes = new ArrayList<Carte>();
         playedReponse = new ArrayList<Boolean>();
+        playedCartesPileId = new ArrayList<Integer>();
     }
 
-    public void addPlayed(Carte c, Boolean b) {
+    public void addPlayed(Carte c, Boolean b, Integer pileId) {
         playedCartes.add(c);
         playedReponse.add(b);
+        playedCartesPileId.add(pileId);
     }
+
+    ArrayList<Integer> playedCartesPileId;
+
+    public ArrayList<Integer> getPlayedCartesPileId() {
+        return playedCartesPileId;
+    }
+
+
 
     public Context() {
 
