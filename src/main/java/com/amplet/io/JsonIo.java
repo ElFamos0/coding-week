@@ -1,10 +1,11 @@
 package com.amplet.io;
 
-import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-
+import java.lang.reflect.Type;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.amplet.app.Carte;
 import com.amplet.app.Pile;
 
@@ -26,11 +27,31 @@ public class JsonIo {
     }
 
     public String dumpString(Pile pile) {
-        return gson.toJson(pile);
+        return this.gson.toJson(pile);
     }
 
     public String dumpString(Carte carte) {
-        return gson.toJson(carte);
+        return this.gson.toJson(carte);
+    }
+
+    public <T> T loadString(String json, Type type) throws JsonSyntaxException {
+        if (type != Pile.class && type != Carte.class)
+            throw new IllegalArgumentException("Type must be Pile or Carte");
+        return this.gson.fromJson(json, type);
+    }
+
+    public void export(Pile pile) throws IOException {
+        this.gson.toJson(pile, Pile.class, new FileWriter(this.filePath));
+    }
+
+    public void export(Carte carte) throws IOException {
+        this.gson.toJson(carte, Carte.class, new FileWriter(this.filePath));
+    }
+
+    public <T> T importFromFile(Type type) throws IOException {
+        if (type != Pile.class && type != Carte.class)
+            throw new IllegalArgumentException("Type must be Pile or Carte");
+        return this.gson.fromJson(new java.io.FileReader(this.filePath), type);
     }
 
 }
