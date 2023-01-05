@@ -6,8 +6,6 @@ import com.amplet.app.ViewController;
 import com.amplet.app.App;
 import com.amplet.app.Carte;
 import com.amplet.app.Context;
-import com.amplet.app.Model;
-import com.amplet.app.Pile;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -97,6 +96,7 @@ public class ApprIg extends ViewController {
             boutonrefuser.setVisible(false);
             boutonvalider.setVisible(false);
         }
+        setTimer();
     }
 
 
@@ -112,17 +112,24 @@ public class ApprIg extends ViewController {
                     interval--;
                 } else {
                     if (isFront && !isFlipping) {
-                        flipCard();
+                        flipCard(e -> {
+                            // dealcard();
+                            // update();
+                        });
                     }
-                    Platform.runLater(() -> timertext.setText("Temps : " + interval));
+                    Platform.runLater(() -> timertext.setText("Temps : 0"));
                     boutonvalider.setDisable(false);
                     boutonrefuser.setDisable(false);
-                    timer.cancel();
                 }
             }
         }, 1000, 1000);
     }
 
+    public void resetTimer() {
+        boutonrefuser.setDisable(true);
+        boutonvalider.setDisable(true);
+        interval = tempsreponse;
+    }
 
     public void dealcard() {
         if (isRandomSelected) {
@@ -130,7 +137,6 @@ public class ApprIg extends ViewController {
             currentCarte = cartesaproposer.get(random);
             cartesaproposer.remove(random);
             update();
-            setTimer();
         } else {
             currentCarte = cartesaproposer.get(0);
             cartesaproposer.remove(0);
@@ -150,15 +156,24 @@ public class ApprIg extends ViewController {
                 e.printStackTrace();
             }
         } else {
-            dealcard();
-            flipCard();
-            update();
+            if (isFront) {
+                flipCard(e -> {
+                    flipCard(null);
+                    dealcard();
+                    update();
+                    resetTimer();
+                });
+            } else {
+                flipCard(null);
+                dealcard();
+                update();
+                resetTimer();
+            }
         }
     }
 
     @FXML
     public void refuser() {
-        System.out.println("refuser");
         cartesapprouvees.add(currentCarte);
         cartesvues++;
         cartesaproposer.add(currentCarte);
@@ -169,30 +184,46 @@ public class ApprIg extends ViewController {
                 e.printStackTrace();
             }
         } else {
-            dealcard();
-            flipCard();
-            update();
+            if (isFront) {
+                flipCard(e -> {
+                    flipCard(null);
+                    dealcard();
+                    update();
+                    resetTimer();
+                });
+            } else {
+                flipCard(null);
+                dealcard();
+                update();
+                resetTimer();
+            }
         }
     }
 
     @FXML
     public void clickcarte() {
         if (isFront && interval >= 1) {
-            flipCard();
-            interval = 0;
+            flipCard(e -> {
+                interval = 0;
+            });
         }
+        // if (interval == 0) {
+        // flipCard(null);
+        // }
     }
 
     @FXML
     public void textvalider() {
-        // TODO
+        if (reponseuser.getText().toLowerCase().equals(currentCarte.getReponse().toLowerCase())) {
+            valider();
+        } else {
+            refuser();
+        }
     }
-
-
 
     // fonction d'animation de résolution de la carte.
     @FXML
-    private void flipCard() {
+    private void flipCard(javafx.event.EventHandler<ActionEvent> value) {
         if (isFlipping) {
             return;
         }
@@ -220,6 +251,8 @@ public class ApprIg extends ViewController {
                 carte.getChildren().addAll(carteBack);
                 flip.setOnFinished(event1 -> {
                     isFlipping = false;
+                    if (value != null)
+                        value.handle(null);
                 });
             });
         } else {
@@ -237,6 +270,8 @@ public class ApprIg extends ViewController {
                 carte.getChildren().addAll(carteFront);
                 flip.setOnFinished(event1 -> {
                     isFlipping = false;
+                    if (value != null)
+                        value.handle(null);
                 });
             });
         }
