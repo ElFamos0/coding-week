@@ -72,6 +72,12 @@ public class Menu extends ViewController {
     }
 
     @FXML
+    private void vaApprFinEntrainement() throws IOException {
+        // System.out.println("Apprentissage param");
+        App.setRoot("apprFinEntrainement");
+    }
+
+    @FXML
     private void importCarteMenu() throws IOException, SQLException {
         App.importCarte();
     }

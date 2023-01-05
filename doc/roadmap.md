@@ -28,13 +28,13 @@
 
 | Objectifs                                                        | Réalisation |
 | ---------------------------------------------------------------- | ----------- |
-| Export / Import de cartes & piles                                | -           |
-| Tests intensifs sur l’appli, correction de bugs                  | -           |
-| Raffinage graphique de l’appli                                   | -           |
-| Implémentation des tags                                          | -           |
-| Gestion d’autres supports multimédia pour les cartes             | -           |
-| Gestion de la réponse des utilisateurs et correction automatique | -           |
-| Gestion de l’export de cartes en ligne                           | -           |
+| Export / Import de cartes & piles                                | Oui         |
+| Tests intensifs sur l’appli, correction de bugs                  | Oui         |
+| Raffinage graphique de l’appli                                   | Oui         |
+| Implémentation des tags                                          | Oui         |
+| Gestion d’autres supports multimédia pour les cartes             | Non         |
+| Gestion de la réponse des utilisateurs et correction automatique | Non         |
+| Gestion de l’export de cartes en ligne                           | Non         |
 
 ## Jour 4
 

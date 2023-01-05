@@ -146,9 +146,4 @@ public class ApprResultat extends ViewController {
 
     }
 
-    public void loadPlayed() {
-
-
-    }
-
 }
