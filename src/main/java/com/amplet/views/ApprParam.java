@@ -267,6 +267,7 @@ public class ApprParam extends ViewController {
             warningPiles.setText("Veuillez sélectionner au moins une pile non vide !");
         } else {
             ctx.resetSelectedCartes();
+            ctx.resetSelectedCartesPileId();
             for (Pile p : listeSelectedPiles) {
                 for (Carte c : p.getCartes()) {
                     // On vérifie que la carte n'est pas déjà dans la liste
@@ -278,6 +279,7 @@ public class ApprParam extends ViewController {
                     }
                     if (!isInList) {
                         ctx.getSelectedCartes().add(c);
+                        ctx.getSelectedCartesPileId().add(p.getId());
                     }
                 }
             }

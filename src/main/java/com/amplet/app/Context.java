@@ -100,7 +100,6 @@ public class Context {
 
     ArrayList<Carte> selectedCartes;
 
-
     public ArrayList<Carte> getSelectedCartes() {
         return selectedCartes;
     }
@@ -121,6 +120,25 @@ public class Context {
                 break;
             }
         }
+    }
+
+    ArrayList<Integer> selectedCartesPileId;
+
+    public ArrayList<Integer> getSelectedCartesPileId() {
+        return selectedCartesPileId;
+    }
+
+    public void resetSelectedCartesPileId() {
+        this.selectedCartesPileId = new ArrayList<Integer>();
+    }
+
+
+    public void addSelectedCartePileId(Integer id) {
+        this.selectedCartesPileId.add(id);
+    }
+
+    public void removeSelectedCartePileId(Integer pileId) {
+        this.selectedCartesPileId.remove(pileId);
     }
 
     /* Context for ApprResult */
