@@ -52,6 +52,10 @@ public class Pile {
         return cartes;
     }
 
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+
     public void setNom(String nom) {
         this.nom = nom;
     }

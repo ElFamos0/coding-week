@@ -7,13 +7,16 @@ import com.amplet.app.Carte;
 import com.amplet.app.Model;
 import com.amplet.app.Pile;
 import com.amplet.app.ViewController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 
 public class EditionPile extends ViewController {
@@ -24,6 +27,10 @@ public class EditionPile extends ViewController {
     private TextField nomPile;
     @FXML
     private TextField descPile;
+    @FXML
+    private TextField tagField;
+    @FXML
+    private HBox tags;
 
     public EditionPile(Model model) {
         super(model);
@@ -86,6 +93,24 @@ public class EditionPile extends ViewController {
                     availableCards.getChildren().add(card);
                 }
             }
+        }
+
+        // Add the tags
+        tags.getChildren().clear();
+        for (String tag : pile.getTags()) {
+            Button tagButton = new Button();
+            tagButton.setText(tag);
+            tagButton.setOnAction(event -> {
+                try {
+                    model.delete(pile, tag);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                update();
+            });
+            tagButton.getStylesheets().add(App.class.getResource("boutonTag.css").toExternalForm());
+            tagButton.getStyleClass().add("tag");
+            tags.getChildren().add(tagButton);
         }
     }
 
@@ -207,6 +232,24 @@ public class EditionPile extends ViewController {
                 model.update(pile);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+            }
+        });
+        tagField.textProperty().addListener((observable, oldValue, newValue) -> {
+            // If it ends with a comma or space, save tag and clear field
+            if (newValue.endsWith(";")) {
+                String tag = newValue.substring(0, newValue.length() - 1);
+                if (!tag.isEmpty()) {
+                    try {
+                        model.create(pile, tag);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    update();
+                    Platform.runLater(() -> {
+                        tagField.positionCaret(0);
+                        tagField.clear();
+                    });
+                }
             }
         });
 
