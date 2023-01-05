@@ -8,6 +8,7 @@ import com.amplet.app.Carte;
 import com.amplet.app.Context;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -21,6 +22,10 @@ import javafx.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
+
+
 
 public class ApprIg extends ViewController {
 
@@ -79,6 +84,8 @@ public class ApprIg extends ViewController {
         ctx.resetPlayed();
     }
 
+
+
     @Override
     public String getName() {
         return this.getClass().getName();
@@ -114,13 +121,14 @@ public class ApprIg extends ViewController {
 
                     }
                     Platform.runLater(() -> timertext.setText("Temps : 0"));
+                    timer.cancel();
                 }
             }
         }, 1000, 1000);
     }
 
     public void resetTimer() {
-        interval = tempsreponse;
+        setTimer();
     }
 
     public void attendre(int secondes) {
@@ -150,7 +158,10 @@ public class ApprIg extends ViewController {
 
     @FXML
     public void valider() {
-
+        if (lockvalider) {
+            return;
+        }
+        lockvalider = true;
         System.out.println("valider");
         cartesapprouvees.add(currentCarte);
         ctx.addPlayed(currentCarte, true, currentCartePileId);
@@ -182,6 +193,11 @@ public class ApprIg extends ViewController {
 
     @FXML
     public void refuser() {
+        if (lockvalider) {
+            return;
+        }
+        lockvalider = true;
+        System.out.println("refuser");
         cartesapprouvees.add(currentCarte);
         cartesvues++;
         // take a random number between 0 and 100
@@ -220,10 +236,6 @@ public class ApprIg extends ViewController {
 
     @FXML
     public void textvalider() {
-        if (lockvalider) {
-            return;
-        }
-        lockvalider = true;
         if (reponseuser.getText().toLowerCase().equals(currentCarte.getReponse().toLowerCase())) {
             valider();
         } else {
@@ -287,6 +299,7 @@ public class ApprIg extends ViewController {
         }
         isFront = !isFront;
     }
+
 
     public void update() {
         titrecarte.setText(currentCarte.getTitre());
