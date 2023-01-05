@@ -5,16 +5,22 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 
-<MenuBar xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.Menu">
+<MenuBar xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="com.amplet.views.Menu">
   <menus>
     <Menu mnemonicParsing="false">
-         <graphic>
-            <Label onMouseClicked="#retourAccueil" text="Accueil" />
-         </graphic>
+      <graphic>
+        <Label onMouseClicked="#retourAccueil" text="Accueil" />
+      </graphic>
     </Menu>
     <Menu mnemonicParsing="false" text="Fichier">
       <items>
-        <MenuItem mnemonicParsing="false" onAction="#test" text="Importer" />
+        <Menu mnemonicParsing="false" text="Importer">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#importCardMenu" text="Importer une carte" />
+            <MenuItem mnemonicParsing="false" onAction="#importPileMenu" text="Importer une pile" />
+          </items>
+        </Menu>
         <MenuItem mnemonicParsing="false" onAction="#test" text="Exporter" />
       </items>
     </Menu>

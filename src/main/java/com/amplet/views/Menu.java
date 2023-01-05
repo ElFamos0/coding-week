@@ -1,10 +1,13 @@
 package com.amplet.views;
 
+import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import com.amplet.app.App;
 import com.amplet.app.Model;
 import com.amplet.app.ViewController;
 import javafx.fxml.FXML;
+import javafx.stage.FileChooser;
 
 public class Menu extends ViewController {
     public Menu(Model model) {
@@ -68,5 +71,15 @@ public class Menu extends ViewController {
     private void vaApprParam() throws IOException {
         // System.out.println("Apprentissage param");
         App.setRoot("apprParam");
+    }
+
+    @FXML
+    private void importCarteMenu() throws IOException, SQLException {
+        App.importCarte();
+    }
+
+    @FXML
+    private void importPileMenu() throws IOException, SQLException {
+        App.importPile();
     }
 }

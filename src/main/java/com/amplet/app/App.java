@@ -1,15 +1,16 @@
 package com.amplet.app;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+import com.amplet.db.DatabaseManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
-import com.amplet.db.DatabaseManager;
+import com.amplet.io.JsonIo;
 
 /**
  * JavaFX App
@@ -67,6 +68,29 @@ public class App extends Application {
         });
         return fxmlLoader.load();
     }
+
+    public static void importCarte() throws IOException, SQLException {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter =
+                new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog(scene.getWindow());
+        JsonIo jsonIo = new JsonIo(file.getAbsolutePath());
+        Carte carte = jsonIo.importFromFile(Carte.class);
+        model.create(carte);
+    }
+
+    public static void importPile() throws IOException, SQLException {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter =
+                new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog(scene.getWindow());
+        JsonIo jsonIo = new JsonIo(file.getAbsolutePath());
+        Pile pile = jsonIo.importFromFile(Pile.class);
+        model.create(pile);
+    }
+
 
     public static void main(String[] args) {
         launch();
