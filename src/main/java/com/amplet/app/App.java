@@ -91,6 +91,25 @@ public class App extends Application {
         model.create(pile);
     }
 
+    public static void exportCarte(Carte carte) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter =
+                new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showSaveDialog(scene.getWindow());
+        JsonIo jsonIo = new JsonIo(file.getAbsolutePath());
+        jsonIo.export(carte);
+    }
+
+    public static void exportPile(Pile pile) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter =
+                new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showSaveDialog(scene.getWindow());
+        JsonIo jsonIo = new JsonIo(file.getAbsolutePath());
+        jsonIo.export(pile);
+    }
 
     public static void main(String[] args) {
         launch();

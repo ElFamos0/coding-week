@@ -185,7 +185,11 @@ public class EditionCarte extends ViewController {
 
     @FXML
     public void exporterCarte() {
-
+        try {
+            App.exportCarte(currentCarte);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void update() {
