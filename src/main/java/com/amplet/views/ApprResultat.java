@@ -6,6 +6,7 @@ import com.amplet.app.App;
 import com.amplet.app.Carte;
 import com.amplet.app.Model;
 import com.amplet.app.ViewController;
+import com.amplet.db.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -45,8 +46,13 @@ public class ApprResultat extends ViewController {
 
             this.nbJouee = new Label(Integer.toString(carte.getNbJouees()));
             this.nbReussi = new Label(Integer.toString(carte.getNbSucces()));
-            this.accuracy = new Label(
-                    Integer.toString(carte.getNbSucces() * 100 / carte.getNbJouees()) + " %");
+            if (carte.getNbJouees() > 0) {
+                this.accuracy = new Label(
+                        Integer.toString(carte.getNbSucces() * 100 / carte.getNbJouees()) + " %");
+            } else {
+                this.accuracy = new Label("100 %");
+            }
+
         }
 
         public Label getTitreCarte() {
@@ -140,7 +146,14 @@ public class ApprResultat extends ViewController {
         accuracyCol.setStyle("-fx-alignment: CENTER;");
 
         for (int i = 0; i < playedCartes.size(); i++) {
-            Row row = new Row(playedCartes.get(i), playedReponses.get(i));
+            Carte currentCarte = playedCartes.get(i);
+            Boolean currentReponse = playedReponses.get(i);
+            int currentCarteId = currentCarte.getId();
+            Row row = new Row(currentCarte, currentReponse);
+            currentCarte.setNbJouees(currentCarte.getNbJouees() + 1);
+            if (currentReponse) {
+                currentCarte.setNbSucces(currentCarte.getNbSucces() + 1);
+            }
             tableResult.getItems().add(row);
         }
 
