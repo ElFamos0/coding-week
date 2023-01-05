@@ -9,7 +9,6 @@ import com.amplet.app.Pile;
 import com.amplet.app.ViewController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -154,7 +153,7 @@ public class EditionPile extends ViewController {
                 success = true;
                 if (!found) {
                     try {
-                        model.create(pile, c);
+                        model.delete(pile, c);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
