@@ -28,7 +28,9 @@ Les tests peuvent être lancés avec la commande `./test.sh`.
 
 Ils sont implémentés grâce au framework [JUnit5](https://junit.org/junit5/) et lancés grâce au plugin [Maven Surefire](https://maven.apache.org/surefire/maven-surefire-plugin/).
 
-## Releases 
+Les tests couvrent les opérations sur la base de donées et la sérialisation/désérialisation des cartes et piles en JSON.
+
+## Releases
 
 ### Jour 1
 
