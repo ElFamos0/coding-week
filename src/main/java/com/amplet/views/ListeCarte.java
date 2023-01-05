@@ -2,8 +2,8 @@ package com.amplet.views;
 
 import java.util.ArrayList;
 import com.amplet.app.App;
+import com.amplet.app.Carte;
 import com.amplet.app.Model;
-import com.amplet.app.Pile;
 import com.amplet.app.ViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,15 +12,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class ListePile extends ViewController {
+public class ListeCarte extends ViewController {
 
     public class Row {
-        private TextField nom;
+        private TextField titre;
         private Button modifier;
         private Button supprimer;
 
-        public Row(Pile pile) {
-            this.nom = new TextField(pile.getNom());
+        public Row(Carte carte) {
+            this.titre = new TextField(carte.getTitre());
             this.modifier = new Button("Modifier");
             this.supprimer = new Button("Supprimer");
 
@@ -28,7 +28,7 @@ public class ListePile extends ViewController {
             this.supprimer.setOnAction(evt -> {
                 // On supprime la pile
                 try {
-                    model.delete(pile);
+                    model.delete(carte);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -37,29 +37,29 @@ public class ListePile extends ViewController {
             this.modifier.setOnAction(evt -> {
                 // On switch vers la vue d'édition de pile
                 try {
-                    App.setRoot("editionPile", pile);
+                    App.setRoot("editionCarte", carte, "listeCarte");
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
             });
 
-            this.nom.setOnKeyReleased(evt -> {
+            this.titre.setOnKeyReleased(evt -> {
                 // On modifie le nom de la pile
                 try {
-                    pile.setNom(this.nom.getText());
-                    model.update(pile);
+                    carte.setTitre(this.titre.getText());
+                    model.update(carte);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
             });
 
             // On modifie le style du text field pour qu'il ressemble à un label
-            this.nom.setStyle(
+            this.titre.setStyle(
                     "-fx-background-color: transparent; -fx-border-color: transparent; -fx-text-fill: black;");
         }
 
-        public TextField getNom() {
-            return nom;
+        public TextField getTitre() {
+            return titre;
         }
 
         public Button getModifier() {
@@ -72,11 +72,11 @@ public class ListePile extends ViewController {
     }
 
     @FXML
-    private TableView<Row> tablePile;
+    private TableView<Row> tableCartes;
     @FXML
-    private TextField recherchePile;
+    private TextField rechercheCarte;
 
-    public ListePile(Model model) {
+    public ListeCarte(Model model) {
         super(model);
         model.addObserver(this);
     }
@@ -89,50 +89,51 @@ public class ListePile extends ViewController {
     @Override
     public void update() {
         // Charge les piles
-        ArrayList<Pile> piles = model.getAllPiles();
+        ArrayList<Carte> cartes = model.getAllCartes();
         // On vide la table
-        tablePile.getItems().clear();
+        tableCartes.getItems().clear();
         // On ajoute les piles
-        for (Pile pile : piles) {
+        for (Carte carte : cartes) {
             // Trois colonne : nom, bouton modifier, bouton supprimer
-            if (recherchePile.getText().length() > 0) {
-                if (!pile.getNom().toLowerCase().contains(recherchePile.getText().toLowerCase())) {
+            if (rechercheCarte.getText().length() > 0) {
+                if (!carte.getTitre().toLowerCase()
+                        .contains(rechercheCarte.getText().toLowerCase())) {
                     continue;
                 }
             }
-            Row row = new Row(pile);
-            tablePile.getItems().add(row);
+            Row row = new Row(carte);
+            tableCartes.getItems().add(row);
         }
     }
 
     @FXML
     public void initialize() {
         // On charge les colonnes
-        TableColumn<Row, TextField> nomCol = new TableColumn<>("Nom");
+        TableColumn<Row, TextField> titreCol = new TableColumn<>("Titre");
         TableColumn<Row, Button> modifierCol = new TableColumn<>("Modifier");
         TableColumn<Row, Button> supprimerCol = new TableColumn<>("Supprimer");
 
-        nomCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        titreCol.setCellValueFactory(new PropertyValueFactory<>("titre"));
         modifierCol.setCellValueFactory(new PropertyValueFactory<>("modifier"));
         supprimerCol.setCellValueFactory(new PropertyValueFactory<>("supprimer"));
 
         // On ajoute les colonnes
-        tablePile.getColumns().add(nomCol);
-        tablePile.getColumns().add(modifierCol);
-        tablePile.getColumns().add(supprimerCol);
+        tableCartes.getColumns().add(titreCol);
+        tableCartes.getColumns().add(modifierCol);
+        tableCartes.getColumns().add(supprimerCol);
 
         // On met les colonnes pour prendre tout l'espace
-        nomCol.prefWidthProperty().bind(tablePile.widthProperty().multiply(0.5));
-        modifierCol.prefWidthProperty().bind(tablePile.widthProperty().multiply(0.25));
-        supprimerCol.prefWidthProperty().bind(tablePile.widthProperty().multiply(0.25));
+        titreCol.prefWidthProperty().bind(tableCartes.widthProperty().multiply(0.5));
+        modifierCol.prefWidthProperty().bind(tableCartes.widthProperty().multiply(0.25));
+        supprimerCol.prefWidthProperty().bind(tableCartes.widthProperty().multiply(0.25));
 
         // On centre les objets dans les colonnes
-        nomCol.setStyle("-fx-alignment: CENTER;");
+        titreCol.setStyle("-fx-alignment: CENTER;");
         modifierCol.setStyle("-fx-alignment: CENTER;");
         supprimerCol.setStyle("-fx-alignment: CENTER;");
 
         // On fait la recherche aussi
-        recherchePile.setOnKeyReleased(evt -> {
+        rechercheCarte.setOnKeyReleased(evt -> {
             update();
         });
 
@@ -141,10 +142,10 @@ public class ListePile extends ViewController {
     }
 
     @FXML
-    public void creerPile() {
+    public void creerCarte() {
         try {
-            Pile pile = new Pile("Nouvelle pile", "Description pour la pile");
-            model.create(pile);
+            Carte c = new Carte("Nouvelle carte", "Question", "Réponse", "", "Description");
+            model.create(c);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

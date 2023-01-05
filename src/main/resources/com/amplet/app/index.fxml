@@ -13,6 +13,7 @@
          <children>
             <Button mnemonicParsing="false" onAction="#switchToApprParam" prefHeight="35.0" prefWidth="200.0" style="-fx-background-radius: 20;" styleClass="btn" stylesheets="@boutonIndex.css" text="Apprendre" textFill="WHITE" />
             <Button mnemonicParsing="false" onAction="#switchToListePile" prefHeight="35.0" prefWidth="200.0" style="-fx-background-radius: 20;" styleClass="btn" stylesheets="@boutonIndex.css" text="Gérer les piles" textFill="WHITE" />
+            <Button mnemonicParsing="false" onAction="#switchToListeCarte" prefHeight="35.0" prefWidth="200.0" style="-fx-background-radius: 20;" styleClass="btn" stylesheets="@boutonIndex.css" text="Gérer les cartes" textFill="WHITE" />
             <Button mnemonicParsing="false" onAction="#switchToStatistiques" prefHeight="35.0" prefWidth="200.0" style="-fx-background-radius: 20;" styleClass="btn" stylesheets="@boutonIndex.css" text="Statistiques" textFill="WHITE" />
          </children>
       </VBox>

@@ -37,6 +37,12 @@ public class Index extends ViewController {
         App.setRoot("statistiques");
     }
 
+    @FXML
+    public void switchToListeCarte() throws IOException {
+        System.out.println("Liste de cartes");
+        App.setRoot("listeCarte");
+    }
+
     public void update() {
         // System.out.println("Index updated");
     }

@@ -1,13 +1,11 @@
 package com.amplet.views;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import com.amplet.app.App;
 import com.amplet.app.Model;
 import com.amplet.app.ViewController;
 import javafx.fxml.FXML;
-import javafx.stage.FileChooser;
 
 public class Menu extends ViewController {
     public Menu(Model model) {

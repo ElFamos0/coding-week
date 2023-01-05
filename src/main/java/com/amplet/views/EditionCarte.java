@@ -25,7 +25,18 @@ public class EditionCarte extends ViewController {
         super(model);
         model.addObserver(this);
         currentCarte = (Carte) args[0];
-        currentPile = (Pile) args[1];
+
+        // si on a une pile en argument, on va retourner a l'édition de pile
+        // sinon on retourne a la liste des cartes
+        // selon le type de args[1]
+
+        if (args[1] instanceof Pile) {
+            currentPile = (Pile) args[1];
+        } else if (args[1] instanceof String) {
+            if (args[1].equals("listeCarte")) {
+                currentPile = null;
+            }
+        }
 
     }
 
@@ -136,7 +147,11 @@ public class EditionCarte extends ViewController {
     @FXML
     public void retour() {
         try {
-            App.setRoot("editionPile", currentPile);
+            if (currentPile != null) {
+                App.setRoot("editionPile", currentPile);
+            } else {
+                App.setRoot("listeCarte");
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -11,14 +12,14 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19"
-   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.ListePile">
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.ListeCarte">
    <top>
       <fx:include fx:id="menu" source="menu.fxml" />
    </top>
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
-            <Button mnemonicParsing="false" onAction="#retourIndex" styleClass="return"
+            <Button onAction="#retourIndex" mnemonicParsing="false" styleClass="return"
                stylesheets="@boutonRetour.css" text="&lt;" BorderPane.alignment="TOP_LEFT">
                <font>
                   <Font name="Fira Mono Bold" size="12.0" />
@@ -27,16 +28,26 @@
          </top>
          <center>
             <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <top>
+                  <Label text="Cartes" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="26.0" />
+                     </font>
+                     <BorderPane.margin>
+                        <Insets top="10.0" />
+                     </BorderPane.margin>
+                  </Label>
+               </top>
                <bottom>
-                  <Button mnemonicParsing="false" onAction="#creerPile" text="Créer une pile"
-                     BorderPane.alignment="CENTER">
+                  <Button mnemonicParsing="false" text="Créer une carte"
+                     BorderPane.alignment="CENTER" onAction="#creerCarte">
                      <BorderPane.margin>
                         <Insets bottom="30.0" />
                      </BorderPane.margin>
                   </Button>
                </bottom>
                <center>
-                  <TableView fx:id="tablePile" prefHeight="332.0" prefWidth="349.0"
+                  <TableView fx:id="tableCartes" prefHeight="332.0" prefWidth="349.0"
                      BorderPane.alignment="CENTER">
                      <columns>
                      </columns>
@@ -45,10 +56,11 @@
                      </BorderPane.margin>
                   </TableView>
                </center>
+
                <top>
                   <BorderPane BorderPane.alignment="CENTER">
                      <top>
-                        <Label text="Piles" BorderPane.alignment="CENTER">
+                        <Label text="Cartes" BorderPane.alignment="CENTER">
                            <font>
                               <Font name="System Bold" size="26.0" />
                            </font>
@@ -70,7 +82,7 @@
                               </ImageView>
                            </right>
                            <center>
-                              <TextField fx:id="recherchePile" prefWidth="50.0"
+                              <TextField fx:id="rechercheCarte" prefWidth="50.0"
                                  style="-fx-background-color: #0000; -fx-background-radius: 15;"
                                  BorderPane.alignment="CENTER">
                                  <BorderPane.margin>
