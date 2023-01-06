@@ -2,6 +2,7 @@ package com.amplet.app;
 
 import java.io.File;
 import java.util.ArrayList;
+import javafx.scene.image.Image;
 
 public class Carte {
     private transient Integer id;
@@ -34,16 +35,17 @@ public class Carte {
         this.description = description;
     }
 
-    public File getImage() {
+    public Image getImage() {
         if (metadata == null) {
             return null;
         }
         File file = new File("./data/" + metadata);
         if (file.exists()) {
-            return file;
+            return new Image(file.toURI().toString());
         } else {
             return null;
         }
+
     }
 
     @Override
