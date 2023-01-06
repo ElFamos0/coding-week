@@ -5,7 +5,8 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 
-<MenuBar xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.Menu">
+<MenuBar xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="com.amplet.views.Menu">
   <menus>
     <Menu mnemonicParsing="false">
       <graphic>
@@ -20,16 +21,6 @@
             <MenuItem mnemonicParsing="false" onAction="#importPileMenu" text="Importer une pile" />
           </items>
         </Menu>
-      </items>
-    </Menu>
-    <Menu mnemonicParsing="false" text=" Debug">
-      <items>
-        <MenuItem mnemonicParsing="false" onAction="#vaEditionPile" text="EditionPile" />
-        <MenuItem mnemonicParsing="false" onAction="#vaEditionCarte" text="EditionCarte" />
-        <MenuItem mnemonicParsing="false" onAction="#vaApprParam" text="Apprentissage param" />
-        <MenuItem mnemonicParsing="false" onAction="#vaApprIg" text="Apprentissage In Game" />
-        <MenuItem mnemonicParsing="false" onAction="#vaApprResultat" text="Apprentissage Resultat" />
-            <MenuItem mnemonicParsing="false" onAction="#vaApprFinEntrainement" text="Apprentissage Fin" />
       </items>
     </Menu>
   </menus>

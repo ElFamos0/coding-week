@@ -42,42 +42,6 @@ public class Menu extends ViewController {
     }
 
     @FXML
-    private void vaEditionPile() throws IOException {
-        // System.out.println("Edition de pile");
-        App.setRoot("editionPile");
-    }
-
-    @FXML
-    private void vaEditionCarte() throws IOException {
-        // System.out.println("Edition de carte");
-        App.setRoot("editionCarte");
-    }
-
-    @FXML
-    private void vaApprIg() throws IOException {
-        // System.out.println("Apprentissage in game");
-        App.setRoot("apprIg");
-    }
-
-    @FXML
-    private void vaApprResultat() throws IOException {
-        // System.out.println("Apprentissage resultats");
-        App.setRoot("apprResultat");
-    }
-
-    @FXML
-    private void vaApprParam() throws IOException {
-        // System.out.println("Apprentissage param");
-        App.setRoot("apprParam");
-    }
-
-    @FXML
-    private void vaApprFinEntrainement() throws IOException {
-        // System.out.println("Apprentissage param");
-        App.setRoot("apprFinEntrainement");
-    }
-
-    @FXML
     private void importCarteMenu() throws IOException, SQLException {
         App.importCarte();
     }
