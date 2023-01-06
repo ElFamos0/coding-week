@@ -40,8 +40,7 @@
 
 | Objectifs                                            | Réalisation |
 | ---------------------------------------------------- | ----------- |
-| Rendus de formules mathématiques sur les cartes      | -           |
-| Gestion de l’import au format .apkg                  | -           |
-| Finalisation : derniers tests, dernières corrections | -           |
-| Écriture du rapport final                            | -           |
-| Mise en forme du répo git et du README.              | -           |
+| Rendus de formules mathématiques sur les cartes      | Non           |
+| Gestion de l’import au format .apkg                  | Partiellement           |
+| Finalisation : derniers tests, dernières corrections | Oui           |
+| Mise en forme du répo git et du README.              | Oui           |
