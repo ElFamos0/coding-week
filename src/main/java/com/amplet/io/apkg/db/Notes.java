@@ -2,6 +2,7 @@ package com.amplet.io.apkg.db;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -26,6 +27,7 @@ public class Notes {
         this.csum = csum;
         this.flags = flags;
         this.data = data;
+        Stream.of(this.flds.split(Character.toString((char) 0x1f))).forEach(s -> fields.add(s));
     }
 
     @DatabaseField
