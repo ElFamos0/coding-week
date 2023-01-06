@@ -140,12 +140,15 @@ public class ApprIg extends ViewController {
         ctxResultat.addCarteJouée(ctxIg.getCarteCourante(), ctxIg.getCarteCouranteIdPile(), true);
         cartesvues++;
         if (!ctxIg.ilResteDesCartes()) {
-            try {
-                timer.cancel();
-                App.setRoot("apprResultat");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            timer.cancel();
+            flipCard(e -> {
+                attendre(1);
+                try {
+                    App.setRoot("apprResultat");
+                } catch (Exception f) {
+                    f.printStackTrace();
+                }
+            });
         } else {
             if (isFront) {
                 flipCard(e -> {
@@ -181,12 +184,15 @@ public class ApprIg extends ViewController {
             ctxIg.addCartesProposées(ctxIg.getCarteCourante(), ctxIg.getCarteCouranteIdPile());
         }
         if (!ctxIg.ilResteDesCartes()) {
-            try {
-                timer.cancel();
-                App.setRoot("apprResultat");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            timer.cancel();
+            flipCard(e -> {
+                attendre(1);
+                try {
+                    App.setRoot("apprResultat");
+                } catch (Exception f) {
+                    f.printStackTrace();
+                }
+            });
         } else {
             if (isFront) {
                 flipCard(e -> {

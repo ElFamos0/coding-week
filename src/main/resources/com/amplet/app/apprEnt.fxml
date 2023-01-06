@@ -80,7 +80,7 @@
                   </Button>
                </left>
                <right>
-                  <Button fx:id="boutonvalider" mnemonicParsing="false" onAction="#valider" text="✔"
+                  <Button fx:id="boutonvalider" mnemonicParsing="false" onAction="#valider" text="✓"
                      BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets right="10.0" />
