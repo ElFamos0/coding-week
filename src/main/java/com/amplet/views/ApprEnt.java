@@ -166,8 +166,8 @@ public class ApprEnt extends ViewController {
         isFlipping = true;
         carteBack = new BorderPane();
         Label backLabel = new Label(currentCarte.getReponse());
-        backLabel.setStyle("-fx-font-size: 20px;");
-        backLabel.setStyle("-fx-font-weight: bold;");
+        // set class to card-reponse
+        backLabel.getStyleClass().add("card-reponse");
         carteBack.setCenter(backLabel);
         carteBack.setPrefSize(carte.getWidth(), carte.getHeight());
         carteBack.setMaxSize(carte.getWidth(), carte.getHeight());

@@ -1,8 +1,12 @@
 .card {
-    -fx-background-color: #ddeeff;
+    -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+        #9d4024,
+        #d86e3a,
+        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
+    -fx-border-color: #551c00;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
-    -fx-border-color: #aaaaaa;
     -fx-border-width: 1;
     -fx-padding: 10;
     -fx-spacing: 10;
@@ -15,11 +19,15 @@
     -fx-translate-y: -5;
     /* shadow */
     -fx-effect: dropshadow(gaussian, #aaaaaa, 10, 0, 0, 5);
-
-    -fx-background-color: #ccddee;
+    /* same gradient but darker */
+    -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+        #9d4024,
+        #d86e3a,
+        radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
+    -fx-border-color: #551c00;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
-    -fx-border-color: #aaaaaa;
     -fx-border-width: 1;
     -fx-padding: 10;
     -fx-spacing: 10;
@@ -31,10 +39,14 @@
     /* shadow */
     -fx-effect: dropshadow(gaussian, #aaaaaa, 10, 0, 0, 0);
 
-    -fx-background-color: #ddeeff;
+    -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+        #9d4024,
+        #d86e3a,
+        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
+    -fx-border-color: #551c00;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
-    -fx-border-color: #aaaaaa;
     -fx-border-width: 1;
     -fx-padding: 10;
     -fx-spacing: 10;
@@ -43,11 +55,13 @@
 .card-title {
     -fx-font-size: 20;
     -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
 }
 
 .card-question {
     -fx-font-size: 16;
     -fx-font-style: italic;
+    -fx-text-fill: #ffffff;
 }
 
 .card-image {
@@ -58,4 +72,10 @@
     -fx-border-width: 1;
     -fx-padding: 10;
     -fx-spacing: 10;
+}
+
+.card-reponse {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
 }

@@ -6,10 +6,12 @@ import com.amplet.app.Model;
 import com.amplet.app.Pile;
 import com.amplet.app.ViewController;
 import javafx.animation.RotateTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
@@ -49,7 +51,7 @@ public class EditionCarte extends ViewController {
     private VBox carte;
 
     private VBox carteFront;
-    private VBox carteBack;
+    private BorderPane carteBack;
     private boolean isFront = true;
     private boolean isFlipping = false;
 
@@ -58,9 +60,6 @@ public class EditionCarte extends ViewController {
 
     @FXML
     private Label labelTitre;
-
-    @FXML
-    private Label labelReponse;
 
     @FXML
     private TextField prompttitre;
@@ -109,28 +108,63 @@ public class EditionCarte extends ViewController {
         });
 
 
+
+        // flip the card if needed when the prompt are focused
+        prompttitre.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                if (!isFront) {
+                    flipCard(null);
+                }
+            }
+        });
+
+        promptquestion.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                if (!isFront) {
+                    flipCard(null);
+                }
+            }
+        });
+
+        promptreponse.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                if (isFront) {
+                    flipCard(null);
+                }
+            }
+        });
+
+
         update();
     }
 
     @FXML
-    private void flipCard() {
+    private void clickcarte() {
+        flipCard(null);
+    }
+
+
+    private void flipCard(javafx.event.EventHandler<ActionEvent> value) {
         if (isFlipping) {
             return;
         }
         isFlipping = true;
-        carteBack = new VBox();
-        // Vertically center a label
-        Label backLabel = new Label("Back");
-        backLabel.setTranslateY(-backLabel.getHeight() / 2);
-        carteBack.getChildren().addAll(backLabel);
+        carteBack = new BorderPane();
+        Label backLabel = new Label(currentCarte.getReponse());
+        // set class to card-reponse
+        backLabel.getStyleClass().add("card-reponse");
+        carteBack.setCenter(backLabel);
+        carteBack.setPrefSize(carte.getWidth(), carte.getHeight());
+        carteBack.setMaxSize(carte.getWidth(), carte.getHeight());
+        carteBack.setMinSize(carte.getWidth(), carte.getHeight());
         if (isFront) {
-            RotateTransition rotateTransition = new RotateTransition(Duration.seconds(0.5), carte);
+            RotateTransition rotateTransition = new RotateTransition(Duration.seconds(0.2), carte);
             rotateTransition.setByAngle(90);
             rotateTransition.setAxis(Rotate.X_AXIS);
             rotateTransition.play();
             rotateTransition.setOnFinished(event -> {
                 // Put upside down
-                RotateTransition flip = new RotateTransition(Duration.seconds(0.5), carte);
+                RotateTransition flip = new RotateTransition(Duration.seconds(0.2), carte);
                 flip.setByAngle(-90);
                 flip.setAxis(Rotate.X_AXIS);
                 flip.play();
@@ -138,16 +172,18 @@ public class EditionCarte extends ViewController {
                 carte.getChildren().addAll(carteBack);
                 flip.setOnFinished(event1 -> {
                     isFlipping = false;
+                    if (value != null)
+                        value.handle(null);
                 });
             });
         } else {
-            RotateTransition rotateTransition = new RotateTransition(Duration.seconds(0.5), carte);
+            RotateTransition rotateTransition = new RotateTransition(Duration.seconds(0.2), carte);
             rotateTransition.setByAngle(90);
             rotateTransition.setAxis(Rotate.X_AXIS);
             rotateTransition.play();
             rotateTransition.setOnFinished(event -> {
                 // Put upside down
-                RotateTransition flip = new RotateTransition(Duration.seconds(0.5), carte);
+                RotateTransition flip = new RotateTransition(Duration.seconds(0.2), carte);
                 flip.setByAngle(-90);
                 flip.setAxis(Rotate.X_AXIS);
                 flip.play();
@@ -155,6 +191,8 @@ public class EditionCarte extends ViewController {
                 carte.getChildren().addAll(carteFront);
                 flip.setOnFinished(event1 -> {
                     isFlipping = false;
+                    if (value != null)
+                        value.handle(null);
                 });
             });
         }
@@ -212,7 +250,13 @@ public class EditionCarte extends ViewController {
     public void update() {
         labelTitre.setText(currentCarte.getTitre());
         labelQuestion.setText(currentCarte.getQuestion());
-        labelReponse.setText(currentCarte.getReponse());
+        // Get the reponse from carteback
+        if (carteBack != null) {
+            Label backLabel = (Label) carteBack.getCenter();
+            backLabel.setText(currentCarte.getReponse());
+        }
+
+
         promptquestion.setText(currentCarte.getQuestion());
         promptreponse.setText(currentCarte.getReponse());
         prompttitre.setText(currentCarte.getTitre());
