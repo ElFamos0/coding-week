@@ -8,16 +8,11 @@ import com.amplet.app.Carte;
 import com.amplet.app.Model;
 import com.amplet.app.Pile;
 import com.amplet.app.ViewController;
-import com.amplet.db.DatabaseManager;
 import javafx.fxml.FXML;
-import javafx.geometry.Point2D;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 public class ApprResultat extends ViewController {
 

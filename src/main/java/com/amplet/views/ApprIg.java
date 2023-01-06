@@ -8,7 +8,6 @@ import com.amplet.app.Carte;
 import com.amplet.app.Context;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -22,8 +21,6 @@ import javafx.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.KeyCode;
 
 
 

@@ -3,7 +3,6 @@ package com.amplet.views;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import com.amplet.app.App;
 import com.amplet.app.Carte;
 import com.amplet.app.Model;

@@ -15,12 +15,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
-import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
-import javafx.application.Platform;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class ApprEnt extends ViewController {
 
