@@ -58,10 +58,33 @@
                   </RadioButton>
                </children>
                <VBox.margin>
-                  <Insets bottom="5.0" top="20.0" />
+                  <Insets bottom="5.0" left="10.0" top="20.0" />
                </VBox.margin>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
+               <children>
+                  <CheckBox fx:id="checkboxRandom" mnemonicParsing="false" onAction="#switchRandom" text="Cartes aléatoires">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </CheckBox>
+                  <CheckBox fx:id="checkboxRepetition" mnemonicParsing="false" onAction="#switchRepetition" text="Favoriser la répétition des cartes ratées">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="5.0" />
+                     </HBox.margin>
+                  </CheckBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox fx:id="hboxCartes" alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Nombre de cartes :">
                      <font>
@@ -82,8 +105,11 @@
                      </font>
                   </Label>
                </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" top="5.0" />
+               </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
+            <HBox fx:id="hboxTemps" alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Temps de réponse par carte (s) :">
                      <font>
@@ -105,33 +131,10 @@
                   </Label>
                </children>
                <VBox.margin>
-                  <Insets bottom="5.0" />
+                  <Insets bottom="5.0" left="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
-               <children>
-                  <CheckBox fx:id="checkboxRandom" mnemonicParsing="false" onAction="#switchRandom" text="Cartes aléatoires">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin>
-                  </CheckBox>
-                  <CheckBox fx:id="checkboxRepetion" mnemonicParsing="false" onAction="#switchRepetition" text="Favoriser la répétition des cartes ratées">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets bottom="5.0" />
-                     </HBox.margin>
-                  </CheckBox>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
+            <HBox fx:id="hboxRepetition" alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="780.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Probabilité de répétition :">
                      <font>
@@ -160,6 +163,9 @@
                <padding>
                   <Insets bottom="5.0" />
                </padding>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" top="5.0" />
+               </VBox.margin>
             </HBox>
             <BorderPane prefWidth="150.0" style="-fx-background-color: #dedede; -fx-background-radius: 10;" BorderPane.alignment="CENTER">
                <right>
@@ -193,7 +199,7 @@
                   <Insets top="15.0" />
                </VBox.margin>
             </Label>
-            <Button mnemonicParsing="false" onAction="#validerParam" text="Commencer la session !">
+            <Button mnemonicParsing="false" onAction="#validerParam" style="-fx-background-radius: 20;" styleClass="btn" stylesheets="@boutonIndex.css" text="Commencer la session !">
                <VBox.margin>
                   <Insets bottom="20.0" top="20.0" />
                </VBox.margin>
