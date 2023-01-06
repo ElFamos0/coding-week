@@ -14,6 +14,7 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -83,6 +84,10 @@ public class ApprParam extends ViewController {
 
     @FXML
     public void initialize() {
+        hboxCartes.setVisible(true);
+        hboxRepetition.setVisible(true);
+        hboxTemps.setVisible(true);
+        checkboxRepetition.setVisible(true);
         customTooltip.setText(
                 "Détermine la probabilité qu'a une carté déjà passée de réapparaître à nouveau.\n Seul le mode d'évaluation enregistre les statistiques.");
 
@@ -130,15 +135,23 @@ public class ApprParam extends ViewController {
 
         radioApprentissage.setOnAction(e -> {
             modeDeJeu = "Apprentissage";
+            hboxCartes.setVisible(false);
+            hboxRepetition.setVisible(false);
+            hboxTemps.setVisible(false);
+            checkboxRepetition.setVisible(false);
             radioEval.setSelected(false);
         });
 
         radioEval.setOnAction(e -> {
             modeDeJeu = "Evaluation";
+            hboxCartes.setVisible(true);
+            hboxRepetition.setVisible(true);
+            hboxTemps.setVisible(true);
+            checkboxRepetition.setVisible(true);
             radioApprentissage.setSelected(false);
         });
 
-        radioApprentissage.setSelected(true);
+        radioEval.setSelected(true);
 
         update();
     }
@@ -181,6 +194,15 @@ public class ApprParam extends ViewController {
 
     @FXML
     private RadioButton radioEval;
+
+    @FXML
+    private HBox hboxCartes;
+
+    @FXML
+    private HBox hboxTemps;
+
+    @FXML
+    private HBox hboxRepetition;
 
 
     @FXML
