@@ -78,6 +78,18 @@ public class ApprIg extends ViewController {
     }
 
     @FXML
+    public void retour() throws Exception {
+        timer.cancel();
+        try {
+            App.setRoot("index");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    @FXML
     public void initialize() {
         cartesPileId = (ArrayList<Integer>) ctxIg.getCartesProposéesIdPile().clone();
         cartesApprouvéesPileId = new ArrayList<Integer>();
