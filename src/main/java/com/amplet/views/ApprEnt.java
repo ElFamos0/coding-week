@@ -3,12 +3,15 @@ package com.amplet.views;
 
 import com.amplet.app.Model;
 import com.amplet.app.ViewController;
+import java.io.File;
 import com.amplet.app.App;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.transform.Rotate;
@@ -33,6 +36,8 @@ public class ApprEnt extends ViewController {
     private Button boutonvalider;
     @FXML
     private ProgressBar progress;
+    @FXML
+    private ImageView image;
 
     int interval;
     int cartesrestantes = 1;
@@ -203,6 +208,14 @@ public class ApprEnt extends ViewController {
                 (double) cartesvues / (double) (cartesvues + ctxEnt.getNbCartesProposées()));
         nbdecarte.setText("Nombre de cartes : " + cartesvues + "/"
                 + (cartesvues + ctxEnt.getNbCartesProposées()));
+        // set the image
+        Image picture = ctxEnt.getCarteCourante().getImage();
+        if (picture != null) {
+            image.setImage(picture);
+        } else {
+            image.setImage(null);
+        }
+
     }
 
 }

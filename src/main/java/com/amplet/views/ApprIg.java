@@ -17,6 +17,8 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import java.util.Timer;
 import java.util.TimerTask;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class ApprIg extends ViewController {
 
@@ -37,6 +39,8 @@ public class ApprIg extends ViewController {
 
     @FXML
     private ProgressBar progress;
+    @FXML
+    private ImageView image;
 
     int interval;
     int cartesrestantes = 1;
@@ -282,6 +286,12 @@ public class ApprIg extends ViewController {
         nbdecarte.setText("Nombre de cartes : " + cartesvues + "/"
                 + (cartesvues + ctxIg.getNbCartesProposées()));
         progress.setProgress((double) cartesvues / (cartesvues + ctxIg.getNbCartesProposées()));
+        Image picture = ctxEnt.getCarteCourante().getImage();
+        if (picture != null) {
+            image.setImage(picture);
+        } else {
+            image.setImage(null);
+        }
     }
 
 }
