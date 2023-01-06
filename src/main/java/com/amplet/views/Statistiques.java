@@ -234,7 +234,7 @@ public class Statistiques extends ViewController {
                     }
                 });
 
-
+        tablePile.setPlaceholder(new Label("Il n'y a pas de cartes dans cette pile"));
         // On charge les tags déjà sélectionnés
         // update();
 

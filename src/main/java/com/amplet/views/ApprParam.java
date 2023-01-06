@@ -375,7 +375,7 @@ public class ApprParam extends ViewController {
 
         try {
             int i = Integer.parseInt(strTps);
-            tempsReponse = i;
+            tempsReponse = Math.max(3, i);
             warningTps.setText("");
         } catch (NumberFormatException nfe) {
             state = false;
