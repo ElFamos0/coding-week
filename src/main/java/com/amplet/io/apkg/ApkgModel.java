@@ -1,12 +1,15 @@
 package com.amplet.io.apkg;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ApkgModel {
     
     private int id;
     private Map<Integer, ApkgTemplate> templates = new HashMap<Integer, ApkgTemplate>();
+    private List<String> fields = new ArrayList<String>();
     
     public ApkgModel(int id, Map<Integer, ApkgTemplate> templates) {
         this.id = id;
@@ -30,5 +33,13 @@ public class ApkgModel {
 
     public void addTemplate(ApkgTemplate template) {
         this.templates.put(template.getOrd(), template);
+    }
+
+    public List<String> getFields() {
+        return fields;
+    }
+
+    public void setFields(List<String> fields) {
+        this.fields = fields;
     }
 }
