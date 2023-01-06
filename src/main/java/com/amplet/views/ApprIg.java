@@ -93,8 +93,9 @@ public class ApprIg extends ViewController {
         setTimer();
     }
 
+    Timer timer = new Timer();
+
     public void setTimer() {
-        Timer timer = new Timer();
         interval = tempsreponse;
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
@@ -110,14 +111,14 @@ public class ApprIg extends ViewController {
 
                     }
                     Platform.runLater(() -> timertext.setText("Temps : 0"));
-                    timer.cancel();
                 }
             }
         }, 1000, 1000);
     }
 
     public void resetTimer() {
-        setTimer();
+        interval = tempsreponse;
+        timertext.setText("Temps : " + interval);
     }
 
     public void attendre(int secondes) {
@@ -158,6 +159,7 @@ public class ApprIg extends ViewController {
         cartesvues++;
         if (cartesaproposer.size() == 0) {
             try {
+                timer.cancel();
                 App.setRoot("apprResultat");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -198,6 +200,7 @@ public class ApprIg extends ViewController {
         }
         if (cartesaproposer.size() == 0) {
             try {
+                timer.cancel();
                 App.setRoot("apprResultat");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -222,8 +225,7 @@ public class ApprIg extends ViewController {
     }
 
     @FXML
-    public void clickcarte() {
-    }
+    public void clickcarte() {}
 
     @FXML
     public void textvalider() {
