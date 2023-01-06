@@ -4,6 +4,16 @@
 
 Le projet se lance avec la commande `./launch.sh`.
 
+## Conception
+
+### Dépendances
+
+Ce projet dépend des librairies [ORMLite](https://ormlite.com), [JavaFX](https://openjfx.io/), [JUnit5](https://junit.org/junit5/) et [GSON](https://github.com/google/gson).
+
+## Diagramme de classes
+
+Voici le diagramme de classes de l'application : ![Class diagramm](doc/diagramme_classe.png)
+
 ## Fonctionnement
 
 ### Build System
@@ -22,6 +32,8 @@ Les données de l'application sont stockées dans une base de donées SQLite nom
 
 L'application interface avec cette base de données grâce à l'ORM (Object Relational Mapper) [ORMLite](https://ormlite.com/) et le driver [sqlite-jdbc](https://github.com/xerial/sqlite-jdbc) de Xerial.
 
+Le schéma de la base de données est le suivant : ![Database diagram](doc/diagramme_db.png)
+
 ## Tests
 
 Les tests peuvent être lancés avec la commande `./test.sh`.
@@ -34,7 +46,10 @@ Les tests couvrent les opérations sur la base de données et la sérialisation/
 
 ### Jour 1
 
-Nous n'avons pas pensé à faire un jar à la fin du premier jour. Nous avons réalisé 
+Nous n'avons pas pensé à faire un jar à la fin du premier jour. Nous avons réalisé une première conception de l'application :
+![Vues](doc/schémavues.jpg)
+![Classes](doc/sch%C3%A9maclasses.jpg)
+![Fonctionnalités](doc/fonctionnalités.jpg)
 
 ### Jour 2
 
@@ -42,8 +57,7 @@ Le fichier `.jar` de la release du jour 2 est disponible [ici](https://cdn.disco
 
 ### Jour 3
 
-Nous n'avons pas fait de jar ce jour la. Mais le mode entrainement et le mode compétition étaient fonctionnels (bien que quelques bugs subsistaient). Il manque encore la gestion des données après l'apprentissage. Certains designs ont été retravaillés. Les imports, export de cartes ont été géré au format JSON. 
-
+Nous n'avons pas fait de jar ce jour la. Mais le mode entrainement et le mode compétition étaient fonctionnels (bien que quelques bugs subsistaient). Il manque encore la gestion des données après l'apprentissage. Certains designs ont été retravaillés. Les imports, export de cartes ont été géré au format JSON.
 
 ### Jour 4
 
