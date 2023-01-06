@@ -106,4 +106,14 @@ public class Pile {
         this.nbJouees = nbJouees;
     }
 
+    public boolean hasTag(String tag) {
+        for (String t : tags) {
+            if (t.equals(tag)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

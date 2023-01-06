@@ -11,6 +11,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -54,6 +55,9 @@ public class EditionPile extends ViewController {
     private TextField searchAvailable;
     @FXML
     private TextField searchChosen;
+
+    @FXML
+    private Label labelTagsCount;
 
     @Override
     public void update() {
@@ -111,6 +115,8 @@ public class EditionPile extends ViewController {
             tagButton.getStyleClass().add("tag");
             tags.getChildren().add(tagButton);
         }
+
+        labelTagsCount.setText(Integer.toString(pile.getTags().size()) + "/10");
     }
 
     @FXML
@@ -234,12 +240,14 @@ public class EditionPile extends ViewController {
             }
         });
         tagField.textProperty().addListener((observable, oldValue, newValue) -> {
-            // If it ends with a comma or space, save tag and clear field
+            // If it ends with a ';', save tag and clear field
             if (newValue.endsWith(";")) {
                 String tag = newValue.substring(0, newValue.length() - 1);
                 if (!tag.isEmpty()) {
                     try {
-                        model.create(pile, tag);
+                        if (pile.getTags().size() < 10 && !(pile.hasTag(tag))) {
+                            model.create(pile, tag);
+                        }
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
