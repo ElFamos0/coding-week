@@ -64,14 +64,19 @@ Nous n'avons pas pensé à faire un jar à la fin du premier jour. Nous avons r�
 
 ### Jour 2
 
-Le fichier `.jar` de la release du jour 2 est disponible [ici](https://cdn.discordapp.com/attachments/1060246427755888742/1060246467853439108/flashcards-DAY2-jar-with-dependencies.jar) (le fichier est trop volumineux pour passer sur GitLab). Nous avons réalisé la majorité des vues (3 vues non terminés). La création de pile et l'ajout de carte est fonctionnel. Par contre il n'était pas encore possible de jouer correctement. 
+Le fichier `.jar` de la release du jour 2 est disponible [ici](https://cdn.discordapp.com/attachments/1060246427755888742/1060246467853439108/flashcards-DAY2-jar-with-dependencies.jar) (le fichier est trop volumineux pour passer sur GitLab). Nous avons réalisé la majorité des vues (3 vues non terminés). La création de pile et l'ajout de carte est fonctionnel. Par contre il n'était pas encore possible de jouer correctement.
 
 ### Jour 3
 
-Nous n'avons pas fait de jar ce jour la. Mais le mode entrainement et le mode compétition étaient fonctionnels (bien que quelques bugs subsistaient). Il manque encore la gestion des données après l'apprentissage. Certains designs ont été retravaillés. Les imports, export de cartes ont été géré au format JSON.
+Nous n'avons pas fait de jar ce jour la. Mais le mode entraînement et le mode compétition étaient fonctionnels (bien que quelques bugs subsistaient). Il manque encore la gestion des données après l'apprentissage. Certains designs ont été retravaillés. Les imports, exports de cartes et de piles ont été gérés au format JSON.
 
 ### Jour 4
 
 Nous avons effectué un refactor pour réduire le couplage et correctement séparer les vues du modèle.
 L'ajout d'image est maintenant possible sur les flashcards.
-Nous avons rendu fonctionnelle la page statistique et la page de résultat après apprentissage. Nous avons fini de lier la page ApprParam et la page ApprIg afin que l'on puisse correctement jouer au jeu.  L'après-midi a consisté en finalisation de projet, test et correction de bug.  
+Nous avons rendu fonctionnelle la page de statistiques et la page de résultats après une sessions d'apprentissage. Nous avons fini de lier la page `ApprParam` et la page `ApprIg` afin que l'on puisse correctement jouer au jeu.  L'après-midi a consisté en la finalisation de projet, des tests et des corrections de bug.  
+
+## Bilan
+
+Nous avons réussi à implémenter la majorité des fonctionnalités que nous souhaitions intégrer à l'application.
+Nous aurions aussi pu prêter plus d'attention à la conception dès le début du projet afin d'éviter une grosse étape de refactoring le dernier jour. Cela nous a fait prendre un peu de retard sur la fin du projet, retard accentué par les problèmes de PC d'un des membres du projet.
