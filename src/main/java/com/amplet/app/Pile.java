@@ -8,7 +8,7 @@ public class Pile {
     private String description;
     private ArrayList<String> tags = new ArrayList<String>();
     private ArrayList<Carte> cartes = new ArrayList<Carte>();
-    private int nbJouees = 0;
+    private transient int nbJouees = 0;
 
     public Pile(Integer id, String nom, String description, int nbJouees) {
         this.id = id;
