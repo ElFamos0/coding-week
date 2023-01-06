@@ -6,7 +6,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import com.amplet.io.apkg.ApkgDeck;
@@ -32,8 +34,8 @@ public class ApkgIo {
     private List<Card> cards = new ArrayList<Card>();
     private Collection collection;
     private List<Notes> notes = new ArrayList<Notes>();
-    private List<ApkgModel> models = new ArrayList<ApkgModel>();
-    private List<ApkgDeck> decks = new ArrayList<ApkgDeck>();
+    private Map<Integer, ApkgModel> models = new HashMap<Integer, ApkgModel>();
+    private Map<Integer, ApkgDeck> decks = new HashMap<Integer, ApkgDeck>();
 
     private Gson deckGson = new GsonBuilder().registerTypeAdapter(List.class, new DeckDeserializer()).create();
     private Gson modelGson = new GsonBuilder().registerTypeAdapter(List.class, new ModelDeserializer()).create();
@@ -76,11 +78,15 @@ public class ApkgIo {
 
         // Get the models from the collection
         String modelsJson = collection.getModels();
-        this.models = modelGson.fromJson(modelsJson, List.class);
+        ((List<ApkgModel>) modelGson.fromJson(modelsJson, List.class)).forEach(model -> {
+            this.models.put(model.getId(), model);
+        });
 
         // Get the decks from the collection
         String decksJson = collection.getDecks();
-        this.decks = deckGson.fromJson(decksJson, List.class);
+        ((List<ApkgDeck>) deckGson.fromJson(decksJson, List.class)).forEach(deck -> {
+            this.decks.put(deck.getId(), deck);
+        });
 
         // Close the connection
         this.connectionSource.close();
