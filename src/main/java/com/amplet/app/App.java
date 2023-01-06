@@ -25,7 +25,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException, SQLException {
         this.dbManager = new DatabaseManager();
         model = new Model();
-        scene = new Scene(loadFXML("index"), 800, 600);
+        scene = new Scene(loadFXML("index"), 1000, 800);
         stage.setScene(scene);
         stage.show();
     }

@@ -130,6 +130,12 @@ public class Model implements Observed {
     public void create(Pile pile, String tag) throws SQLException {
         this.dbManager.addTagToPile(pile.getId(), tag);
         pile.addTag(tag);
+        // Ajoute la pile dans les bonnes lecons
+        for (Lecon lecon : this.allLecons) {
+            if (lecon.getTags().contains(tag)) {
+                lecon.addPile(pile);
+            }
+        }
         notifyAllObservers();
     }
 
@@ -167,6 +173,22 @@ public class Model implements Observed {
     public void delete(Pile pile, String tag) throws SQLException {
         this.dbManager.removeTagFromPile(pile.getId(), tag);
         pile.removeTag(tag);
+        // Supprime la pile des bonnes lecons
+        for (Lecon lecon : this.allLecons) {
+            if (lecon.getTags().contains(tag)) {
+                // On vérifie que la pile n'a plus aucun tag en commun avec la lecon
+                boolean hasTag = false;
+                for (String pileTag : pile.getTags()) {
+                    if (lecon.getTags().contains(pileTag)) {
+                        hasTag = true;
+                        break;
+                    }
+                }
+                if (!hasTag) {
+                    lecon.removePile(pile);
+                }
+            }
+        }
         notifyAllObservers();
     }
 

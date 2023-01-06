@@ -1,11 +1,10 @@
 package com.amplet.views;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import com.amplet.app.App;
-import com.amplet.app.Carte;
 import com.amplet.app.Context;
+import com.amplet.app.Lecon;
 import com.amplet.app.Model;
 import com.amplet.app.Pile;
 import com.amplet.app.ViewController;
@@ -53,6 +52,53 @@ public class ApprParam extends ViewController {
         }
     }
 
+    public class RowLecon {
+        private Label nom;
+        private Button ajouter;
+        private Button supprimer;
+
+        public RowLecon(Lecon lecon) {
+            nom = new Label(lecon.getNom());
+            nom.setFont(new Font("Arial", 15));
+            nom.setPrefWidth(200);
+            nom.setAlignment(Pos.CENTER);
+            ajouter = new Button("Ajouter");
+            ajouter.setOnAction(e -> {
+                // Ajoute toutes les piles de la leçon à la liste des piles sélectionnées
+                for (Pile pile : lecon.getPiles()) {
+                    if (!listeSelectedPiles.contains(pile)) {
+                        listeSelectedPiles.add(pile);
+                    }
+                }
+                update();
+            });
+            supprimer = new Button("Supprimer");
+            supprimer.setOnAction(e -> {
+                // Supprime toutes les piles de la leçon de la liste des piles sélectionnées
+                for (Pile pile : lecon.getPiles()) {
+                    if (listeSelectedPiles.contains(pile)) {
+                        listeSelectedPiles.remove(pile);
+                    }
+                }
+                update();
+            });
+            supprimer.setAlignment(Pos.CENTER);
+            ajouter.setAlignment(Pos.CENTER);
+        }
+
+        public Label getNom() {
+            return nom;
+        }
+
+        public Button getAjouter() {
+            return ajouter;
+        }
+
+        public Button getSupprimer() {
+            return supprimer;
+        }
+    }
+
     public ApprParam(Model model) {
         super(model);
         model.addObserver(this);
@@ -96,18 +142,25 @@ public class ApprParam extends ViewController {
         // On charge les colonnes
         TableColumn<Row, CheckBox> checkBoxCol = new TableColumn<>("Active");
         TableColumn<Row, TextField> titreCol = new TableColumn<>("Nom");
-
-        // On charge les propriétés des colonnes
         checkBoxCol.setCellValueFactory(new PropertyValueFactory<>("checkBox"));
         titreCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
-
-        // On ajoute les colonnes
         tablePile.getColumns().add(checkBoxCol);
         tablePile.getColumns().add(titreCol);
-
-        // On met les colonnes pour prendre tout l'espace
         checkBoxCol.prefWidthProperty().bind(tablePile.widthProperty().multiply(0.25));
         titreCol.prefWidthProperty().bind(tablePile.widthProperty().multiply(0.75));
+
+        TableColumn<RowLecon, TextField> titreColLecon = new TableColumn<>("Nom");
+        TableColumn<RowLecon, Button> ajouterColLecon = new TableColumn<>("Ajouter");
+        TableColumn<RowLecon, Button> supprimerColLecon = new TableColumn<>("Supprimer");
+        titreColLecon.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        ajouterColLecon.setCellValueFactory(new PropertyValueFactory<>("ajouter"));
+        supprimerColLecon.setCellValueFactory(new PropertyValueFactory<>("supprimer"));
+        tableLecon.getColumns().add(titreColLecon);
+        tableLecon.getColumns().add(ajouterColLecon);
+        tableLecon.getColumns().add(supprimerColLecon);
+        titreColLecon.prefWidthProperty().bind(tableLecon.widthProperty().multiply(0.30));
+        ajouterColLecon.prefWidthProperty().bind(tableLecon.widthProperty().multiply(0.35));
+        supprimerColLecon.prefWidthProperty().bind(tableLecon.widthProperty().multiply(0.35));
 
         // On centre les objets dans les colonnes
         checkBoxCol.setStyle("-fx-alignment: CENTER;");
@@ -178,6 +231,9 @@ public class ApprParam extends ViewController {
     private TableView<Row> tablePile;
 
     @FXML
+    private TableView<RowLecon> tableLecon;
+
+    @FXML
     private Label warningNb;
 
     @FXML
@@ -188,6 +244,9 @@ public class ApprParam extends ViewController {
 
     @FXML
     private TextField recherchePile;
+
+    @FXML
+    private TextField rechercheLecon;
 
     @FXML
     private RadioButton radioApprentissage;
@@ -272,6 +331,27 @@ public class ApprParam extends ViewController {
                         || p.getNom().toLowerCase().contains(recherchePile.getText().toLowerCase())
                         || isSelected) {
                     tablePile.getItems().add(new Row(p, isSelected));
+                }
+            }
+        }
+
+        tableLecon.getItems().clear();
+        ArrayList<Lecon> lecons = model.getAllLecons();
+        for (Lecon l : lecons) {
+            if (l.getPiles().size() > 0) {
+                // on vérifie si la leçon est déjà sélectionnée
+                boolean isSelected = false;
+                for (Pile p2 : listeSelectedPiles) {
+                    for (Pile p : l.getPiles()) {
+                        if (p2.getNom().equals(p.getNom())) {
+                            isSelected = true;
+                        }
+                    }
+                }
+                if (rechercheLecon.getText().equals("")
+                        || l.getNom().toLowerCase().contains(rechercheLecon.getText().toLowerCase())
+                        || isSelected) {
+                    tableLecon.getItems().add(new RowLecon(l));
                 }
             }
         }
