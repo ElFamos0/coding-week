@@ -1,5 +1,8 @@
 package com.amplet.views;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import com.amplet.app.App;
 import com.amplet.app.Carte;
 import com.amplet.app.Model;
@@ -8,12 +11,16 @@ import com.amplet.app.ViewController;
 import javafx.animation.RotateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.transform.Rotate;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
@@ -70,7 +77,8 @@ public class EditionCarte extends ViewController {
     @FXML
     private TextField promptreponse;
 
-
+    @FXML
+    private Button imageBtn;
 
     @FXML
     public void initialize() {
@@ -130,6 +138,42 @@ public class EditionCarte extends ViewController {
             if (newValue) {
                 if (isFront) {
                     flipCard(null);
+                }
+            }
+        });
+
+        imageBtn.setOnAction(event -> {
+            System.out.println("imageBtn");
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Images files",
+                    "*.jpg", "*.png", "*.gif", "*.jpeg");
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(extFilter);
+            fileChooser.setTitle("Open Resource File");
+            File file = fileChooser
+                    .showOpenDialog((Stage) ((Node) event.getSource()).getScene().getWindow());
+            if (file != null) {
+                // Move file to data folder, making sure it has a unique name and that the folder
+                // exists
+                File dataFolder = new File("./data");
+                if (!dataFolder.exists()) {
+                    dataFolder.mkdir();
+                }
+                File newFile = new File(dataFolder.getAbsolutePath() + "/" + file.getName());
+                int i = 1;
+                while (newFile.exists()) {
+                    newFile = new File(dataFolder.getAbsolutePath() + "/" + i + file.getName());
+                    i++;
+                }
+                try {
+                    Files.copy(file.toPath(), newFile.toPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                currentCarte.setImage(newFile.getName());
+                try {
+                    model.update(currentCarte);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });

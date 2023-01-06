@@ -1,5 +1,6 @@
 package com.amplet.app;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Carte {
@@ -31,6 +32,18 @@ public class Carte {
         this.reponse = reponse;
         this.metadata = metadata;
         this.description = description;
+    }
+
+    public File getImage() {
+        if (metadata == null) {
+            return null;
+        }
+        File file = new File("./data/" + metadata);
+        if (file.exists()) {
+            return file;
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -80,6 +93,10 @@ public class Carte {
 
     public String getDescription() {
         return description;
+    }
+
+    public void setImage(String image) {
+        this.metadata = image;
     }
 
     public int getNbJouees() {

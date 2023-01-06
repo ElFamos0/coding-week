@@ -8,11 +8,11 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.image.ImageView?>
 
 <BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19"
    xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.EditionCarte">
@@ -136,6 +136,22 @@
                            </HBox.margin>
                         </Label>
                         <TextField fx:id="promptreponse" promptText="Nouvelle Réponse" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Image :">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Button mnemonicParsing="false" fx:id="imageBtn" text="Definir image" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="15.0" />
