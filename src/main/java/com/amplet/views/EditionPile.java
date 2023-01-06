@@ -20,9 +20,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 
 public class EditionPile extends ViewController {
-    private Pile pile;
-    private Map<String, Carte> cartes;
-
     @FXML
     private TextField nomPile;
     @FXML
@@ -39,7 +36,7 @@ public class EditionPile extends ViewController {
 
     public EditionPile(Model model, Object... args) {
         super(model, args);
-        pile = (Pile) args[0];
+        ctxEdit.setPileCourante((Pile) args[0]);
     }
 
     @Override
@@ -70,7 +67,7 @@ public class EditionPile extends ViewController {
         availableCards.getChildren().add(button);
 
         // Add in chosenCards the cards that are in the pile
-        for (Carte carte : pile.getCartes()) {
+        for (Carte carte : ctxEdit.getPileCourante().getCartes()) {
             Button card = createCard(carte);
             if (carte.getTitre().toLowerCase().contains(searchChosen.getText().toLowerCase())) {
                 chosenCards.getChildren().add(card);
@@ -100,12 +97,12 @@ public class EditionPile extends ViewController {
 
         // Add the tags
         tags.getChildren().clear();
-        for (String tag : pile.getTags()) {
+        for (String tag : ctxEdit.getPileCourante().getTags()) {
             Button tagButton = new Button();
             tagButton.setText(tag);
             tagButton.setOnAction(event -> {
                 try {
-                    model.delete(pile, tag);
+                    model.delete(ctxEdit.getPileCourante(), tag);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -116,7 +113,8 @@ public class EditionPile extends ViewController {
             tags.getChildren().add(tagButton);
         }
 
-        labelTagsCount.setText(Integer.toString(pile.getTags().size()) + "/10");
+        labelTagsCount
+                .setText(Integer.toString(ctxEdit.getPileCourante().getTags().size()) + "/10");
     }
 
     @FXML
@@ -153,13 +151,13 @@ public class EditionPile extends ViewController {
                         }
                     }
                 }
-                Carte c = cartes.get(id);
+                Carte c = ctxEdit.getCarte(id);
                 Button card = createCard(c);
                 availableCards.getChildren().add(card);
                 success = true;
                 if (!found) {
                     try {
-                        model.delete(pile, c);
+                        model.delete(ctxEdit.getPileCourante(), c);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -202,13 +200,13 @@ public class EditionPile extends ViewController {
                         }
                     }
                 }
-                Carte c = cartes.get(id);
+                Carte c = ctxEdit.getCarte(id);
                 Button card = createCard(c);
                 chosenCards.getChildren().add(card);
                 success = true;
                 if (!found) {
                     try {
-                        model.create(pile, c);
+                        model.create(ctxEdit.getPileCourante(), c);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -219,22 +217,22 @@ public class EditionPile extends ViewController {
             update();
         });
 
-        cartes = new HashMap<>();
+        ctxEdit.resetCartes();
 
-        nomPile.setText(pile.getNom());
-        descPile.setText(pile.getDescription());
+        nomPile.setText(ctxEdit.getPileCourante().getNom());
+        descPile.setText(ctxEdit.getPileCourante().getDescription());
         nomPile.textProperty().addListener((observable, oldValue, newValue) -> {
-            pile.setNom(newValue);
+            ctxEdit.getPileCourante().setNom(newValue);
             try {
-                model.update(pile);
+                model.update(ctxEdit.getPileCourante());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         });
         descPile.textProperty().addListener((observable, oldValue, newValue) -> {
-            pile.setDescription(newValue);
+            ctxEdit.getPileCourante().setDescription(newValue);
             try {
-                model.update(pile);
+                model.update(ctxEdit.getPileCourante());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -245,8 +243,9 @@ public class EditionPile extends ViewController {
                 String tag = newValue.substring(0, newValue.length() - 1);
                 if (!tag.isEmpty()) {
                     try {
-                        if (pile.getTags().size() < 10 && !(pile.hasTag(tag))) {
-                            model.create(pile, tag);
+                        if (ctxEdit.getPileCourante().getTags().size() < 10
+                                && !(ctxEdit.getPileCourante().hasTag(tag))) {
+                            model.create(ctxEdit.getPileCourante(), tag);
                         }
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -295,13 +294,13 @@ public class EditionPile extends ViewController {
 
         card.setOnAction(event -> {
             try {
-                App.setRoot("editionCarte", c, pile);
+                App.setRoot("editionCarte", c, ctxEdit.getPileCourante());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         });
 
-        cartes.put(card.getId(), c);
+        ctxEdit.putCarte(card.getId(), c);
         return card;
     }
 
@@ -340,7 +339,7 @@ public class EditionPile extends ViewController {
     @FXML
     public void exporterPile() {
         try {
-            App.exportPile(this.pile);
+            App.exportPile(this.ctxEdit.getPileCourante());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

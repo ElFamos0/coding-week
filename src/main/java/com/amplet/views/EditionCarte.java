@@ -16,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.transform.Rotate;
@@ -25,25 +27,20 @@ import javafx.util.Duration;
 
 
 public class EditionCarte extends ViewController {
-
-    private Carte currentCarte;
-    private Pile currentPile;
-
-
     public EditionCarte(Model model, Object... args) {
         super(model);
         model.addObserver(this);
-        currentCarte = (Carte) args[0];
+        ctxEdit.setCarteCourante((Carte) args[0]);
 
         // si on a une pile en argument, on va retourner a l'édition de pile
         // sinon on retourne a la liste des cartes
         // selon le type de args[1]
 
         if (args[1] instanceof Pile) {
-            currentPile = (Pile) args[1];
+            ctxEdit.setPileCourante((Pile) args[1]);
         } else if (args[1] instanceof String) {
             if (args[1].equals("listeCarte")) {
-                currentPile = null;
+                ctxEdit.setPileCourante(null);
             }
         }
 
@@ -78,6 +75,9 @@ public class EditionCarte extends ViewController {
     private TextField promptreponse;
 
     @FXML
+    private ImageView image;
+
+    @FXML
     private Button imageBtn;
 
     @FXML
@@ -89,27 +89,27 @@ public class EditionCarte extends ViewController {
 
         // update on text change
         prompttitre.textProperty().addListener((observable, oldValue, newValue) -> {
-            currentCarte.setTitre(newValue);
+            ctxEdit.getCarteCourante().setTitre(newValue);
             try {
-                model.update(currentCarte);
+                model.update(ctxEdit.getCarteCourante());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
 
         promptquestion.textProperty().addListener((observable, oldValue, newValue) -> {
-            currentCarte.setQuestion(newValue);
+            ctxEdit.getCarteCourante().setQuestion(newValue);
             try {
-                model.update(currentCarte);
+                model.update(ctxEdit.getCarteCourante());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
 
         promptreponse.textProperty().addListener((observable, oldValue, newValue) -> {
-            currentCarte.setReponse(newValue);
+            ctxEdit.getCarteCourante().setReponse(newValue);
             try {
-                model.update(currentCarte);
+                model.update(ctxEdit.getCarteCourante());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -169,11 +169,20 @@ public class EditionCarte extends ViewController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                currentCarte.setImage(newFile.getName());
+                ctxEdit.getCarteCourante().setImage(newFile.getName());
                 try {
-                    model.update(currentCarte);
+                    model.update(ctxEdit.getCarteCourante());
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+                Image picture = ctxEdit.getCarteCourante().getImage();
+                if (picture != null) {
+                    image.setImage(picture);
+                } else {
+                    image.setImage(null);
+                }
+                if (!isFront) {
+                    flipCard(null);
                 }
             }
         });
@@ -194,7 +203,7 @@ public class EditionCarte extends ViewController {
         }
         isFlipping = true;
         carteBack = new BorderPane();
-        Label backLabel = new Label(currentCarte.getReponse());
+        Label backLabel = new Label(ctxEdit.getCarteCourante().getReponse());
         // set class to card-reponse
         backLabel.getStyleClass().add("card-reponse");
         carteBack.setCenter(backLabel);
@@ -246,8 +255,8 @@ public class EditionCarte extends ViewController {
     @FXML
     public void retour() {
         try {
-            if (currentPile != null) {
-                App.setRoot("editionPile", currentPile);
+            if (ctxEdit.getPileCourante() != null) {
+                App.setRoot("editionPile", ctxEdit.getPileCourante());
             } else {
                 App.setRoot("listeCarte");
             }
@@ -259,11 +268,13 @@ public class EditionCarte extends ViewController {
     @FXML
     public void dupliquerCarte() {
         try {
-            Carte newCarte = new Carte(currentCarte.getTitre(), currentCarte.getQuestion(),
-                    currentCarte.getReponse(), currentCarte.getMetadata(),
-                    currentCarte.getMetadata());
+            Carte newCarte = new Carte(ctxEdit.getCarteCourante().getTitre(),
+                    ctxEdit.getCarteCourante().getQuestion(),
+                    ctxEdit.getCarteCourante().getReponse(),
+                    ctxEdit.getCarteCourante().getMetadata(),
+                    ctxEdit.getCarteCourante().getMetadata());
             model.create(newCarte);
-            App.setRoot("editionPile", currentPile);
+            App.setRoot("editionPile", ctxEdit.getPileCourante());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -274,9 +285,9 @@ public class EditionCarte extends ViewController {
     public void supprimerCarte() {
         try {
             // si y'a un bug regarder ici
-            model.delete(currentCarte);
-            currentPile.removeCarte(currentCarte);
-            App.setRoot("editionPile", currentPile);
+            model.delete(ctxEdit.getCarteCourante());
+            ctxEdit.getPileCourante().removeCarte(ctxEdit.getCarteCourante());
+            App.setRoot("editionPile", ctxEdit.getPileCourante());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -285,25 +296,25 @@ public class EditionCarte extends ViewController {
     @FXML
     public void exporterCarte() {
         try {
-            App.exportCarte(currentCarte);
+            App.exportCarte(ctxEdit.getCarteCourante());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void update() {
-        labelTitre.setText(currentCarte.getTitre());
-        labelQuestion.setText(currentCarte.getQuestion());
+        labelTitre.setText(ctxEdit.getCarteCourante().getTitre());
+        labelQuestion.setText(ctxEdit.getCarteCourante().getQuestion());
         // Get the reponse from carteback
         if (carteBack != null) {
             Label backLabel = (Label) carteBack.getCenter();
-            backLabel.setText(currentCarte.getReponse());
+            backLabel.setText(ctxEdit.getCarteCourante().getReponse());
         }
 
 
-        promptquestion.setText(currentCarte.getQuestion());
-        promptreponse.setText(currentCarte.getReponse());
-        prompttitre.setText(currentCarte.getTitre());
+        promptquestion.setText(ctxEdit.getCarteCourante().getQuestion());
+        promptreponse.setText(ctxEdit.getCarteCourante().getReponse());
+        prompttitre.setText(ctxEdit.getCarteCourante().getTitre());
     }
 
 

@@ -1,5 +1,6 @@
 package com.amplet.app;
 
+import com.amplet.context.ContextEdit;
 import com.amplet.context.ContextEnt;
 import com.amplet.context.ContextIg;
 import com.amplet.context.ContextResultat;
@@ -12,6 +13,7 @@ public abstract class ViewController implements Observer {
     protected ContextIg ctxIg;
     protected ContextResultat ctxResultat;
     protected ContextStats ctxStats;
+    protected ContextEdit ctxEdit;
 
     public ViewController(Model model) {
         this.model = model;
@@ -20,6 +22,7 @@ public abstract class ViewController implements Observer {
         this.ctxIg = ctx.contextIg;
         this.ctxResultat = ctx.contextResultat;
         this.ctxStats = ctx.contextStats;
+        this.ctxEdit = ctx.contextEdit;
     }
 
     public ViewController(Model model, Object... args) {
@@ -29,6 +32,7 @@ public abstract class ViewController implements Observer {
         this.ctxIg = ctx.contextIg;
         this.ctxResultat = ctx.contextResultat;
         this.ctxStats = ctx.contextStats;
+        this.ctxEdit = ctx.contextEdit;
     }
 
     public abstract void update();

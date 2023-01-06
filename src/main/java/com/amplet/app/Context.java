@@ -8,6 +8,7 @@ public class Context {
     public ContextIg contextIg = new ContextIg();
     public ContextResultat contextResultat = new ContextResultat();
     public ContextStats contextStats = new ContextStats();
+    public ContextEdit contextEdit = new ContextEdit();
 
     /* Context for ApprParam */
 
