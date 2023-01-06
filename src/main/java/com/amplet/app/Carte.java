@@ -55,9 +55,7 @@ public class Carte {
         if (description != null ? !description.equals(carte.description)
                 : carte.description != null)
             return false;
-        if (nbJouees != carte.nbJouees)
-            return false;
-        return nbSucces == carte.nbSucces;
+        return true;
     }
 
     public Integer getId() {
