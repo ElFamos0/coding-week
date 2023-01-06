@@ -82,8 +82,6 @@ public class ApprParam extends ViewController {
                 }
                 update();
             });
-            supprimer.setAlignment(Pos.CENTER);
-            ajouter.setAlignment(Pos.CENTER);
         }
 
         public Label getNom() {
@@ -148,6 +146,8 @@ public class ApprParam extends ViewController {
         tablePile.getColumns().add(titreCol);
         checkBoxCol.prefWidthProperty().bind(tablePile.widthProperty().multiply(0.25));
         titreCol.prefWidthProperty().bind(tablePile.widthProperty().multiply(0.75));
+        checkBoxCol.setStyle("-fx-alignment: CENTER;");
+        titreCol.setStyle("-fx-alignment: CENTER;");
 
         TableColumn<RowLecon, TextField> titreColLecon = new TableColumn<>("Nom");
         TableColumn<RowLecon, Button> ajouterColLecon = new TableColumn<>("Ajouter");
@@ -161,10 +161,9 @@ public class ApprParam extends ViewController {
         titreColLecon.prefWidthProperty().bind(tableLecon.widthProperty().multiply(0.30));
         ajouterColLecon.prefWidthProperty().bind(tableLecon.widthProperty().multiply(0.35));
         supprimerColLecon.prefWidthProperty().bind(tableLecon.widthProperty().multiply(0.35));
-
-        // On centre les objets dans les colonnes
-        checkBoxCol.setStyle("-fx-alignment: CENTER;");
-        titreCol.setStyle("-fx-alignment: CENTER;");
+        titreColLecon.setStyle("-fx-alignment: CENTER;");
+        ajouterColLecon.setStyle("-fx-alignment: CENTER;");
+        supprimerColLecon.setStyle("-fx-alignment: CENTER;");
 
         nbCartes = 20;
         tempsReponse = 20;
