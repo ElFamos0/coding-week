@@ -297,7 +297,7 @@ public class EditionPile extends ViewController {
         Button card = new Button();
         card.setPrefSize(100, 100);
         card.setId(c.getId().toString());
-        card.setText(c.getId().toString() + " " + c.getTitre());
+        card.setText(c.getTitre());
 
         // add text wrapping
         card.setWrapText(true);

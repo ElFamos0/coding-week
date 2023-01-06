@@ -14,32 +14,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19"
-   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.EditionCarte">
+<BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.EditionCarte">
    <top>
       <fx:include fx:id="menu" source="menu.fxml" />
    </top>
    <center>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="255.0" prefWidth="512.0" BorderPane.alignment="CENTER">
          <center>
-            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-               prefHeight="600.0" prefWidth="800.0" BorderPane.alignment="TOP_CENTER">
+            <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="800.0" BorderPane.alignment="TOP_CENTER">
                <children>
                   <BorderPane prefHeight="82.0" prefWidth="640.0">
                      <left>
-                        <MenuBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                           minWidth="-Infinity" prefHeight="27.0" prefWidth="74.0"
-                           style="-fx-border-image-width: 5; -fx-border-color: #a3a3a3; -fx-border-radius: 10; -fx-background-radius: 10;"
-                           styleClass="ButtonStyle" BorderPane.alignment="CENTER">
+                        <MenuBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="74.0" style="-fx-border-image-width: 5; -fx-border-color: #a3a3a3; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="ButtonStyle" BorderPane.alignment="CENTER">
                            <menus>
                               <Menu mnemonicParsing="false" text="Menu">
                                  <items>
-                                    <MenuItem mnemonicParsing="false" onAction="#dupliquerCarte"
-                                       text="Dupliquer" />
-                                    <MenuItem mnemonicParsing="false" onAction="#supprimerCarte"
-                                       text="Supprimer" />
-                                    <MenuItem mnemonicParsing="false" onAction="#exporterCarte"
-                                       text="Exporter" />
+                                    <MenuItem mnemonicParsing="false" onAction="#dupliquerCarte" text="Dupliquer" />
+                                    <MenuItem mnemonicParsing="false" onAction="#supprimerCarte" text="Supprimer" />
+                                    <MenuItem mnemonicParsing="false" onAction="#exporterCarte" text="Exporter" />
                                  </items>
                               </Menu>
                            </menus>
@@ -49,8 +41,7 @@
                         </MenuBar>
                      </left>
                      <center>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0"
-                           prefWidth="165.0" text="Edition de carte" BorderPane.alignment="CENTER">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="165.0" text="Edition de carte" BorderPane.alignment="CENTER">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -63,9 +54,7 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </BorderPane>
-                  <VBox fx:id="carte" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity"
-                     maxWidth="-Infinity" onMouseClicked="#clickcarte" prefHeight="255.0"
-                     prefWidth="512.0" styleClass="card" stylesheets="@card.css">
+                  <VBox fx:id="carte" alignment="TOP_CENTER" fillWidth="false" maxWidth="-Infinity" onMouseClicked="#clickcarte" prefWidth="512.0" styleClass="card" stylesheets="@card.css">
                      <VBox.margin>
                         <Insets bottom="15.0" top="15.0" />
                      </VBox.margin>
@@ -73,14 +62,12 @@
                         <Insets left="10.0" right="10.0" />
                      </opaqueInsets>
                      <children>
-                        <Label fx:id="labelTitre" alignment="CENTER" contentDisplay="CENTER"
-                           styleClass="card-title" stylesheets="@card.css" text="Titre">
+                        <Label fx:id="labelTitre" alignment="CENTER" contentDisplay="CENTER" styleClass="card-title" stylesheets="@card.css" text="Titre">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
                         </Label>
-                        <Label fx:id="labelQuestion" alignment="CENTER" contentDisplay="CENTER"
-                           styleClass="card-question" stylesheets="@card.css" text="Question">
+                        <Label fx:id="labelQuestion" alignment="CENTER" contentDisplay="CENTER" styleClass="card-question" stylesheets="@card.css" text="Question">
                            <VBox.margin>
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
@@ -88,8 +75,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0"
-                           pickOnBounds="true" preserveRatio="true" styleClass="card-image" />
+                        <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="card-image" />
                      </children>
                   </VBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -118,8 +104,7 @@
                               <Insets right="30.0" />
                            </HBox.margin>
                         </Label>
-                        <TextArea fx:id="promptquestion" prefHeight="200.0" prefWidth="200.0"
-                           promptText="Nouvelle Question" />
+                        <TextArea fx:id="promptquestion" prefHeight="200.0" prefWidth="200.0" promptText="Nouvelle Question" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />
@@ -151,7 +136,8 @@
                               <Insets right="30.0" />
                            </HBox.margin>
                         </Label>
-                        <Button mnemonicParsing="false" fx:id="imageBtn" text="Definir image" />
+                        <Button fx:id="imageBtn" mnemonicParsing="false" text="Definir image" />
+                        <Button fx:id="imageDelBtn" mnemonicParsing="false" text="Supprimer image" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="15.0" />
@@ -161,8 +147,7 @@
             </VBox>
          </center>
          <top>
-            <Button mnemonicParsing="false" onAction="#retour" styleClass="return"
-               stylesheets="@boutonRetour.css" text="&lt;" BorderPane.alignment="TOP_LEFT">
+            <Button mnemonicParsing="false" onAction="#retour" styleClass="return" stylesheets="@boutonRetour.css" text="&lt;" BorderPane.alignment="TOP_LEFT">
                <font>
                   <Font name="Fira Mono Bold" size="12.0" />
                </font>

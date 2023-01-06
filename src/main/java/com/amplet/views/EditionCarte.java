@@ -81,6 +81,9 @@ public class EditionCarte extends ViewController {
     private Button imageBtn;
 
     @FXML
+    private Button imageDelBtn;
+
+    @FXML
     public void initialize() {
         carteFront = new VBox();
         carteFront.getChildren().addAll(carte.getChildren());
@@ -187,7 +190,20 @@ public class EditionCarte extends ViewController {
             }
         });
 
-
+        imageDelBtn.setOnAction(event -> {
+            System.out.println("imageDelBtn");
+            ctxEdit.getCarteCourante().setImage(null);
+            try {
+                model.update(ctxEdit.getCarteCourante());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            // image is in assets/defaut.png
+            image.setImage(new Image(App.class.getResourceAsStream("assets/default.png")));
+            if (!isFront) {
+                flipCard(null);
+            }
+        });
         update();
     }
 
@@ -304,7 +320,7 @@ public class EditionCarte extends ViewController {
 
     public void update() {
         labelTitre.setText(ctxEdit.getCarteCourante().getTitre());
-        labelQuestion.setText(ctxEdit.getCarteCourante().getQuestion());
+        labelQuestion.setText(ctxEdit.getCarteCourante().getQuestion() + "\n\n");
         // Get the reponse from carteback
         if (carteBack != null) {
             Label backLabel = (Label) carteBack.getCenter();
@@ -320,7 +336,8 @@ public class EditionCarte extends ViewController {
         if (picture != null) {
             image.setImage(picture);
         } else {
-            image.setImage(null);
+            // image is in assets/defaut.png
+            image.setImage(new Image(App.class.getResourceAsStream("assets/default.png")));
         }
     }
 
