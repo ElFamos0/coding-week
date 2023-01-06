@@ -4,6 +4,8 @@
 
 Le projet se lance avec la commande `./launch.sh`.
 
+Il est possile de produire un fichier `.jar` grâce à la commande `./assemble.sh`.
+
 ## Conception
 
 ### Dépendances
@@ -33,6 +35,15 @@ Les données de l'application sont stockées dans une base de donées SQLite nom
 L'application interface avec cette base de données grâce à l'ORM (Object Relational Mapper) [ORMLite](https://ormlite.com/) et le driver [sqlite-jdbc](https://github.com/xerial/sqlite-jdbc) de Xerial.
 
 Le schéma de la base de données est le suivant : ![Database diagram](doc/diagramme_db.png)
+
+### Import et export en JSON
+
+Il est possible d'importer et d'exporter des piles et des cartes au format JSON grâce à la librairie [GSON](https://github.com/google/gson).
+
+### Import du format `.apkg`
+
+Nous avons commencé à implémenter cette fonctionnalité sans avoir eu le temps de l'inclure dans l'application à cause de la complexité du format `.apkg`.
+Un schéma des informations utiles à notre application est disponible ici : ![Anki](doc/anki.png)
 
 ## Tests
 
