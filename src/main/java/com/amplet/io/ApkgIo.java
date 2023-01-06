@@ -5,11 +5,19 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import com.amplet.io.apkg.ApkgDeck;
+import com.amplet.io.apkg.ApkgModel;
 import com.amplet.io.apkg.db.Card;
 import com.amplet.io.apkg.db.Collection;
 import com.amplet.io.apkg.db.Notes;
+import com.amplet.io.apkg.json.DeckDeserializer;
+import com.amplet.io.apkg.json.ModelDeserializer;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
@@ -21,7 +29,17 @@ public class ApkgIo {
     private Dao<Collection, Integer> collectionDao;
     private Dao<Notes, Integer> notesDao;
 
-    public ApkgIo(String dbPath) throws FileNotFoundException, IOException, SQLException {
+    private List<Card> cards = new ArrayList<Card>();
+    private Collection collection;
+    private List<Notes> notes = new ArrayList<Notes>();
+    private List<ApkgModel> models = new ArrayList<ApkgModel>();
+    private List<ApkgDeck> decks = new ArrayList<ApkgDeck>();
+
+    private Gson deckGson = new GsonBuilder().registerTypeAdapter(List.class, new DeckDeserializer()).create();
+    private Gson modelGson = new GsonBuilder().registerTypeAdapter(List.class, new ModelDeserializer()).create();
+
+    public ApkgIo(String dbPath) throws Exception {
+        // Extract the database from the .apkg file
         ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream(dbPath));
         byte[] buffer = new byte[1024];
         ZipEntry zipEntry = zipInputStream.getNextEntry();
@@ -46,5 +64,25 @@ public class ApkgIo {
         }
         zipInputStream.closeEntry();
         zipInputStream.close();
+
+        // Load the collection
+        this.collection = collectionDao.queryForFirst();
+
+        // Load the cards
+        this.cards = cardDao.queryForAll();
+
+        // Load the notes
+        this.notes = notesDao.queryForAll();
+
+        // Get the models from the collection
+        String modelsJson = collection.getModels();
+        this.models = modelGson.fromJson(modelsJson, List.class);
+
+        // Get the decks from the collection
+        String decksJson = collection.getDecks();
+        this.decks = deckGson.fromJson(decksJson, List.class);
+
+        // Close the connection
+        this.connectionSource.close();
     }
 }
