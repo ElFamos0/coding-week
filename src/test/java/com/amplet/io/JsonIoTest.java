@@ -40,6 +40,14 @@ public class JsonIoTest {
     }
 
     @Test
+    public void testLoadCarteFromStringException() {
+        JsonIo jsonIo = new JsonIo("");
+        Assertions.assertThrows(JsonSyntaxException.class, () -> {
+            jsonIo.loadString("{", Carte.class);
+        });
+    }
+
+    @Test
     public void loadPileFromString() {
         JsonIo jsonIo = new JsonIo("");
         String json =
@@ -50,11 +58,39 @@ public class JsonIoTest {
     }
 
     @Test
-    public void testLoadCarteFromStringException() {
-        JsonIo jsonIo = new JsonIo("");
-        Assertions.assertThrows(JsonSyntaxException.class, () -> {
-            jsonIo.loadString("{", Carte.class);
-        });
+    public void loadPileWithCardFromString() {
+        JsonIo json = new JsonIo("");
+        String jsonPile =
+                "{\n  \"nom\": \"nom\",\n  \"description\": \"description\",\n  \"tags\": [],\n  \"cartes\": [\n    {\n      \"titre\": \"titre\",\n      \"question\": \"question\",\n      \"reponse\": \"reponse\",\n      \"metadata\": \"metadata\",\n      \"description\": \"description\"\n    }\n  ]\n}";
+        Pile expected = new Pile("nom", "description");
+        expected.addCarte(new Carte("titre", "question", "reponse", "metadata", "description"));
+        Pile actual = json.loadString(jsonPile, Pile.class);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void loadPileWithTagFromString() {
+        JsonIo json = new JsonIo("");
+        String jsonPile =
+                "{\n  \"nom\": \"nom\",\n  \"description\": \"description\",\n  \"tags\": [\n    \"tag1\",\n    \"tag2\"\n  ],\n  \"cartes\": []\n}";
+        Pile expected = new Pile("nom", "description");
+        expected.addTag("tag1");
+        expected.addTag("tag2");
+        Pile actual = json.loadString(jsonPile, Pile.class);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void loadPileWithCarteAndTagFromString() {
+        JsonIo json = new JsonIo("");
+        String jsonPile =
+                "{\n  \"nom\": \"nom\",\n  \"description\": \"description\",\n  \"tags\": [\n    \"tag1\",\n    \"tag2\"\n  ],\n  \"cartes\": [\n    {\n      \"titre\": \"titre\",\n      \"question\": \"question\",\n      \"reponse\": \"reponse\",\n      \"metadata\": \"metadata\",\n      \"description\": \"description\"\n    }\n  ]\n}";
+        Pile expected = new Pile("nom", "description");
+        expected.addTag("tag1");
+        expected.addTag("tag2");
+        expected.addCarte(new Carte("titre", "question", "reponse", "metadata", "description"));
+        Pile actual = json.loadString(jsonPile, Pile.class);
+        assertEquals(expected, actual);
     }
 
     @Test
