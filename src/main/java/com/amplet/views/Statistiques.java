@@ -23,6 +23,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class Statistiques extends ViewController {
@@ -276,6 +277,12 @@ public class Statistiques extends ViewController {
     private TabPane tabPane;
 
     @FXML
+    private Label labelTagsPile;
+
+    @FXML
+    private HBox hboxTags;
+
+    @FXML
     public void viewGlobal() {
         isOnGlobal = true;
         update();
@@ -306,6 +313,8 @@ public class Statistiques extends ViewController {
                 labelPile.setText("");
                 tablePile.setVisible(false);
                 labelCartesPile.setVisible(false);
+                labelTagsPile.setVisible(false);
+                hboxTags.setVisible(false);
             } else {
                 warningPile.setText("");
                 pieChartPile
@@ -317,6 +326,17 @@ public class Statistiques extends ViewController {
                 for (Carte c : selectedPile.getCartes()) {
                     RowPile row = new RowPile(c);
                     tablePile.getItems().add(row);
+                }
+                hboxTags.setVisible(true);
+                labelTagsPile.setVisible(true);
+                hboxTags.getChildren().clear();
+                for (String tag : selectedPile.getTags()) {
+                    Label tagButton = new Label();
+                    tagButton.setText(tag);
+                    tagButton.getStylesheets()
+                            .add(App.class.getResource("boutonTag.css").toExternalForm());
+                    tagButton.getStyleClass().add("tag");
+                    hboxTags.getChildren().add(tagButton);
                 }
             }
 

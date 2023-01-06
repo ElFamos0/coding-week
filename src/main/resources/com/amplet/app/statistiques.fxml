@@ -142,6 +142,16 @@
                                        </VBox.margin>
                                     </Label>
                                     <PieChart fx:id="pieChartPile" animated="false" clockwise="false" labelsVisible="false" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="300.0" startAngle="50.0" styleClass="pieChart" stylesheets="@pieChart.css" title="Taux de réussite sur la pile :" />
+                                    <Label fx:id="labelTagsPile" text="Tags de la pile :">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" top="15.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <HBox fx:id="hboxTags" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" spacing="15.0">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
                                     <Label fx:id="labelCartesPile" text="Stats des cartes présentes dans la pile :">
                                        <font>
                                           <Font size="16.0" />
