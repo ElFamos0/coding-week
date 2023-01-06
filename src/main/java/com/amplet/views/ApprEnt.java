@@ -3,7 +3,6 @@ package com.amplet.views;
 
 import com.amplet.app.Model;
 import com.amplet.app.ViewController;
-import java.io.File;
 import com.amplet.app.App;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;

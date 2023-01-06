@@ -2,7 +2,6 @@ package com.amplet.views;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import com.amplet.app.App;
 import com.amplet.app.Carte;
 import com.amplet.app.Model;

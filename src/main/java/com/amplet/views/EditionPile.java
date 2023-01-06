@@ -1,7 +1,5 @@
 package com.amplet.views;
 
-import java.util.HashMap;
-import java.util.Map;
 import com.amplet.app.App;
 import com.amplet.app.Carte;
 import com.amplet.app.Model;

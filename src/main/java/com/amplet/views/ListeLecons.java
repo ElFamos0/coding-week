@@ -2,7 +2,6 @@ package com.amplet.views;
 
 import java.util.ArrayList;
 import com.amplet.app.App;
-import com.amplet.app.Carte;
 import com.amplet.app.Lecon;
 import com.amplet.app.Model;
 import com.amplet.app.ViewController;
