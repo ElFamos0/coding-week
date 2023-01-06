@@ -1,6 +1,5 @@
 package com.amplet.views;
 
-
 import com.amplet.app.Model;
 import com.amplet.app.ViewController;
 import com.amplet.app.App;
@@ -21,8 +20,6 @@ import javafx.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-
-
 
 public class ApprIg extends ViewController {
 
@@ -60,7 +57,6 @@ public class ApprIg extends ViewController {
     Carte currentCarte;
     int currentCartePileId;
 
-
     Context ctx;
     private VBox carteFront;
     private BorderPane carteBack;
@@ -81,13 +77,10 @@ public class ApprIg extends ViewController {
         ctx.resetPlayed();
     }
 
-
-
     @Override
     public String getName() {
         return this.getClass().getName();
     }
-
 
     @FXML
     public void initialize() {
@@ -99,7 +92,6 @@ public class ApprIg extends ViewController {
         dealcard();
         setTimer();
     }
-
 
     public void setTimer() {
         Timer timer = new Timer();
@@ -149,6 +141,7 @@ public class ApprIg extends ViewController {
             cartesaproposer.remove(0);
             currentCartePileId = cartesaproposerPileId.get(0);
             cartesaproposerPileId.remove(0);
+            update();
         }
 
     }
@@ -229,7 +222,8 @@ public class ApprIg extends ViewController {
     }
 
     @FXML
-    public void clickcarte() {}
+    public void clickcarte() {
+    }
 
     @FXML
     public void textvalider() {
@@ -301,7 +295,6 @@ public class ApprIg extends ViewController {
         }
         isFront = !isFront;
     }
-
 
     public void update() {
         titrecarte.setText(currentCarte.getTitre());
