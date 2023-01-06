@@ -30,7 +30,7 @@ public class ListeCarte extends ViewController {
                 try {
                     model.delete(carte);
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    // System.out.println(e.getMessage());
                 }
             });
 
@@ -39,7 +39,7 @@ public class ListeCarte extends ViewController {
                 try {
                     App.setRoot("editionCarte", carte, "listeCarte");
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    // System.out.println(e.getMessage());
                 }
             });
 
@@ -51,7 +51,7 @@ public class ListeCarte extends ViewController {
                         carte.setTitre(this.titre.getText());
                         model.update(carte);
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        // System.out.println(e.getMessage());
                     }
                 }
             });
@@ -150,7 +150,7 @@ public class ListeCarte extends ViewController {
             Carte c = new Carte("Nouvelle carte", "Question", "Réponse", "", "Description");
             model.create(c);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
         }
     }
 
@@ -159,7 +159,7 @@ public class ListeCarte extends ViewController {
         try {
             App.setRoot("index");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
         }
     }
 }

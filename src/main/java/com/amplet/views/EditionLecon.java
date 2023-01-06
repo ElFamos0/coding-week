@@ -41,7 +41,7 @@ public class EditionLecon extends ViewController {
             try {
                 model.update(ctxEdit.getLeconCourante());
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                // System.out.println(e.getMessage());
             }
         });
 
@@ -56,7 +56,7 @@ public class EditionLecon extends ViewController {
                             model.create(ctxEdit.getLeconCourante(), tag);
                         }
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        // System.out.println(e.getMessage());
                     }
                     update();
                     Platform.runLater(() -> {
@@ -77,7 +77,7 @@ public class EditionLecon extends ViewController {
                         model.create(ctxEdit.getLeconCourante(), tag);
                     }
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    // System.out.println(e.getMessage());
                 }
                 update();
                 Platform.runLater(() -> {
@@ -100,7 +100,7 @@ public class EditionLecon extends ViewController {
                 try {
                     model.delete(ctxEdit.getLeconCourante(), tag);
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    // System.out.println(e.getMessage());
                 }
                 update();
             });
@@ -118,7 +118,7 @@ public class EditionLecon extends ViewController {
         try {
             App.setRoot("listeLecons");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
         }
     }
 }

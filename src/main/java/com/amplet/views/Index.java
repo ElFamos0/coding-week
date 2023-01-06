@@ -19,36 +19,36 @@ public class Index extends ViewController {
 
     @FXML
     public void switchToListePile() throws IOException {
-        System.out.println("Liste de piles");
+        // System.out.println("Liste de piles");
         App.setRoot("listePile");
     }
 
     @FXML
     public void switchToApprParam() throws IOException {
-        System.out.println("ApprParam");
+        // System.out.println("ApprParam");
         App.setRoot("apprParam");
     }
 
     @FXML
     public void switchToStatistiques() throws IOException {
-        System.out.println("Stas");
+        // System.out.println("Stas");
         App.setRoot("statistiques");
     }
 
     @FXML
     public void switchToListeCarte() throws IOException {
-        System.out.println("Liste de cartes");
+        // System.out.println("Liste de cartes");
         App.setRoot("listeCarte");
     }
 
     @FXML
     public void switchToListeLecon() throws IOException {
-        System.out.println("Liste de lecons");
+        // System.out.println("Liste de lecons");
         App.setRoot("listeLecons");
     }
 
     public void update() {
-        // System.out.println("Index updated");
+        // //System.out.println("Index updated");
     }
 
     public void initialize() {}

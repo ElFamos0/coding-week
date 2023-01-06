@@ -146,7 +146,7 @@ public class EditionCarte extends ViewController {
         });
 
         imageBtn.setOnAction(event -> {
-            System.out.println("imageBtn");
+            // System.out.println("imageBtn");
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Images files",
                     "*.jpg", "*.png", "*.gif", "*.jpeg");
             FileChooser fileChooser = new FileChooser();
@@ -191,7 +191,7 @@ public class EditionCarte extends ViewController {
         });
 
         imageDelBtn.setOnAction(event -> {
-            System.out.println("imageDelBtn");
+            // System.out.println("imageDelBtn");
             ctxEdit.getCarteCourante().setImage(null);
             try {
                 model.update(ctxEdit.getCarteCourante());
@@ -277,7 +277,7 @@ public class EditionCarte extends ViewController {
                 App.setRoot("listeCarte");
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
         }
     }
 

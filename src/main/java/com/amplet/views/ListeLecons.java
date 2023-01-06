@@ -30,7 +30,7 @@ public class ListeLecons extends ViewController {
                 try {
                     model.delete(lecon);
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    // System.out.println(e.getMessage());
                 }
             });
 
@@ -39,7 +39,7 @@ public class ListeLecons extends ViewController {
                 try {
                     App.setRoot("editionLecon", lecon);
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    // System.out.println(e.getMessage());
                 }
             });
 
@@ -51,7 +51,7 @@ public class ListeLecons extends ViewController {
                         lecon.setNom(this.nom.getText());
                         model.update(lecon);
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        // System.out.println(e.getMessage());
                     }
                 }
             });
@@ -150,7 +150,7 @@ public class ListeLecons extends ViewController {
             Lecon l = new Lecon("Nouvelle leçon");
             model.create(l);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
         }
     }
 
@@ -159,7 +159,7 @@ public class ListeLecons extends ViewController {
         try {
             App.setRoot("index");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
         }
     }
 }

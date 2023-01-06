@@ -30,7 +30,7 @@ public class ListePile extends ViewController {
                 try {
                     model.delete(pile);
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    // System.out.println(e.getMessage());
                 }
             });
 
@@ -39,7 +39,7 @@ public class ListePile extends ViewController {
                 try {
                     App.setRoot("editionPile", pile);
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    // System.out.println(e.getMessage());
                 }
             });
 
@@ -50,7 +50,7 @@ public class ListePile extends ViewController {
                         pile.setNom(this.nom.getText());
                         model.update(pile);
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        // System.out.println(e.getMessage());
                     }
                 }
             });
@@ -148,7 +148,7 @@ public class ListePile extends ViewController {
             Pile pile = new Pile("Nouvelle pile", "Description pour la pile");
             model.create(pile);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
         }
     }
 
@@ -157,7 +157,7 @@ public class ListePile extends ViewController {
         try {
             App.setRoot("index");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
         }
     }
 }

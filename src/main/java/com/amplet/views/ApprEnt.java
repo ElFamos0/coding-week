@@ -90,7 +90,7 @@ public class ApprEnt extends ViewController {
 
     @FXML
     public void valider() {
-        System.out.println("valider");
+        // System.out.println("valider");
         ctxEnt.approuverCarteCourante();
         cartesvues++;
         if (!ctxEnt.ilResteDesCartes()) {
@@ -115,7 +115,7 @@ public class ApprEnt extends ViewController {
 
     @FXML
     public void refuser() {
-        System.out.println("refuser");
+        // System.out.println("refuser");
         ctxEnt.rejeterCarteCourante();
         cartesvues++;
         if (!ctxEnt.ilResteDesCartes()) {

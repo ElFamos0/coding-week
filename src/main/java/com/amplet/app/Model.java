@@ -73,11 +73,11 @@ public class Model implements Observed {
         this.dbManager.getLecons().forEach(dbLecon -> {
             Lecon lecon = new Lecon(dbLecon.getId(), dbLecon.getNom());
             try {
-                System.out.println("Lecon " + lecon.getNom());
+                // System.out.println("Lecon " + lecon.getNom());
                 this.dbManager.getPilesForLecon(dbLecon).forEach(dbPile -> {
                     lecon.addPile(this.getPileById(dbPile.getId()));
                 });
-                System.out.println("Lecon " + lecon.getNom());
+                // System.out.println("Lecon " + lecon.getNom());
                 this.dbManager.getTagsForLecon(dbLecon).forEach(dbTag -> lecon.addTag(dbTag));
             } catch (SQLException ex) {
                 System.err.println("SQL Exception " + ex);

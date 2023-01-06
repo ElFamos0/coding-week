@@ -24,11 +24,11 @@ public class Menu extends ViewController {
 
     @FXML
     private void test() {
-        // System.out.println("Retour à l'accueil");
+        // //System.out.println("Retour à l'accueil");
     }
 
     public void update() {
-        // System.out.println("Menu updated");
+        // //System.out.println("Menu updated");
     }
 
     @FXML

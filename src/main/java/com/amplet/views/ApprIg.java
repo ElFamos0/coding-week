@@ -239,7 +239,7 @@ public class ApprIg extends ViewController {
             return;
         }
         lockvalider = true;
-        System.out.println("valider");
+        // System.out.println("valider");
         if (!(hasCarte(ctxIg.getCartesApprouvées(), ctxIg.getCarteCourante()))) {
             ctxIg.approuverCarteCourante();
             ctxIg.removeCartesProposées(ctxIg.getCarteCourante());

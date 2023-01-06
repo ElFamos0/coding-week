@@ -102,7 +102,7 @@ public class EditionPile extends ViewController {
                 try {
                     model.delete(ctxEdit.getPileCourante(), tag);
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    // System.out.println(e.getMessage());
                 }
                 update();
             });
@@ -157,7 +157,7 @@ public class EditionPile extends ViewController {
                     try {
                         model.delete(ctxEdit.getPileCourante(), c);
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        // System.out.println(e.getMessage());
                     }
                 }
             }
@@ -206,7 +206,7 @@ public class EditionPile extends ViewController {
                     try {
                         model.create(ctxEdit.getPileCourante(), c);
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        // System.out.println(e.getMessage());
                     }
                 }
             }
@@ -224,7 +224,7 @@ public class EditionPile extends ViewController {
             try {
                 model.update(ctxEdit.getPileCourante());
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                // System.out.println(e.getMessage());
             }
         });
         descPile.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -232,7 +232,7 @@ public class EditionPile extends ViewController {
             try {
                 model.update(ctxEdit.getPileCourante());
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                // System.out.println(e.getMessage());
             }
         });
         tagField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -246,7 +246,7 @@ public class EditionPile extends ViewController {
                             model.create(ctxEdit.getPileCourante(), tag);
                         }
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        // System.out.println(e.getMessage());
                     }
                     update();
                     Platform.runLater(() -> {
@@ -267,7 +267,7 @@ public class EditionPile extends ViewController {
                         model.create(ctxEdit.getPileCourante(), tag);
                     }
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    // System.out.println(e.getMessage());
                 }
                 update();
                 Platform.runLater(() -> {
@@ -314,7 +314,7 @@ public class EditionPile extends ViewController {
             try {
                 App.setRoot("editionCarte", c, ctxEdit.getPileCourante());
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                // System.out.println(e.getMessage());
             }
         });
 
@@ -350,7 +350,7 @@ public class EditionPile extends ViewController {
         try {
             App.setRoot("listePile");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
         }
     }
 
@@ -359,7 +359,7 @@ public class EditionPile extends ViewController {
         try {
             App.exportPile(this.ctxEdit.getPileCourante());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
         }
     }
 

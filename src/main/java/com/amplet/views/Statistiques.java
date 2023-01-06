@@ -47,7 +47,7 @@ public class Statistiques extends ViewController {
                     selectedTagNames.remove(tag);
                     update();
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    // System.out.println(e.getMessage());
                 }
             });
         }
