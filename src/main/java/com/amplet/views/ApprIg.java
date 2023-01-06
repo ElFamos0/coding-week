@@ -286,7 +286,7 @@ public class ApprIg extends ViewController {
         nbdecarte.setText("Nombre de cartes : " + cartesvues + "/"
                 + (cartesvues + ctxIg.getNbCartesProposées()));
         progress.setProgress((double) cartesvues / (cartesvues + ctxIg.getNbCartesProposées()));
-        Image picture = ctxEnt.getCarteCourante().getImage();
+        Image picture = ctxIg.getCarteCourante().getImage();
         if (picture != null) {
             image.setImage(picture);
         } else {
