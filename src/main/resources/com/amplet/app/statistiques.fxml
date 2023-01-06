@@ -142,6 +142,27 @@
                                        </VBox.margin>
                                     </Label>
                                     <PieChart fx:id="pieChartPile" animated="false" clockwise="false" labelsVisible="false" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="300.0" startAngle="50.0" styleClass="pieChart" stylesheets="@pieChart.css" title="Taux de réussite sur la pile :" />
+                                    <Label fx:id="labelCartesPile" text="Stats des cartes présentes dans la pile :">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" top="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <TableView fx:id="tablePile" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="760.0" BorderPane.alignment="CENTER">
+                                       <placeholder>
+                                          <Label text="Vous n'avez répondu à aucune carte ?" />
+                                       </placeholder>
+                                       <columns>
+                                       </columns>
+                                       <BorderPane.margin>
+                                          <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+                                       </BorderPane.margin>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" top="10.0" />
+                                       </VBox.margin>
+                                    </TableView>
                                  </children>
                               </VBox>
                            </content>

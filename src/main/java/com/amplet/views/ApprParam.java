@@ -84,7 +84,7 @@ public class ApprParam extends ViewController {
     @FXML
     public void initialize() {
         customTooltip.setText(
-                "Détermine la probabilité qu'a une carté déjà passée de réapparaître à nouveau.");
+                "Détermine la probabilité qu'a une carté déjà passée de réapparaître à nouveau.\n Seul le mode d'évaluation enregistre les statistiques.");
 
         labelNbCartes.setText("20");
         labelTempsReponse.setText("20");

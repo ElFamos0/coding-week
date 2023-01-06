@@ -61,6 +61,42 @@ public class Statistiques extends ViewController {
         }
     }
 
+    public class RowPile {
+        private Label titreCarte;
+        private Label nbJouee;
+        private Label nbReussi;
+        private Label accuracy;
+
+        public RowPile(Carte carte) {
+            this.titreCarte = new Label(carte.getTitre());
+            this.nbJouee = new Label(Integer.toString(carte.getNbJouees()));
+            this.nbReussi = new Label(Integer.toString(carte.getNbSucces()));
+            if (carte.getNbJouees() > 0) {
+                this.accuracy = new Label(
+                        Integer.toString(carte.getNbSucces() * 100 / carte.getNbJouees()) + " %");
+            } else {
+                this.accuracy = new Label("100 %");
+            }
+
+        }
+
+        public Label getTitre() {
+            return titreCarte;
+        }
+
+        public Label getNbJouee() {
+            return nbJouee;
+        }
+
+        public Label getNbReussi() {
+            return nbReussi;
+        }
+
+        public Label getPrecision() {
+            return accuracy;
+        }
+    }
+
     @Override
     public String getName() {
         return this.getClass().getName();
@@ -74,6 +110,9 @@ public class Statistiques extends ViewController {
     @FXML
     private TableView<Row> tableTag;
 
+    @FXML
+    private TableView<RowPile> tablePile;
+
     private ArrayList<Pile> piles;
     private ArrayList<String> pilesNames = new ArrayList<String>();
     private Pile selectedPile = null;
@@ -86,6 +125,9 @@ public class Statistiques extends ViewController {
 
     @FXML
     private Label labelTooltip;
+
+    @FXML
+    private Label labelCartesPile;
 
     final Tooltip customTooltip = new Tooltip();
 
@@ -115,7 +157,7 @@ public class Statistiques extends ViewController {
         this.choiceBoxPile.getItems().addAll(this.pilesNames);
 
         loadPossibleTags();
-
+        /* Chargement du premier tableau */
         // On charge les colonnes
         TableColumn<Row, Label> tagCol = new TableColumn<>("Tag");
         TableColumn<Row, Button> supprimerCol = new TableColumn<>("Supprimer");
@@ -134,6 +176,38 @@ public class Statistiques extends ViewController {
         // On centre les objets dans les colonnes
         tagCol.setStyle("-fx-alignment: CENTER;");
         supprimerCol.setStyle("-fx-alignment: CENTER;");
+
+        /* Chargement du second tableau */
+
+        TableColumn<RowPile, Label> titreCol = new TableColumn<>("Carte");
+        TableColumn<RowPile, Label> joueeCol = new TableColumn<>("Nb Réponses");
+        TableColumn<RowPile, Label> reussiCol = new TableColumn<>("Nb Réussites");
+        TableColumn<RowPile, Label> accuracyCol = new TableColumn<>("Précision");
+
+
+        titreCol.setCellValueFactory(new PropertyValueFactory<>("titre"));
+        joueeCol.setCellValueFactory(new PropertyValueFactory<>("nbJouee"));
+        reussiCol.setCellValueFactory(new PropertyValueFactory<>("nbReussi"));
+        accuracyCol.setCellValueFactory(new PropertyValueFactory<>("precision"));
+
+
+        // On ajoute les colonnes
+        tablePile.getColumns().add(titreCol);
+        tablePile.getColumns().add(joueeCol);
+        tablePile.getColumns().add(reussiCol);
+        tablePile.getColumns().add(accuracyCol);
+
+        // On met les colonnes pour prendre tout l'espace
+        titreCol.prefWidthProperty().bind(tablePile.widthProperty().multiply(0.44));
+        joueeCol.prefWidthProperty().bind(tablePile.widthProperty().multiply(0.18));
+        reussiCol.prefWidthProperty().bind(tablePile.widthProperty().multiply(0.18));
+        accuracyCol.prefWidthProperty().bind(tablePile.widthProperty().multiply(0.18));
+
+        // On centre les objets dans les colonnes
+        titreCol.setStyle("-fx-alignment: CENTER;");
+        joueeCol.setStyle("-fx-alignment: CENTER;");
+        reussiCol.setStyle("-fx-alignment: CENTER;");
+        accuracyCol.setStyle("-fx-alignment: CENTER;");
 
         choiceBoxTag.setItems(FXCollections.observableArrayList(possibleTags));
         choiceBoxTag.getSelectionModel().selectedIndexProperty()
@@ -231,11 +305,20 @@ public class Statistiques extends ViewController {
                 warningPile.setText("Veillez choisir une pile");
                 pieChartPile.setTitle("");
                 labelPile.setText("");
+                tablePile.setVisible(false);
+                labelCartesPile.setVisible(false);
             } else {
                 warningPile.setText("");
                 pieChartPile
                         .setTitle("Taux de réussite sur la pile " + selectedPile.getNom() + " :");
                 loadPieChartDataPile();
+                tablePile.getItems().clear();
+                tablePile.setVisible(true);
+                labelCartesPile.setVisible(true);
+                for (Carte c : selectedPile.getCartes()) {
+                    RowPile row = new RowPile(c);
+                    tablePile.getItems().add(row);
+                }
             }
 
         }
