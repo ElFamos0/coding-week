@@ -66,7 +66,7 @@ public class ApprParam extends ViewController {
     int valSliderRepetition;
     Context ctx;
     ArrayList<Pile> listeSelectedPiles = new ArrayList<Pile>();
-    String modeDeJeu = "Apprentissage";
+    String modeDeJeu = "Evaluation";
 
     public void setValSliderRepetition(int valSliderRepetition) {
         this.valSliderRepetition = valSliderRepetition;
