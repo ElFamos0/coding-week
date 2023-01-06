@@ -41,13 +41,22 @@ public class Model implements Observed {
             Pile pile = new Pile(dbPile.getId(), dbPile.getNom(), dbPile.getDescription(),
                     dbPile.getNbJouees());
             try {
+
                 this.dbManager.getCartesFromPile(dbPile).forEach(dbCarte -> {
                     try {
-                        pile.addCarte(new Carte(dbCarte.getId(), dbCarte.getTitre(),
+                        Carte carte = new Carte(dbCarte.getId(), dbCarte.getTitre(),
                                 dbCarte.getQuestion(), dbCarte.getReponse(), dbCarte.getMetadata(),
                                 dbCarte.getInfo(),
                                 this.dbManager.getNbJoueesForCarte(dbCarte.getId()),
-                                this.dbManager.getNbJustesForCarte(dbCarte.getId())));
+                                this.dbManager.getNbJustesForCarte(dbCarte.getId()));;
+
+                        if (isIdContained(allCartes, carte.getId())) {
+                            pile.addCarte(this.getCarteById(carte.getId()));
+                        } else {
+                            pile.addCarte(carte);
+                            allCartes.add(carte);
+                        }
+
                     } catch (SQLException ex) {
                         System.err.println("SQL Exception " + ex);
                     }
@@ -254,6 +263,16 @@ public class Model implements Observed {
             }
         }
         return false;
+    }
+
+    public Carte getCarteById(int i) {
+        Carte p = null;
+        for (Carte carte : allCartes) {
+            if (carte.getId() == i) {
+                p = carte;
+            }
+        }
+        return p;
     }
 }
 
