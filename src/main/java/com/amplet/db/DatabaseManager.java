@@ -3,6 +3,7 @@ package com.amplet.db;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import com.amplet.app.Pile;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
@@ -18,6 +19,8 @@ public class DatabaseManager {
     private Dao<DbPile, Integer> pileDao;
     private Dao<PileDeCartes, Integer> pileDeCartesDao;
     private Dao<DbTag, Integer> tagDao;
+    private Dao<DbLecon, Integer> leconDao;
+    private Dao<DbLeconTags, Integer> leconTagsDao;
 
     public DatabaseManager() throws SQLException {
         String tempDir = System.getProperty("java.io.tmpdir");
@@ -27,11 +30,15 @@ public class DatabaseManager {
         TableUtils.createTableIfNotExists(this.connectionSource, DbPile.class);
         TableUtils.createTableIfNotExists(this.connectionSource, PileDeCartes.class);
         TableUtils.createTableIfNotExists(this.connectionSource, DbTag.class);
+        TableUtils.createTableIfNotExists(this.connectionSource, DbLecon.class);
+        TableUtils.createTableIfNotExists(this.connectionSource, DbLeconTags.class);
 
         this.carteDao = DaoManager.createDao(this.connectionSource, DbCarte.class);
         this.pileDao = DaoManager.createDao(this.connectionSource, DbPile.class);
         this.pileDeCartesDao = DaoManager.createDao(this.connectionSource, PileDeCartes.class);
         this.tagDao = DaoManager.createDao(this.connectionSource, DbTag.class);
+        this.leconDao = DaoManager.createDao(this.connectionSource, DbLecon.class);
+        this.leconTagsDao = DaoManager.createDao(this.connectionSource, DbLeconTags.class);
     }
 
     public DatabaseManager(String dbName) throws SQLException {
@@ -42,16 +49,22 @@ public class DatabaseManager {
         TableUtils.dropTable(connectionSource, DbPile.class, true);
         TableUtils.dropTable(connectionSource, PileDeCartes.class, true);
         TableUtils.dropTable(connectionSource, DbTag.class, true);
+        TableUtils.dropTable(connectionSource, DbLecon.class, true);
+        TableUtils.dropTable(connectionSource, DbLeconTags.class, true);
 
         TableUtils.createTable(this.connectionSource, DbCarte.class);
         TableUtils.createTable(this.connectionSource, DbPile.class);
         TableUtils.createTable(this.connectionSource, PileDeCartes.class);
         TableUtils.createTable(this.connectionSource, DbTag.class);
+        TableUtils.createTable(this.connectionSource, DbLecon.class);
+        TableUtils.createTable(this.connectionSource, DbLeconTags.class);
 
         this.carteDao = DaoManager.createDao(this.connectionSource, DbCarte.class);
         this.pileDao = DaoManager.createDao(this.connectionSource, DbPile.class);
         this.pileDeCartesDao = DaoManager.createDao(this.connectionSource, PileDeCartes.class);
         this.tagDao = DaoManager.createDao(this.connectionSource, DbTag.class);
+        this.leconDao = DaoManager.createDao(this.connectionSource, DbLecon.class);
+        this.leconTagsDao = DaoManager.createDao(this.connectionSource, DbLeconTags.class);
     }
 
     public void closeConnection() {
@@ -86,6 +99,19 @@ public class DatabaseManager {
         DbTag dbTag = new DbTag(pile, tag);
         this.tagDao.create(dbTag);
         return dbTag;
+    }
+
+    public DbLecon createLecon(String titre) throws SQLException {
+        DbLecon lecon = new DbLecon(titre);
+        this.leconDao.create(lecon);
+        return lecon;
+    }
+
+    public DbLeconTags addTagToLecon(int leconId, String tag) throws SQLException {
+        DbLecon lecon = this.leconDao.queryForId(leconId);
+        DbLeconTags dbLeconTags = new DbLeconTags(lecon, tag);
+        this.leconTagsDao.create(dbLeconTags);
+        return dbLeconTags;
     }
 
     // READ
@@ -153,11 +179,11 @@ public class DatabaseManager {
         return this.pileDao.query(preparedPileQb);
     }
 
-    public List<DbPile> getPilesForTag(DbTag tag) throws SQLException {
+    public List<DbPile> getPilesForTag(String tag) throws SQLException {
         QueryBuilder<DbTag, Integer> tagQb = this.tagDao.queryBuilder();
         tagQb.selectColumns(DbTag.PILE_ID_FIELD_NAME);
         SelectArg tagSelectArg = new SelectArg();
-        tagQb.where().eq(DbTag.PILE_ID_FIELD_NAME, tagSelectArg);
+        tagQb.where().eq(DbTag.TAG_FIELD_NAME, tagSelectArg);
         QueryBuilder<DbPile, Integer> pileQb = this.pileDao.queryBuilder();
         pileQb.where().in(DbPile.ID_FIELD_NAME, tagQb);
         PreparedQuery<DbPile> preparedPileQb = pileQb.prepare();
@@ -173,6 +199,36 @@ public class DatabaseManager {
     public int getNbJustesForCarte(int id) throws SQLException {
         return this.pileDeCartesDao.queryBuilder().where().eq(PileDeCartes.CARTE_ID_FIELD_NAME, id)
                 .query().stream().map(pdc -> pdc.getNbJustes()).reduce(0, (a, b) -> a + b);
+    }
+
+    public List<DbLecon> getLecons() throws SQLException {
+        return this.leconDao.queryForAll();
+    }
+
+    public List<String> getTagsForLecon(DbLecon lecon) throws SQLException {
+        QueryBuilder<DbLeconTags, Integer> leconTagsQb = this.leconTagsDao.queryBuilder();
+        leconTagsQb.selectColumns(DbLeconTags.TAG_FIELD_NAME);
+        SelectArg leconSelectArg = new SelectArg();
+        leconTagsQb.where().eq(DbLeconTags.ID_LECON_FIELD_NAME, leconSelectArg);
+        PreparedQuery<DbLeconTags> preparedTagQb = leconTagsQb.prepare();
+        preparedTagQb.setArgumentHolderValue(0, lecon);
+        List<DbLeconTags> tags = this.leconTagsDao.query(preparedTagQb);
+        List<String> tagsString = new ArrayList<String>();
+        for (DbLeconTags tag : tags) {
+            tagsString.add(tag.getTag());
+        }
+        return tagsString;
+    }
+
+    public List<DbPile> getPilesForLecon(DbLecon lecon) throws SQLException {
+        List<String> tags = this.getTagsForLecon(lecon);
+        List<DbPile> piles = new ArrayList<>();
+        System.err.println(tags);
+        for (String tag : tags) {
+            piles.addAll(this.getPilesForTag(tag));
+        }
+        System.err.println(tags);
+        return piles;
     }
 
     // UPDATE
@@ -246,6 +302,13 @@ public class DatabaseManager {
         return pile;
     }
 
+    public DbLecon updateLeconAll(int id, String nom) throws SQLException {
+        DbLecon lecon = this.leconDao.queryForId(id);
+        lecon.setNom(nom);
+        this.leconDao.update(lecon);
+        return lecon;
+    }
+
     public void incrementNbJouees(int id) throws SQLException {
         DbPile pile = this.pileDao.queryForId(id);
         pile.setNbJouees(pile.getNbJouees() + 1);
@@ -311,6 +374,23 @@ public class DatabaseManager {
         List<DbTag> tags = this.tagDao.query(preparedTagQb);
         for (DbTag dbTag : tags) {
             this.tagDao.delete(dbTag);
+        }
+    }
+
+    public void deleteLecon(int id) throws SQLException {
+        DbLecon lecon = this.leconDao.queryForId(id);
+        this.leconDao.delete(lecon);
+    }
+
+    public void removeTagFromLecon(int leconId, String tag) throws SQLException {
+        DbLecon lecon = this.leconDao.queryForId(leconId);
+        QueryBuilder<DbLeconTags, Integer> tagQb = this.leconTagsDao.queryBuilder();
+        tagQb.where().eq(DbLeconTags.TAG_FIELD_NAME, tag).and().eq(DbLeconTags.ID_LECON_FIELD_NAME,
+                lecon.getId());
+        PreparedQuery<DbLeconTags> preparedTagQb = tagQb.prepare();
+        List<DbLeconTags> tags = this.leconTagsDao.query(preparedTagQb);
+        for (DbLeconTags dbTag : tags) {
+            this.leconTagsDao.delete(dbTag);
         }
     }
 

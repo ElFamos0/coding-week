@@ -1,7 +1,6 @@
 package com.amplet.app;
 
 import java.io.File;
-import java.util.ArrayList;
 import javafx.scene.image.Image;
 
 public class Carte {

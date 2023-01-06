@@ -4,12 +4,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import com.amplet.db.DatabaseManager;
 import com.amplet.db.DbCarte;
+import com.amplet.db.DbLecon;
 import com.amplet.db.DbPile;
 
 
 public class Model implements Observed {
     ArrayList<Pile> allPiles;
     ArrayList<Carte> allCartes;
+    ArrayList<Lecon> allLecons;
     ArrayList<Observer> observers;
     Context ctx;
     private DatabaseManager dbManager;
@@ -18,6 +20,7 @@ public class Model implements Observed {
 
         allPiles = new ArrayList<Pile>();
         allCartes = new ArrayList<Carte>();
+        allLecons = new ArrayList<Lecon>();
         observers = new ArrayList<Observer>();
         ctx = new Context();
 
@@ -66,6 +69,20 @@ public class Model implements Observed {
                 System.err.println("SQL Exception " + ex);
             }
             this.allPiles.add(pile);
+        });
+        this.dbManager.getLecons().forEach(dbLecon -> {
+            Lecon lecon = new Lecon(dbLecon.getId(), dbLecon.getNom());
+            try {
+                System.out.println("Lecon " + lecon.getNom());
+                this.dbManager.getPilesForLecon(dbLecon).forEach(dbPile -> {
+                    lecon.addPile(this.getPileById(dbPile.getId()));
+                });
+                System.out.println("Lecon " + lecon.getNom());
+                this.dbManager.getTagsForLecon(dbLecon).forEach(dbTag -> lecon.addTag(dbTag));
+            } catch (SQLException ex) {
+                System.err.println("SQL Exception " + ex);
+            }
+            this.allLecons.add(lecon);
         });
         generateAllCartes();
     }
@@ -116,6 +133,19 @@ public class Model implements Observed {
         notifyAllObservers();
     }
 
+    public void create(Lecon lecon) throws SQLException {
+        DbLecon dbLecon = this.dbManager.createLecon(lecon.getNom());
+        lecon.setId(dbLecon.getId());
+        this.allLecons.add(lecon);
+        notifyAllObservers();
+    }
+
+    public void create(Lecon lecon, String tag) throws SQLException {
+        this.dbManager.addTagToLecon(lecon.getId(), tag);
+        lecon.addTag(tag);
+        notifyAllObservers();
+    }
+
     public void delete(Pile pile) throws SQLException {
         this.dbManager.deletePile(pile.getId());
         this.allPiles.remove(pile);
@@ -140,6 +170,18 @@ public class Model implements Observed {
         notifyAllObservers();
     }
 
+    public void delete(Lecon lecon) throws SQLException {
+        this.dbManager.deleteLecon(lecon.getId());
+        this.allLecons.remove(lecon);
+        notifyAllObservers();
+    }
+
+    public void delete(Lecon lecon, String tag) throws SQLException {
+        this.dbManager.removeTagFromLecon(lecon.getId(), tag);
+        lecon.removeTag(tag);
+        notifyAllObservers();
+    }
+
     public void update(Carte carte) throws SQLException {
         this.dbManager.updateCarteAll(carte.getId(), carte.getTitre(), carte.getQuestion(),
                 carte.getReponse(), carte.getDescription(), carte.getMetadata());
@@ -157,6 +199,11 @@ public class Model implements Observed {
         } else {
             this.dbManager.addCarteEchec(carte.getId(), pile.getId());
         }
+        notifyAllObservers();
+    }
+
+    public void update(Lecon lecon) throws SQLException {
+        this.dbManager.updateLeconAll(lecon.getId(), lecon.getNom());
         notifyAllObservers();
     }
 
@@ -273,6 +320,34 @@ public class Model implements Observed {
             }
         }
         return p;
+    }
+
+    public void setAllPiles(ArrayList<Pile> allPiles) {
+        this.allPiles = allPiles;
+    }
+
+    public void setAllCartes(ArrayList<Carte> allCartes) {
+        this.allCartes = allCartes;
+    }
+
+    public ArrayList<Lecon> getAllLecons() {
+        return allLecons;
+    }
+
+    public void setAllLecons(ArrayList<Lecon> allLecons) {
+        this.allLecons = allLecons;
+    }
+
+    public void setObservers(ArrayList<Observer> observers) {
+        this.observers = observers;
+    }
+
+    public void setCtx(Context ctx) {
+        this.ctx = ctx;
+    }
+
+    public void setDbManager(DatabaseManager dbManager) {
+        this.dbManager = dbManager;
     }
 }
 

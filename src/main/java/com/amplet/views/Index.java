@@ -27,8 +27,6 @@ public class Index extends ViewController {
     public void switchToApprParam() throws IOException {
         System.out.println("ApprParam");
         App.setRoot("apprParam");
-
-
     }
 
     @FXML
@@ -41,6 +39,12 @@ public class Index extends ViewController {
     public void switchToListeCarte() throws IOException {
         System.out.println("Liste de cartes");
         App.setRoot("listeCarte");
+    }
+
+    @FXML
+    public void switchToListeLecon() throws IOException {
+        System.out.println("Liste de lecons");
+        App.setRoot("listeLecons");
     }
 
     public void update() {

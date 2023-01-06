@@ -259,6 +259,26 @@ public class EditionPile extends ViewController {
             }
         });
 
+        // Validate on enter
+        tagField.setOnAction(event -> {
+            String tag = tagField.getText();
+            if (!tag.isEmpty()) {
+                try {
+                    if (ctxEdit.getPileCourante().getTags().size() < 10
+                            && !(ctxEdit.getPileCourante().hasTag(tag))) {
+                        model.create(ctxEdit.getPileCourante(), tag);
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                update();
+                Platform.runLater(() -> {
+                    tagField.positionCaret(0);
+                    tagField.clear();
+                });
+            }
+        });
+
         searchAvailable.textProperty().addListener((observable, oldValue, newValue) -> {
             update();
         });
