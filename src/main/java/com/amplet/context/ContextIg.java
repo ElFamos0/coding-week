@@ -8,13 +8,25 @@ public class ContextIg {
     private ArrayList<Carte> cartesProposées;
     private ArrayList<Integer> cartesProposéesIdPile;
     private ArrayList<Carte> cartesApprouvées;
+    private ArrayList<Carte> cartesRejetées;
     private Carte carteCourante;
     private Integer carteCouranteIdPile;
+    private int nbCartesPassées;
+
+    public int getNbCartesPassées() {
+        return nbCartesPassées;
+    }
+
+    public void setNbCartesPassées(int nbCartesPassées) {
+        this.nbCartesPassées = nbCartesPassées;
+    }
 
     public ContextIg() {
         this.cartesProposées = new ArrayList<Carte>();
         this.cartesProposéesIdPile = new ArrayList<Integer>();
         this.cartesApprouvées = new ArrayList<Carte>();
+        this.cartesRejetées = new ArrayList<Carte>();
+        this.nbCartesPassées = 0;
     }
 
     public ArrayList<Carte> getCartesProposées() {
@@ -28,6 +40,22 @@ public class ContextIg {
     public void addCartesProposées(Carte carte, Integer idPile) {
         this.cartesProposées.add(carte);
         this.cartesProposéesIdPile.add(idPile);
+    }
+
+    public ArrayList<Carte> getCartesRejetées() {
+        return cartesRejetées;
+    }
+
+    public void setCartesRejetées(ArrayList<Carte> cartesRejetées) {
+        this.cartesRejetées = cartesRejetées;
+    }
+
+    public void removeCartesRejetées(Carte carte) {
+        this.cartesRejetées.remove(carte);
+    }
+
+    public void addCartesRejetées(Carte carte) {
+        this.cartesRejetées.add(carte);
     }
 
     public void removeCartesProposées(Carte carte) {
@@ -52,6 +80,10 @@ public class ContextIg {
 
     public Carte getCarteCourante() {
         return carteCourante;
+    }
+
+    public void setCarteCourante(Carte carteCourante) {
+        this.carteCourante = carteCourante;
     }
 
     public Integer getCarteCouranteIdPile() {
@@ -88,8 +120,8 @@ public class ContextIg {
         cartesApprouvées.add(carteCourante);
     }
 
-    public Boolean ilResteDesCartes() {
-        return cartesProposées.size() > 0;
+    public Boolean ilResteDesCartes(int id) {
+        return id - this.getNbCartesPassées() > 0;
     }
 
     public Integer getNbCartesApprouvées() {
@@ -156,5 +188,6 @@ public class ContextIg {
         this.cartesApprouvées = new ArrayList<Carte>();
         this.carteCourante = null;
         this.carteCouranteIdPile = null;
+        this.nbCartesPassées = 0;
     }
 }

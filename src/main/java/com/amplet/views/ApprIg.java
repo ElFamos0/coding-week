@@ -3,6 +3,7 @@ package com.amplet.views;
 import com.amplet.app.Model;
 import com.amplet.app.ViewController;
 import com.amplet.app.App;
+import com.amplet.app.Carte;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,6 +16,7 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.scene.image.Image;
@@ -45,11 +47,15 @@ public class ApprIg extends ViewController {
     int interval;
     int cartesrestantes = 1;
     int cartesvues = 1;
+    int nbCartes;
     boolean isRandomSelected;
     int repetitionProbability;
     boolean isFavorisedFailedSelected;
     boolean lockvalider = false;
     int tempsreponse;
+    ArrayList<Integer> cartesPileId;
+    ArrayList<Integer> cartesApprouvéesPileId;
+
 
     private VBox carteFront;
     private BorderPane carteBack;
@@ -73,13 +79,23 @@ public class ApprIg extends ViewController {
 
     @FXML
     public void initialize() {
+        cartesPileId = (ArrayList<Integer>) ctxIg.getCartesProposéesIdPile().clone();
+        cartesApprouvéesPileId = new ArrayList<Integer>();
+        ctxIg.getCartesRejetées().clear();
+        isRandomSelected = ctx.isRandomSelected();
+        repetitionProbability = ctx.getRepetitionProbability();
+        isFavorisedFailedSelected = ctx.isFavorisedFailedSelected();
+        nbCartes = ctx.getNbCartes();
+        lockvalider = false;
+        tempsreponse = ctx.getTempsReponse();
         carteFront = new VBox();
         carteFront.getChildren().addAll(carte.getChildren());
         carte.getChildren().clear();
         carte.getChildren().addAll(carteFront);
-        nbdecarte.setText("Nombre de cartes : 1/" + ctxIg.getNbCartesProposées() + 1);
+        initializeNbCartes();
         dealcard();
         setTimer();
+        update();
     }
 
     Timer timer = new Timer();
@@ -119,14 +135,90 @@ public class ApprIg extends ViewController {
     }
 
     public void dealcard() {
-        if (isRandomSelected) {
-            ctxIg.setCarteCouranteRandom();
-            update();
-        } else {
-            ctxIg.setCarteCouranteNext();
-            update();
+        if (ctxIg.getCartesProposées().size() == 0) {
+            ctxIg.setCartesProposées((ArrayList<Carte>) ctxIg.getCartesApprouvées().clone());
+            ctxIg.setCartesApprouvées(new ArrayList<Carte>());
+            ctxIg.setCartesRejetées(new ArrayList<Carte>());
+            ctxIg.setCartesProposéesIdPile((ArrayList<Integer>) cartesPileId.clone());
         }
+        if (isRandomSelected) {
+            if (repetitionProbability > 0) {
+                if (isFavorisedFailedSelected) {
 
+                    double pa = ctxIg.getCartesProposées().size();
+                    double pb = ctxIg.getCartesApprouvées().size();
+                    double pc = ctxIg.getCartesRejetées().size();
+
+                    double maxpoids = pa + (pb + 0.5 * pc) * repetitionProbability / 100;
+
+                    pa = pa / maxpoids;
+                    pb = pb / maxpoids;
+                    pc = pc / maxpoids;
+                    double r = Math.random();
+
+                    if (r > pa + pb) {
+                        int rbis =
+                                ((int) (Math.random() * (ctxIg.getCartesRejetées().size() - 0.1)));
+                        int carteId = ctxIg.getCartesRejetées().get(rbis).getId();
+                        int i = 0;
+                        while (ctxIg.getCartesApprouvées().get(i).getId() != carteId) {
+                            i++;
+                        }
+                        int pileId = cartesApprouvéesPileId.get(i);
+
+                        ctxIg.setCarteCourante(ctxIg.getCartesRejetées().get(rbis), pileId);
+
+                    } else if (r > pa) {
+                        int rbis = ((int) (Math.random()
+                                * (ctxIg.getCartesApprouvées().size() - 0.1)));
+                        ctxIg.setCarteCourante(ctxIg.getCartesApprouvées().get(rbis),
+                                cartesApprouvéesPileId.get(rbis));
+                    } else {
+                        int rbis =
+                                ((int) (Math.random() * (ctxIg.getCartesProposées().size() - 0.1)));
+                        ctxIg.setCarteCourante(ctxIg.getCartesProposées().get(rbis),
+                                ctxIg.getCartesProposéesIdPile().get(rbis));
+                        ctxIg.getCartesProposéesIdPile().remove(rbis);
+                    }
+
+
+
+                } else {
+
+                    double pa = ctxIg.getCartesProposées().size();
+                    double pb = ctxIg.getCartesApprouvées().size();
+                    // double pc = ctxIg.getCartesRejetées().size();
+                    double maxpoids = pa + pb * repetitionProbability / 100;
+                    pa = pa / maxpoids;
+                    pb = pb / maxpoids;
+                    double r = Math.random();
+                    if (r > pa) {
+                        int rbis = ((int) (Math.random()
+                                * (ctxIg.getCartesApprouvées().size() - 0.1)));
+                        ctxIg.setCarteCourante(ctxIg.getCartesApprouvées().get(rbis),
+                                cartesApprouvéesPileId.get(rbis));
+
+                    } else {
+                        int rbis =
+                                ((int) (Math.random() * (ctxIg.getCartesProposées().size() - 0.1)));
+                        ctxIg.setCarteCourante(ctxIg.getCartesProposées().get(rbis),
+                                ctxIg.getCartesProposéesIdPile().get(rbis));
+                        ctxIg.getCartesProposéesIdPile().remove(rbis);
+                    }
+                }
+            } else {
+
+                int r = ((int) (Math.random() * (ctxIg.getCartesProposées().size() - 0.1)));
+                ctxIg.setCarteCourante(ctxIg.getCartesProposées().get(r),
+                        ctxIg.getCartesProposéesIdPile().get(r));
+                ctxIg.getCartesProposéesIdPile().remove(r);
+            }
+
+        } else {
+            ctxIg.setCarteCourante(ctxIg.getCartesProposées().get(0),
+                    ctxIg.getCartesProposéesIdPile().get(0));
+            ctxIg.getCartesProposéesIdPile().remove(0);
+        }
     }
 
     @FXML
@@ -136,10 +228,19 @@ public class ApprIg extends ViewController {
         }
         lockvalider = true;
         System.out.println("valider");
-        ctxIg.approuverCarteCourante();
+        if (!(hasCarte(ctxIg.getCartesApprouvées(), ctxIg.getCarteCourante()))) {
+            ctxIg.approuverCarteCourante();
+            ctxIg.removeCartesProposées(ctxIg.getCarteCourante());
+            cartesApprouvéesPileId.add(ctxIg.getCarteCouranteIdPile());
+        }
+        if ((hasCarte(ctxIg.getCartesRejetées(), ctxIg.getCarteCourante()))) {
+            ctxIg.removeCartesRejetées(ctxIg.getCarteCourante());
+        }
         ctxResultat.addCarteJouée(ctxIg.getCarteCourante(), ctxIg.getCarteCouranteIdPile(), true);
         cartesvues++;
-        if (!ctxIg.ilResteDesCartes()) {
+        ctxIg.setNbCartesPassées(ctxIg.getNbCartesPassées() + 1);
+
+        if (!ctxIg.ilResteDesCartes(nbCartes)) {
             timer.cancel();
             flipCard(e -> {
                 attendre(1);
@@ -174,16 +275,18 @@ public class ApprIg extends ViewController {
             return;
         }
         lockvalider = true;
-        System.out.println("refuser");
-        ctxIg.rejeterCarteCourante();
-        // take a random number between 0 and 100
+        if (!(hasCarte(ctxIg.getCartesApprouvées(), ctxIg.getCarteCourante()))) {
+            ctxIg.approuverCarteCourante();
+            ctxIg.removeCartesProposées(ctxIg.getCarteCourante());
+            cartesApprouvéesPileId.add(ctxIg.getCarteCouranteIdPile());
+        }
+        if (!(hasCarte(ctxIg.getCartesRejetées(), ctxIg.getCarteCourante()))) {
+            ctxIg.addCartesRejetées(ctxIg.getCarteCourante());
+        }
         ctxResultat.addCarteJouée(ctxIg.getCarteCourante(), ctxIg.getCarteCouranteIdPile(), false);
         cartesvues++;
-        int random = (int) (Math.random() * 100);
-        if (random < repetitionProbability) {
-            ctxIg.addCartesProposées(ctxIg.getCarteCourante(), ctxIg.getCarteCouranteIdPile());
-        }
-        if (!ctxIg.ilResteDesCartes()) {
+        ctxIg.setNbCartesPassées(ctxIg.getNbCartesPassées() + 1);
+        if (!ctxIg.ilResteDesCartes(nbCartes)) {
             timer.cancel();
             flipCard(e -> {
                 attendre(1);
@@ -289,15 +392,38 @@ public class ApprIg extends ViewController {
     public void update() {
         titrecarte.setText(ctxIg.getCarteCourante().getTitre());
         question.setText(ctxIg.getCarteCourante().getQuestion());
-        nbdecarte.setText("Nombre de cartes : " + cartesvues + "/"
-                + (cartesvues + ctxIg.getNbCartesProposées()));
-        progress.setProgress((double) cartesvues / (cartesvues + ctxIg.getNbCartesProposées()));
+        nbdecarte.setText("Nombre de cartes : " + cartesvues + "/" + Integer.toString(nbCartes));
+        progress.setProgress((double) ctxIg.getNbCartesPassées() / nbCartes);
         Image picture = ctxIg.getCarteCourante().getImage();
         if (picture != null) {
             image.setImage(picture);
         } else {
             image.setImage(null);
         }
+    }
+
+    public void initializeNbCartes() {
+
+        int i = ctxIg.getCartesProposées().size();
+        if (repetitionProbability == 0) {
+            if (nbCartes > i) {
+                nbCartes = i;
+            }
+            nbCartes = Math.max(nbCartes, 1);
+        }
+        nbdecarte.setText("Nombre de cartes : 1/" + Integer.toString(nbCartes));
+    }
+
+    public boolean hasCarte(ArrayList<Carte> array, Carte carte) {
+
+        for (Carte c : array) {
+            if (c.equals(carte)) {
+                return true;
+            }
+        }
+
+        return false;
+
     }
 
 }

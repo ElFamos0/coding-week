@@ -5,11 +5,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.image.ImageView?>
 
 <BorderPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19"
    xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amplet.views.ApprIg">
@@ -80,9 +80,15 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="49.0" prefWidth="640.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="reponseuser" promptText="Entre ta réponse" />
+            <TextField fx:id="reponseuser" promptText="Entre ta réponse">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </TextField>
             <Button fx:id="textvalider" mnemonicParsing="false" onAction="#textvalider"
-               text="Valider" />
+               style="-fx-background-radius: 20;" styleClass="btn" stylesheets="@boutonIndex.css"
+               text="Valider">
+            </Button>
          </children>
       </HBox>
    </bottom>
