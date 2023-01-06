@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 public class ApkgModel {
-    
+
     private int id;
     private Map<Integer, ApkgTemplate> templates = new HashMap<Integer, ApkgTemplate>();
     private List<String> fields = new ArrayList<String>();
-    
-    public ApkgModel(int id, Map<Integer, ApkgTemplate> templates) {
+
+    public ApkgModel(int id) {
         this.id = id;
     }
 
@@ -41,5 +41,9 @@ public class ApkgModel {
 
     public void setFields(List<String> fields) {
         this.fields = fields;
+    }
+
+    public void addField(String field) {
+        this.fields.add(field);
     }
 }
