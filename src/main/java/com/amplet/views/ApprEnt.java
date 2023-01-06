@@ -4,8 +4,6 @@ package com.amplet.views;
 import com.amplet.app.Model;
 import com.amplet.app.ViewController;
 import com.amplet.app.App;
-import com.amplet.app.Carte;
-import com.amplet.app.Context;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,7 +14,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import javafx.event.ActionEvent;
-import java.util.ArrayList;
 
 public class ApprEnt extends ViewController {
 
@@ -37,10 +34,6 @@ public class ApprEnt extends ViewController {
     @FXML
     private ProgressBar progress;
 
-
-    private ArrayList<Carte> cartesaproposer;
-    private ArrayList<Carte> cartesapprouvees;
-
     int interval;
     int cartesrestantes = 1;
     int cartesvues = 1;
@@ -49,10 +42,7 @@ public class ApprEnt extends ViewController {
     boolean isFavorisedFailedSelected;
     int tempsreponse;
 
-    Carte currentCarte;
 
-
-    Context ctx;
     private VBox carteFront;
     private BorderPane carteBack;
     private boolean isFront = true;
@@ -62,12 +52,9 @@ public class ApprEnt extends ViewController {
         super(model);
         model.addObserver(this);
         ctx = model.getCtx();
-        this.cartesaproposer = ctx.getSelectedCartes();
-        this.cartesapprouvees = new ArrayList<Carte>();
         this.isRandomSelected = ctx.isRandomSelected();
         this.repetitionProbability = ctx.getRepetitionProbability();
         this.isFavorisedFailedSelected = ctx.isFavorisedFailedSelected();
-
     }
 
     @Override
@@ -75,14 +62,13 @@ public class ApprEnt extends ViewController {
         return this.getClass().getName();
     }
 
-
     @FXML
     public void initialize() {
         carteFront = new VBox();
         carteFront.getChildren().addAll(carte.getChildren());
         carte.getChildren().clear();
         carte.getChildren().addAll(carteFront);
-        nbdecarte.setText("Nombre de cartes : 1/" + cartesaproposer.size());
+        nbdecarte.setText("Nombre de cartes : 1/" + ctxEnt.getCartesProposées().size());
         dealcard();
         timertext.setText("MODE APPRENTISSAGE");
     }
@@ -90,12 +76,9 @@ public class ApprEnt extends ViewController {
 
     public void dealcard() {
         if (isRandomSelected) {
-            int random = (int) (Math.random() * cartesaproposer.size());
-            currentCarte = cartesaproposer.get(random);
-            cartesaproposer.remove(random);
+            ctxEnt.setCarteCouranteRandom();
         } else {
-            currentCarte = cartesaproposer.get(0);
-            cartesaproposer.remove(0);
+            ctxEnt.setCarteCouranteNext();
         }
         update();
 
@@ -104,9 +87,9 @@ public class ApprEnt extends ViewController {
     @FXML
     public void valider() {
         System.out.println("valider");
-        cartesapprouvees.add(currentCarte);
+        ctxEnt.approuverCarteCourante();
         cartesvues++;
-        if (cartesaproposer.size() == 0) {
+        if (!ctxEnt.ilResteDesCartes()) {
             try {
                 App.setRoot("apprFinEntrainement");
             } catch (Exception e) {
@@ -129,10 +112,9 @@ public class ApprEnt extends ViewController {
     @FXML
     public void refuser() {
         System.out.println("refuser");
-        cartesapprouvees.add(currentCarte);
+        ctxEnt.rejeterCarteCourante();
         cartesvues++;
-        cartesaproposer.add(currentCarte);
-        if (cartesaproposer.size() == 0) {
+        if (!ctxEnt.ilResteDesCartes()) {
             try {
                 App.setRoot("apprFinEntrainement");
             } catch (Exception e) {
@@ -165,7 +147,7 @@ public class ApprEnt extends ViewController {
         }
         isFlipping = true;
         carteBack = new BorderPane();
-        Label backLabel = new Label(currentCarte.getReponse());
+        Label backLabel = new Label(ctxEnt.getCarteCourante().getReponse());
         // set class to card-reponse
         backLabel.getStyleClass().add("card-reponse");
         carteBack.setCenter(backLabel);
@@ -215,11 +197,12 @@ public class ApprEnt extends ViewController {
     }
 
     public void update() {
-        titrecarte.setText(currentCarte.getTitre());
-        question.setText(currentCarte.getQuestion());
-        progress.setProgress((double) cartesvues / (double) (cartesvues + cartesaproposer.size()));
-        nbdecarte.setText(
-                "Nombre de cartes : " + cartesvues + "/" + (cartesvues + cartesaproposer.size()));
+        titrecarte.setText(ctxEnt.getCarteCourante().getTitre());
+        question.setText(ctxEnt.getCarteCourante().getQuestion());
+        progress.setProgress(
+                (double) cartesvues / (double) (cartesvues + ctxEnt.getNbCartesProposées()));
+        nbdecarte.setText("Nombre de cartes : " + cartesvues + "/"
+                + (cartesvues + ctxEnt.getNbCartesProposées()));
     }
 
 }

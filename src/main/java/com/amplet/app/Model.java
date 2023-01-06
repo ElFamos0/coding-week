@@ -48,7 +48,7 @@ public class Model implements Observed {
                                 dbCarte.getQuestion(), dbCarte.getReponse(), dbCarte.getMetadata(),
                                 dbCarte.getInfo(),
                                 this.dbManager.getNbJoueesForCarte(dbCarte.getId()),
-                                this.dbManager.getNbJustesForCarte(dbCarte.getId()));;
+                                this.dbManager.getNbJustesForCarte(dbCarte.getId()));
 
                         if (isIdContained(allCartes, carte.getId())) {
                             pile.addCarte(this.getCarteById(carte.getId()));

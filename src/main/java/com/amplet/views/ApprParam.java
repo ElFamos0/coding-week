@@ -222,25 +222,12 @@ public class ApprParam extends ViewController {
             ctx.setRepetitionProbability(valSliderRepetition);
             ctx.setRandomSelected(random);
             ctx.setFavorisedFailedSelected(repetition);
-            ctx.resetSelectedCartes();
-            for (Pile p : listeSelectedPiles) {
-                for (Carte c : p.getCartes()) {
-                    // On vérifie que la carte n'est pas déjà dans la liste
-                    Boolean isInList = false;
-                    for (Carte c2 : ctx.getSelectedCartes()) {
-                        if (c2.getId() == c.getId()) {
-                            isInList = true;
-                        }
-                    }
-                    if (!isInList) {
-                        ctx.getSelectedCartes().add(c);
-                    }
-                }
-            }
 
             if (modeDeJeu.equals("Apprentissage")) {
+                ctxEnt.ajoutePiles(listeSelectedPiles);
                 App.setRoot("apprEnt");
             } else if (modeDeJeu.equals("Evaluation")) {
+                ctxIg.ajoutePilesJeu(listeSelectedPiles);
                 App.setRoot("apprIg");
             }
         }
@@ -296,39 +283,22 @@ public class ApprParam extends ViewController {
             state = false;
             warningPiles.setText("Veuillez sélectionner au moins une pile non vide !");
         } else {
-            ctx.resetSelectedCartes();
-            ctx.resetSelectedCartesPileId();
-            for (Pile p : listeSelectedPiles) {
+            Boolean valid = false;
 
-                if (modeDeJeu == "Evaluation") {
-                    p.setNbJouees(p.getNbJouees() + 1);
-                    try {
-                        model.getDbManager().incrementNbJouees(p.getId());
-                    } catch (SQLException e) {
-                    }
-                }
-
-                for (Carte c : p.getCartes()) {
-                    // On vérifie que la carte n'est pas déjà dans la liste
-                    Boolean isInList = false;
-                    for (Carte c2 : ctx.getSelectedCartes()) {
-                        if (c2.getId() == c.getId()) {
-                            isInList = true;
-                        }
-                    }
-                    if (!isInList) {
-                        ctx.getSelectedCartes().add(c);
-                        ctx.getSelectedCartesPileId().add(p.getId());
-                    }
-                }
+            if (modeDeJeu.equals("Apprentissage")) {
+                ctxEnt.ajoutePiles(listeSelectedPiles);
+                valid = ctxEnt.getNbCartesProposées() >= 1;
+            } else if (modeDeJeu.equals("Evaluation")) {
+                ctxIg.ajoutePiles(listeSelectedPiles);
+                valid = ctxIg.getNbCartesProposées() >= 1;
             }
-            if (ctx.getSelectedCartes().size() < 1) {
+
+            if (!valid) {
                 state = false;
                 warningPiles.setText("Veuillez sélectionner au moins une pile non vide !");
             } else {
                 warningPiles.setText("");
             }
-
         }
         return state;
     }

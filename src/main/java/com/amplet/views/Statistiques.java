@@ -113,14 +113,10 @@ public class Statistiques extends ViewController {
     @FXML
     private TableView<RowPile> tablePile;
 
-    private ArrayList<Pile> piles;
-    private ArrayList<String> pilesNames = new ArrayList<String>();
-    private Pile selectedPile = null;
     private ArrayList<String> selectedTagNames = new ArrayList<String>();
     private ArrayList<String> possibleTags = new ArrayList<String>();
     private ArrayList<PieChart.Data> globalData = new ArrayList<PieChart.Data>();
     private ArrayList<PieChart.Data> pileData = new ArrayList<PieChart.Data>();
-    private ArrayList<Carte> selectedCartes = new ArrayList<Carte>();
     boolean isOnGlobal = true;
 
     @FXML
@@ -150,11 +146,10 @@ public class Statistiques extends ViewController {
         customTooltip.setText(
                 "Si aucun tag n'est choisi, alors toutes les piles sont sélectionnées.\nSinon, toutes les piles possédant tous les tags de la liste seront prises en compte.");
         isOnGlobal = true;
-        selectedPile = null;
-        this.piles = model.getAllPiles();
-        this.piles.forEach(pile -> this.pilesNames.add(pile.getNom()));
+        ctxStats.reset();
+        ctxStats.setPiles(model.getAllPiles());
         this.choiceBoxPile.getItems().clear();
-        this.choiceBoxPile.getItems().addAll(this.pilesNames);
+        this.choiceBoxPile.getItems().addAll(ctxStats.getPilesNames());
 
         loadPossibleTags();
         /* Chargement du premier tableau */
@@ -231,8 +226,7 @@ public class Statistiques extends ViewController {
                     public void changed(ObservableValue<? extends Number> observable,
                             Number oldValue, Number newValue) {
                         if (newValue.intValue() >= 0) {
-                            String selectedPileName = pilesNames.get(newValue.intValue());
-                            selectedPile = piles.get(newValue.intValue());
+                            ctxStats.setPileCourante(newValue.intValue());
                             update();
 
                         }
@@ -295,7 +289,6 @@ public class Statistiques extends ViewController {
     }
 
     public void update() {
-
         if (isOnGlobal) {
             tableTag.getItems().clear();
             loadPossibleTags();
@@ -307,7 +300,7 @@ public class Statistiques extends ViewController {
             }
             loadPieChartData();
         } else {
-            if (selectedPile == null) {
+            if (ctxStats.getPileCourante() == null) {
                 warningPile.setText("Veillez choisir une pile");
                 pieChartPile.setTitle("");
                 labelPile.setText("");
@@ -317,20 +310,20 @@ public class Statistiques extends ViewController {
                 hboxTags.setVisible(false);
             } else {
                 warningPile.setText("");
-                pieChartPile
-                        .setTitle("Taux de réussite sur la pile " + selectedPile.getNom() + " :");
+                pieChartPile.setTitle("Taux de réussite sur la pile "
+                        + ctxStats.getPileCourante().getNom() + " :");
                 loadPieChartDataPile();
                 tablePile.getItems().clear();
                 tablePile.setVisible(true);
                 labelCartesPile.setVisible(true);
-                for (Carte c : selectedPile.getCartes()) {
+                for (Carte c : ctxStats.getPileCourante().getCartes()) {
                     RowPile row = new RowPile(c);
                     tablePile.getItems().add(row);
                 }
                 hboxTags.setVisible(true);
                 labelTagsPile.setVisible(true);
                 hboxTags.getChildren().clear();
-                for (String tag : selectedPile.getTags()) {
+                for (String tag : ctxStats.getPileCourante().getTags()) {
                     Label tagButton = new Label();
                     tagButton.setText(tag);
                     tagButton.getStylesheets()
@@ -341,9 +334,6 @@ public class Statistiques extends ViewController {
             }
 
         }
-
-
-
     }
 
     public void loadPossibleTags() {
@@ -375,7 +365,7 @@ public class Statistiques extends ViewController {
         loadSelectedCartes();
         int count_tot = 0;
         int count_win = 0;
-        for (Carte c : selectedCartes) {
+        for (Carte c : ctxStats.getCartesSelectionées()) {
             count_tot += c.getNbJouees();
             count_win += c.getNbSucces();
         }
@@ -403,7 +393,7 @@ public class Statistiques extends ViewController {
     }
 
     public void loadSelectedCartes() {
-        selectedCartes.clear();
+        ctxStats.setCartesSelectionées(new ArrayList<Carte>());
         if (selectedTagNames.size() > 0) {
             ArrayList<Pile> currentSelectedPiles = new ArrayList<Pile>();
             model.getPilesByTags(currentSelectedPiles, selectedTagNames);
@@ -413,24 +403,21 @@ public class Statistiques extends ViewController {
                 for (Carte c : p.getCartes()) {
                     if (!(mapCartes.containsKey(c.getId()))) {
                         mapCartes.put(c.getId(), true);
-                        selectedCartes.add(c);
+                        ctxStats.addCarteSelectionée(c);
                     }
                 }
             }
         } else {
-            selectedCartes = new ArrayList<Carte>(model.getAllCartes());
-
+            ctxStats.setCartesSelectionées(model.getAllCartes());
         }
-
     }
 
     public void loadPieChartDataPile() {
-        ArrayList<Carte> cartesToShow = selectedPile.getCartes();
         pieChartGlobal.getData().removeAll(pileData);
         pileData.clear();
         int count_tot = 0;
         int count_win = 0;
-        for (Carte c : cartesToShow) {
+        for (Carte c : ctxStats.getPileCourante().getCartes()) {
             count_tot += c.getNbJouees();
             count_win += c.getNbSucces();
         }
@@ -439,7 +426,7 @@ public class Statistiques extends ViewController {
             count_win = 1;
             labelPile.setText("Aucune carte de cette pile n'a été jouée ");
         } else {
-            labelPile.setText("Jouée " + Integer.toString(selectedPile.getNbJouees())
+            labelPile.setText("Jouée " + Integer.toString(ctxStats.getPileCourante().getNbJouees())
                     + " fois, pour un total de " + Integer.toString(count_tot)
                     + " cartes testées !");
         }

@@ -16,10 +16,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ApprResultat extends ViewController {
 
-    ArrayList<Carte> playedCartes;
-    ArrayList<Boolean> playedReponses;
-
-
     public ApprResultat(Model model) {
         super(model);
         model.addObserver(this);
@@ -99,19 +95,6 @@ public class ApprResultat extends ViewController {
     @FXML
     public void initialize() {
 
-        ArrayList<Carte> playedCartes = model.getCtx().getPlayedCartes();
-        ArrayList<Boolean> playedReponses = model.getCtx().getPlayedReponse();
-        ArrayList<Integer> playedCartesPileId = model.getCtx().getPlayedCartesPileId();
-
-
-        if (playedCartes == null) {
-            playedCartes = new ArrayList<Carte>();
-        }
-
-        if (playedReponses == null) {
-            playedReponses = new ArrayList<Boolean>();
-        }
-
         // On charge les colonnes
         TableColumn<Row, Label> titreCol = new TableColumn<>("Carte");
         TableColumn<Row, Label> reponseCol = new TableColumn<>("Réponse");
@@ -148,29 +131,25 @@ public class ApprResultat extends ViewController {
         reussiCol.setStyle("-fx-alignment: CENTER;");
         accuracyCol.setStyle("-fx-alignment: CENTER;");
 
+        for (int i = 0; i < ctxResultat.getCartesJouées().size(); i++) {
+            Carte carte = ctxResultat.getCartesJouées().get(i);
+            Boolean valide = ctxResultat.getCartesJouéesValide().get(i);
+            Integer pileID = ctxResultat.getCartesJouéesIdPile().get(i);
+            Pile pile = model.getPileById(pileID);
 
 
-        for (int i = 0; i < playedCartes.size(); i++) {
-            Carte currentCarte = playedCartes.get(i);
-            Boolean currentReponse = playedReponses.get(i);
-            int currentPileId = playedCartesPileId.get(i);
-            Pile pile = model.getPileById(currentPileId);
-
-
-            currentCarte.setNbJouees(currentCarte.getNbJouees() + 1);
+            carte.setNbJouees(carte.getNbJouees() + 1);
             try {
-                model.update(currentCarte, pile, currentReponse);
+                model.update(carte, pile, valide);
             } catch (SQLException e) {
 
             }
-            if (currentReponse) {
-                currentCarte.setNbSucces(currentCarte.getNbSucces() + 1);
+            if (valide) {
+                carte.setNbSucces(carte.getNbSucces() + 1);
             }
-            Row row = new Row(currentCarte, currentReponse);
+            Row row = new Row(carte, valide);
             tableResult.getItems().add(row);
         }
-
-        System.out.println(playedCartes.size());
 
     }
 

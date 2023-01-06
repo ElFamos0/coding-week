@@ -1,5 +1,7 @@
 package com.amplet.app;
 
+import java.util.ArrayList;
+
 public class Carte {
     private transient Integer id;
     private String titre;
@@ -7,11 +9,11 @@ public class Carte {
     private String reponse;
     private String metadata;
     private String description;
-    private transient int nbJouees = 0;
-    private transient int nbSucces = 0;
+    private transient Integer nbJouees = 0;
+    private transient Integer nbSucces = 0;
 
     public Carte(Integer id, String titre, String question, String reponse, String metadata,
-            String description, int nbJouees, int nbSucces) {
+            String description, Integer nbJouees, Integer nbSucces) {
         this.id = id; // c'est pour tristan il en a besoin pour drag and drop.
         this.titre = titre;
         this.question = question;

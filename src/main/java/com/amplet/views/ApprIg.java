@@ -3,8 +3,6 @@ package com.amplet.views;
 import com.amplet.app.Model;
 import com.amplet.app.ViewController;
 import com.amplet.app.App;
-import com.amplet.app.Carte;
-import com.amplet.app.Context;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,7 +15,6 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -41,10 +38,6 @@ public class ApprIg extends ViewController {
     @FXML
     private ProgressBar progress;
 
-    private ArrayList<Carte> cartesaproposer;
-    private ArrayList<Carte> cartesapprouvees;
-    private ArrayList<Integer> cartesaproposerPileId;
-
     int interval;
     int cartesrestantes = 1;
     int cartesvues = 1;
@@ -54,10 +47,6 @@ public class ApprIg extends ViewController {
     boolean lockvalider = false;
     int tempsreponse;
 
-    Carte currentCarte;
-    int currentCartePileId;
-
-    Context ctx;
     private VBox carteFront;
     private BorderPane carteBack;
     private boolean isFront = true;
@@ -66,15 +55,11 @@ public class ApprIg extends ViewController {
     public ApprIg(Model model) {
         super(model);
         model.addObserver(this);
-        ctx = model.getCtx();
-        this.cartesaproposer = ctx.getSelectedCartes();
-        this.cartesaproposerPileId = ctx.getSelectedCartesPileId();
-        this.cartesapprouvees = new ArrayList<Carte>();
         this.isRandomSelected = ctx.isRandomSelected();
         this.repetitionProbability = ctx.getRepetitionProbability();
         this.isFavorisedFailedSelected = ctx.isFavorisedFailedSelected();
         this.tempsreponse = ctx.getTempsReponse() + 1;
-        ctx.resetPlayed();
+        ctxResultat.reset();
     }
 
     @Override
@@ -88,7 +73,7 @@ public class ApprIg extends ViewController {
         carteFront.getChildren().addAll(carte.getChildren());
         carte.getChildren().clear();
         carte.getChildren().addAll(carteFront);
-        nbdecarte.setText("Nombre de cartes : 1/" + cartesaproposer.size() + 1);
+        nbdecarte.setText("Nombre de cartes : 1/" + ctxIg.getNbCartesProposées() + 1);
         dealcard();
         setTimer();
     }
@@ -131,17 +116,10 @@ public class ApprIg extends ViewController {
 
     public void dealcard() {
         if (isRandomSelected) {
-            int random = (int) (Math.random() * cartesaproposer.size());
-            currentCarte = cartesaproposer.get(random);
-            cartesaproposer.remove(random);
-            currentCartePileId = cartesaproposerPileId.get(random);
-            cartesaproposerPileId.remove(random);
+            ctxIg.setCarteCouranteRandom();
             update();
         } else {
-            currentCarte = cartesaproposer.get(0);
-            cartesaproposer.remove(0);
-            currentCartePileId = cartesaproposerPileId.get(0);
-            cartesaproposerPileId.remove(0);
+            ctxIg.setCarteCouranteNext();
             update();
         }
 
@@ -154,10 +132,10 @@ public class ApprIg extends ViewController {
         }
         lockvalider = true;
         System.out.println("valider");
-        cartesapprouvees.add(currentCarte);
-        ctx.addPlayed(currentCarte, true, currentCartePileId);
+        ctxIg.approuverCarteCourante();
+        ctxResultat.addCarteJouée(ctxIg.getCarteCourante(), ctxIg.getCarteCouranteIdPile(), true);
         cartesvues++;
-        if (cartesaproposer.size() == 0) {
+        if (!ctxIg.ilResteDesCartes()) {
             try {
                 timer.cancel();
                 App.setRoot("apprResultat");
@@ -190,15 +168,15 @@ public class ApprIg extends ViewController {
         }
         lockvalider = true;
         System.out.println("refuser");
-        cartesapprouvees.add(currentCarte);
-        cartesvues++;
+        ctxIg.rejeterCarteCourante();
         // take a random number between 0 and 100
-        ctx.addPlayed(currentCarte, false, currentCartePileId);
+        ctxResultat.addCarteJouée(ctxIg.getCarteCourante(), ctxIg.getCarteCouranteIdPile(), false);
+        cartesvues++;
         int random = (int) (Math.random() * 100);
         if (random < repetitionProbability) {
-            cartesaproposer.add(currentCarte);
+            ctxIg.addCartesProposées(ctxIg.getCarteCourante(), ctxIg.getCarteCouranteIdPile());
         }
-        if (cartesaproposer.size() == 0) {
+        if (!ctxIg.ilResteDesCartes()) {
             try {
                 timer.cancel();
                 App.setRoot("apprResultat");
@@ -234,7 +212,7 @@ public class ApprIg extends ViewController {
             return;
         }
         reponseuser.clear();
-        if (reponse.toLowerCase().equals(currentCarte.getReponse().toLowerCase())) {
+        if (reponse.toLowerCase().equals(ctxIg.getCarteCourante().getReponse().toLowerCase())) {
             valider();
         } else {
             refuser();
@@ -249,7 +227,7 @@ public class ApprIg extends ViewController {
         }
         isFlipping = true;
         carteBack = new BorderPane();
-        Label backLabel = new Label(currentCarte.getReponse());
+        Label backLabel = new Label(ctxIg.getCarteCourante().getReponse());
         // set class to card-reponse
         backLabel.getStyleClass().add("card-reponse");
         carteBack.setCenter(backLabel);
@@ -299,11 +277,11 @@ public class ApprIg extends ViewController {
     }
 
     public void update() {
-        titrecarte.setText(currentCarte.getTitre());
-        question.setText(currentCarte.getQuestion());
-        nbdecarte.setText(
-                "Nombre de cartes : " + cartesvues + "/" + (cartesvues + cartesaproposer.size()));
-        progress.setProgress((double) cartesvues / (cartesvues + cartesaproposer.size()));
+        titrecarte.setText(ctxIg.getCarteCourante().getTitre());
+        question.setText(ctxIg.getCarteCourante().getQuestion());
+        nbdecarte.setText("Nombre de cartes : " + cartesvues + "/"
+                + (cartesvues + ctxIg.getNbCartesProposées()));
+        progress.setProgress((double) cartesvues / (cartesvues + ctxIg.getNbCartesProposées()));
     }
 
 }
