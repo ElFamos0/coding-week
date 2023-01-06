@@ -23,6 +23,7 @@
 | Paramétrage d'une session d'apprentissage             | Oui           |
 | Affichage des résultats d'une session d'apprentissage | Non           |
 | Implémentation de la page statistiques                | Partiellement |
+| Implémentation des liens entre les vues               | Oui           |
 
 ## Jour 3
 
@@ -35,12 +36,15 @@
 | Gestion d’autres supports multimédia pour les cartes             | Non         |
 | Gestion de la réponse des utilisateurs et correction automatique | Non         |
 | Gestion de l’export de cartes en ligne                           | Non         |
+| Affichage des résultats d'une session d'apprentissage            | Oui         |
 
 ## Jour 4
 
-| Objectifs                                            | Réalisation |
-| ---------------------------------------------------- | ----------- |
+| Objectifs                                            | Réalisation   |
+| ---------------------------------------------------- | ------------- |
 | Rendus de formules mathématiques sur les cartes      | Non           |
-| Gestion de l’import au format .apkg                  | Partiellement           |
+| Gestion de l’import au format .apkg                  | Partiellement |
 | Finalisation : derniers tests, dernières corrections | Oui           |
 | Mise en forme du répo git et du README.              | Oui           |
+| Gestion des supports multimédias                     | Oui           |
+| Gestion de la réponse de l'utilisateur               | Oui           |
