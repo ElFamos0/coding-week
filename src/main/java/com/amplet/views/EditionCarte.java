@@ -315,6 +315,13 @@ public class EditionCarte extends ViewController {
         promptquestion.setText(ctxEdit.getCarteCourante().getQuestion());
         promptreponse.setText(ctxEdit.getCarteCourante().getReponse());
         prompttitre.setText(ctxEdit.getCarteCourante().getTitre());
+
+        Image picture = ctxEdit.getCarteCourante().getImage();
+        if (picture != null) {
+            image.setImage(picture);
+        } else {
+            image.setImage(null);
+        }
     }
 
 
