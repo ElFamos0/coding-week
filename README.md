@@ -80,3 +80,7 @@ Nous avons rendu fonctionnelle la page de statistiques et la page de résultats 
 
 Nous avons réussi à implémenter la majorité des fonctionnalités que nous souhaitions intégrer à l'application.
 Nous aurions aussi pu prêter plus d'attention à la conception dès le début du projet afin d'éviter une grosse étape de refactoring le dernier jour. Cela nous a fait prendre un peu de retard sur la fin du projet, retard accentué par les problèmes de PC d'un des membres du projet.
+
+## Vidéo
+
+https://www.youtube.com/watch?v=kVG40w6x_K8&feature=youtu.be
